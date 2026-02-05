@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Haven - Premium Sneaker Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    :root {
+      --primary: #000000;
+      --secondary: #ffffff;
+      --accent: #ff4500;
+      --light: #f8f8f8;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      color: var(--primary);
+      background-color: var(--secondary);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .brand {
+      font-family: "Archivo Black", sans-serif;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 80vh;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .brand-filter button.active {
+      background-color: var(--primary);
+      color: var(--secondary);
+    }
+
+    .shoe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .whatsapp-banner {
+      background-color: #25d366;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.03);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .page-transition {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Spring / press animation for buttons */
+    .spring-btn {
+      transition: transform 0.15s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.15s ease;
+      transform-origin: center;
+    }
+
+    .spring-btn:active {
+      transform: scale(0.92);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Heart spring when toggling wishlist */
+    .heart-spring {
+      animation: heart-bounce 0.35s ease-out;
+    }
+
+    @keyframes heart-bounce {
+      0% {
+        transform: scale(1);
+      }
+      40% {
+        transform: scale(1.4);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Toast / popup styling */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      right: 1.5rem;
+      background: #000;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      z-index: 60;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    /* Cart badge bump animation */
+    .cart-bump {
+      animation: cart-bump 0.4s ease-out;
+    }
+
+    @keyframes cart-bump {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      30% {
+        transform: translateY(-4px) scale(1.15);
+      }
+      60% {
+        transform: translateY(0) scale(0.95);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- WhatsApp Floating Button -->
+  <div class="fixed bottom-10 right-6 z-50">
+    <a
+      href="https://wa.me/1234567890?text=I%20want%20to%20place%20an%20order"
+      class="whatsapp-banner flex items-center justify-center rounded-full p-4 shadow-xl"
+    >
+      <i class="fab fa-whatsapp text-white text-3xl"></i>
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="brand text-2xl font-bold">
+            <a href="index.html" class="text-black">HEAT HAVEN</a>
+          </div>
+          <div class="hidden md:flex items-center ml-10 space-x-8">
+            <a
+              href="index.html"
+              class="nav-link text-black hover:text-gray-600 px-2"
+              >Home</a
+            >
+            <a
+              href="product.html"
+              class="nav-link text-black hover:text-gray-600 px-2"
+              >Products</a
+            >
+            <a
+              href="deals.html"
+              class="nav-link text-black hover:text-gray-600 px-2"
+              >Hot Deals</a
+            >
+            <a
+              href="owners.html"
+              class="nav-link text-black hover:text-gray-600 px-2"
+              >Owners</a
+            >
+            <a
+              href="apparels.html"
+              class="nav-link text-black hover:text-gray-600 px-2"
+              >Appareals</a
+            >
+            <a
+              href="products_apparels.html"
+              class="nav-link text-black hover:text-gray-600 px-2"
+              >Products_Apparels</a
+            >
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="hidden md:flex items-center space-x-2">
+            <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-search text-gray-600"></i>
+            </a>
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-shopping-cart text-gray-600"></i>
+              <span
+                id="cart-count"
+                class="cart-badge bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
+              >
+                0
+              </span>
+            </a>
+
+            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-user text-gray-600"></i>
+            </a>
+
+            <!-- NEW Login button (desktop) -->
+            <a
+              href="profile login.html"
+              class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+            >
+              Login
+            </a>
+          </div>
+          <button
+            class="md:hidden p-2 rounded-md focus:outline-none"
+            id="mobile-menu-button"
+          >
+            <i class="fas fa-bars text-black"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div
+      id="cartSidebar"
+      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
+    ></div>
+    <div
+      id="cartOverlay"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+    ></div>
+
+    <!-- Mobile menu -->
+    <div
+      class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4"
+      id="mobile-menu"
+    >
+      <div class="flex justify-between items-center mb-8">
+        <div class="brand text-xl font-bold">HEAT HAVEN</div>
+        <button id="close-menu">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="nav-link text-black hover:text-gray-600"
+          >Home</a
+        >
+        <a href="#products" class="nav-link text-black hover:text-gray-600"
+          >Products</a
+        >
+        <a href="#deals" class="nav-link text-black hover:text-gray-600"
+          >Heat Haven Deals</a
+        >
+        <a href="#about" class="nav-link text-black hover:text-gray-600"
+          >About Us</a
+        >
+        <a href="owners.html" class="nav-link text-black hover:text-gray-600"
+          >Owners</a
+        >
+        <a href="#apparels" class="nav-link text-black hover:text-gray-600"
+          >Appareals</a
+        >
+        <a href="#search" class="nav-link text-black hover:text-gray-600"
+          >Products.apparels</a
+        >
+      </div>
+      <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="flex items-center space-x-4">
+          <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-search text-gray-600"></i>
+          </a>
+          <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-shopping-cart text-gray-600"></i>
+            <span
+              class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
+              >3</span
+            >
+          </a>
+          <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-user text-gray-600"></i>
+          </a>
+          <!-- NEW Login button (mobile) -->
+          <a
+            href="profile login.html"
+            class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+          >
+            Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Brand Filter -->
+  <section id="brand-filter" class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-6">Shop by Brand</h2>
+      <div class="brand-filter flex space-x-4 overflow-x-auto pb-2">
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap active transition-all"
+          data-brand="all"
+        >
+          All Brands
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="nike"
+        >
+          Nike
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="adidas"
+        >
+          Adidas
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="jordan"
+        >
+          Jordan
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="jumpman jack"
+        >
+          Jupman Jack
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="newbalance"
+        >
+          New Balance
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="yeezy"
+        >
+          Yeezy
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="asics"
+        >
+          Asics
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="puma"
+        >
+          Puma
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="crocs"
+        >
+          Crocs
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="onitsuka"
+        >
+          Asics Onitsuka
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="slides"
+        >
+          Slides
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="foam runner"
+        >
+          Foam Runner
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="under armour"
+        >
+          Under Armour
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="converse"
+        >
+          Converse
+        </button>
+        <button
+          class="spring-pill filter-btn px-6 py-2 border border-black rounded-full whitespace-nowrap transition-all"
+          data-brand="rick owens"
+        >
+          Rick Owens
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold mb-8">Featured Sneakers</h2>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+      >
+        <!-- Product 1 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="jordan"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/aj 1 chicago solo (1).png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/aj 1 chichgo.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div>
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Air Jordan 1 Retro High
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Chicago Bulls</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                >
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="slides"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/uptempo slide bulls solo.png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/uptempo slide bulls.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              NIke Uptempo Slide
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Chicago Bulls</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="nike"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/sb gulf solo.png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/sb gulf.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Nike SB Dunk Low
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Golf</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="adidas"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/adidas campus clear sky gum solo.png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/adidas campus clear sky gum.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Adidas Campus 
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Clear Sky Gum</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="nike"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/af1 kobe solo.png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/af1 kobe yellow.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Aid Force 1 Low
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Lakers Home</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="yeezy"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images\yeezy zebra solo.png"
+              alt="yeezy"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/yeezy zebra.png"
+              alt="yeezy hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Yeezy Boost 350 V2
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Zebra</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="yeezy"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images\yzy 700 v3 azael solo.png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images\yzy 700 v3 azael.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Yeezy 700 V3
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Azael</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="rick owens"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/rick owens hollywood high black milk solo.png"
+              alt="Jordan"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/rick owens hollywood high black milk.png"
+              alt="Jordan hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Rick Owens Hollywood High
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Black Milk</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 9 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="puma"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/puma melns la france solo.png"
+              alt="puma"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images\puma melons lafrance.png"
+              alt="puma hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Puma Melns
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">La France</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 10 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="puma"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/travis x fragment high solo.png"
+              alt="puma"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/travis x fragment high.png"
+              alt="puma hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Travis x Fragment High 
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Fragment</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 11 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="puma"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images/nb 990v5 solo.png"
+              alt="puma"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images/nb 990v5.png"
+              alt="puma hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              New Balance 990v5
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Grey</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 12 -->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="puma"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images\aj4 bred solo.png"
+              alt="puma"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images\aj4 bred.png"
+              alt="puma hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Air Jordan 4 Retro
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Breds</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product  13-->
+        <div
+          class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
+          data-brand="crocs"
+        >
+          <div class="relative">
+            <button
+              class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
+              aria-label="Add to wishlist"
+            >
+              <i class="far fa-heart text-gray-700 text-lg"></i>
+            </button>
+
+            <img
+              src="images\crocs horchata solo.png"
+              alt="puma"
+              class="w-full h-64 object-cover group-hover:hidden"
+            />
+            <img
+              src="images\crocs horchata.png"
+              alt="puma hover"
+              class="w-full h-64 object-cover hidden group-hover:block"
+            />
+
+            <!-- <div
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              SALE !
+            </div> -->
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-1">
+              Salehe Bembury x Crocs
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">Horchata</p>
+            <div class="mb-3">
+              <label class="block text-xs text-gray-500 mb-1"
+                >Select size</label
+              >
+              <select
+                class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
+              >
+                <option value="" disabled selected>Choose size</option>
+                <option value="uk6">UK 6</option>
+                <option value="uk7">UK 7</option>
+                <option value="uk8">UK 8</option>
+                <option value="uk9">UK 9</option>
+                <option value="uk10">UK 10</option>
+                <option value="uk11">UK 11</option>
+                <option value="uk12">UK 12</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <!-- <span class="text-gray-500 line-through mr-2"
+                  >₹6,250.36</span
+                > -->
+                <span class="font-bold">₹5,559.12</span>
+              </div>
+              <button
+                class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation spring-btn add-to-cart-btn"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+       
+
+
+
+        <!-- More product cards can be added here with same structure and .add-to-cart-btn -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4">HEAT HAVEN</h3>
+          <p class="text-gray-400 text-sm">
+            Premium sneakers, exceptional service. Your ultimate destination for
+            the hottest kicks on the market.
+          </p>
+          <br />
+          <h3 class="text-lg font-bold mb-4">Follow us</h3>
+          <div class="flex space-y-2">
+            <a
+              href="https://www.instagram.com/heatheaven.23_/"
+              target="_blank"
+              class="text-base"
+            >
+              <i class="fab fa-instagram text-xl text-red-500"></i>
+            </a>
+          </div>
+          <div class="flex space-y-2">
+            <a
+              href="https://web.whatsapp.com/"
+              target="_blank"
+              class="text-base"
+            >
+              <i class="fab fa-whatsapp text-xl text-red-500"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4">Shop</h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="product.html"
+                class="text-gray-400 hover:text-white text-sm"
+                >All Products</a
+              >
+            </li>
+            <li>
+              <a
+                href="newarrivals.html"
+                class="text-gray-400 hover:text-white text-sm"
+                >New Arrivals</a
+              >
+            </li>
+            <li>
+              <a
+                href="Bestsellerrs.html"
+                class="text-gray-400 hover:text-white text-sm"
+                >Best Sellers</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >SALE ! Items</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >Gift Cards</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4">Customer Service</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >Contact Us</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >FAQs</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >Shipping & Returns</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >Size Guide</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white text-sm"
+                >Privacy Policy</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-4">Newsletter</h3>
+          <p class="text-gray-400 text-sm mb-3">
+            Subscribe to get updates on new releases, exclusive deals, and
+            sneaker culture news.
+          </p>
+          <form class="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="px-4 py-2 rounded-l focus:outline-none text-gray-800 w-full"
+            />
+            <button
+              type="submit"
+              class="bg-red-500 text-white px-4 py-2 rounded-r hover:bg-red-600"
+            >
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-center"
+      >
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          &copy; 2025 Heat Haven. All rights reserved.
+        </p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-cc-visa"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-cc-mastercard"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-cc-amex"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-cc-paypal"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle text-green-400"></i>
+    <span>Item added to cart successfully</span>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeMenuButton = document.getElementById("close-menu");
+
+    mobileMenuButton.addEventListener("click", () => {
+      mobileMenu.classList.add("open");
+    });
+
+    closeMenuButton.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+    });
+
+    // Filter functionality
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const shoeCards = document.querySelectorAll(".shoe-card");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const brand = button.dataset.brand;
+
+        shoeCards.forEach((card) => {
+          if (brand === "all" || card.dataset.brand === brand) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
+        if (targetId === "#") return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+          });
+
+          if (mobileMenu.classList.contains("open")) {
+            mobileMenu.classList.remove("open");
+          }
+        }
+      });
+    });
+
+    // Toast logic
+    const toast = document.getElementById("toast");
+    let toastTimeout;
+
+    function showToast(message = "Item added to cart successfully") {
+      toast.querySelector("span").textContent = message;
+      toast.classList.add("show");
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2000);
+    }
+
+    // Cart badge / count
+    const cartCountEl = document.getElementById("cart-count");
+    let cartCount = parseInt(cartCountEl.textContent, 10) || 0;
+
+    // Add-to-cart click handlers
+    document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Increment cart count
+        cartCount += 1;
+        cartCountEl.textContent = cartCount;
+
+        // Bump animation on cart badge
+        cartCountEl.classList.remove("cart-bump");
+        void cartCountEl.offsetWidth; // force reflow
+        cartCountEl.classList.add("cart-bump");
+
+        // Toast
+        showToast();
+      });
+    });
+
+    // Wishlist heart spring & toggle
+    document.querySelectorAll(".wishlist-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const icon = btn.querySelector("i");
+
+        if (icon.classList.contains("far")) {
+          icon.classList.remove("far");
+          icon.classList.add("fas", "text-red-500");
+        } else {
+          icon.classList.add("far");
+          icon.classList.remove("fas", "text-red-500");
+        }
+
+        icon.classList.remove("heart-spring");
+        void icon.offsetWidth;
+        icon.classList.add("heart-spring");
+      });
+    });
+  </script>
+</body>
+</html>

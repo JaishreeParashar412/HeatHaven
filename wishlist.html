@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heat Haven – Wishlist</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f8f8f8;
+}
+h1,.brand { font-family: "Archivo Black", sans-serif; }
+
+/* CARD SPRING */
+.wishlist-card {
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1),
+              box-shadow 0.3s ease,
+              opacity 0.3s ease;
+}
+.wishlist-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+.wishlist-card.removing {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+/* BUTTON SPRING */
+@keyframes spring {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.85); }
+  70% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+.spring { animation: spring 0.28s cubic-bezier(.34,1.56,.64,1); }
+.spring-btn:active { transform: scale(0.92); }
+
+/* TOAST */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  font-size: 14px;
+  display: none;
+  z-index: 9999;
+}
+#toast.show { display: block; }
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="brand text-2xl font-bold">
+            <a href="index.html" class="text-black">HEAT HAVEN</a>
+          </div>
+          <div class="hidden md:flex items-center ml-10 space-x-8">
+            <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
+            <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
+            <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
+            <a href="#contact" class="nav-link text-black hover:text-gray-600 px-2">Contact</a>
+            <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
+            <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="hidden md:flex items-center space-x-2">
+            <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-search text-gray-600"></i>
+            </a>
+            <!-- Cart with badge that updates -->
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-shopping-cart text-gray-600"></i>
+              <span
+                id="cart-count"
+                class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
+              >0</span>
+            </a>
+            
+
+            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-user text-gray-600"></i>
+            </a>
+
+            <a
+              href="profile login.html"
+              class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+            >
+              Login
+            </a>
+          </div>
+          <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
+            <i class="fas fa-bars text-black"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+</nav>    
+
+    <!-- Cart Sidebar placeholder -->
+    <div
+      id="cartSidebar"
+      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
+    ></div>
+    <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+
+
+<section class="py-12">
+<div class="max-w-7xl mx-auto px-4">
+
+<h1 class="text-3xl font-bold mb-8">My Wishlist ❤️</h1>
+
+<!-- CARD -->
+<div class="wishlist-card bg-white rounded-xl p-6 mb-6">
+  <div class="flex items-center gap-6">
+    <img src="images/aj 1 chicago solo (1).png" class="w-28 h-28 rounded object-cover">
+    <div class="flex-1">
+      <p class="font-semibold text-lg">Air Jordan 1 Retro High</p>
+      <p class="text-sm text-gray-500">Chicago Bulls</p>
+      <p class="font-semibold mt-2">₹5,559.12</p>
+    </div>
+    <div class="flex gap-3">
+      <button class="spring-btn cart-btn bg-black text-white px-4 py-2 rounded-full">
+        <i class="fas fa-cart-plus"></i>
+      </button>
+      <button class="spring-btn delete-btn border px-4 py-2 rounded-full">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CARD -->
+<div class="wishlist-card bg-white rounded-xl p-6 mb-6">
+  <div class="flex items-center gap-6">
+    <img src="images/travis x fragment high solo.png" class="w-28 h-28 rounded object-cover">
+    <div class="flex-1">
+      <p class="font-semibold text-lg">Travis Scott x Fragment High</p>
+      <p class="text-sm text-gray-500">Fragment</p>
+      <span class="text-gray-500 line-through mr-2">₹5,250.36</span>
+    </div>
+    <div class="flex gap-3">
+      <button class="spring-btn delete-btn border px-4 py-2 rounded-full">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CARD -->
+<div class="wishlist-card bg-white rounded-xl p-6 mb-6">
+  <div class="flex items-center gap-6">
+    <img src="images/puma melns la france solo.png" class="w-28 h-28 rounded object-cover">
+    <div class="flex-1">
+      <p class="font-semibold text-lg">Puma Melns La France</p>
+      <p class="text-sm text-gray-500">Puma</p>
+      <p class="font-semibold mt-2">₹5,559.12</p>
+    </div>
+    <div class="flex gap-3">
+      <button class="spring-btn cart-btn bg-black text-white px-4 py-2 rounded-full">
+        <i class="fas fa-cart-plus"></i>
+      </button>
+      <button class="spring-btn delete-btn border px-4 py-2 rounded-full">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</section>
+
+<!-- Toast -->
+  <div id="toast">
+    ✅ Item added to cart
+  </div>
+
+<script>
+const toast = document.getElementById("toast");
+
+/* SPRING + CART */
+document.querySelectorAll(".cart-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    btn.classList.remove("spring");
+    void btn.offsetWidth;
+    btn.classList.add("spring");
+    showToast("✅ Item added to cart");
+  });
+});
+
+/* SPRING + DELETE */
+document.querySelectorAll(".delete-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    btn.classList.remove("spring");
+    void btn.offsetWidth;
+    btn.classList.add("spring");
+
+    const card = btn.closest(".wishlist-card");
+    card.classList.add("removing");
+    setTimeout(()=>card.remove(),300);
+  });
+});
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(()=>toast.classList.remove("show"),2000);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heat Haven - Premium Sneaker Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #ff4500;
+            --light: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            background-color: var(--secondary);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand {
+            font-family: 'Archivo Black', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 80vh;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .brand-filter button.active {
+            background-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        .shoe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .whatsapp-banner {
+            background-color: #25D366;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .cart-animation {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .cart-animation:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bounce {
+            animation: bounce 0.5s;
+        }
+
+        .spring-card {
+            border: 1px solid #e5e7eb;
+            transition:
+                transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.05);
+            will-change: transform, box-shadow;
+            background-color: #ffffff;
+        }
+
+        .spring-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+            border-color: #111827;
+        }
+
+        .checkout-spring {
+            transition:
+                transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.22s ease,
+                background-color 0.22s ease;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        .checkout-spring:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+            background-color: #111111;
+        }
+
+        .checkout-spring:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fixed bottom-10 right-6 z-50">
+        <a href="https://wa.me/1234567890?text=I%20want%20to%20place%20an%20order"
+            class="whatsapp-banner flex items-center justify-center rounded-full p-4 shadow-xl">
+            <i class="fab fa-whatsapp text-white text-3xl"></i>
+        </a>
+    </div>
+
+     <!-- Navigation -->
+<nav class="bg-white shadow-md sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <div class="brand text-2xl font-bold">
+          <a href="#" class="text-black">HEAT HAVEN</a>
+        </div>
+        <div class="hidden md:flex items-center ml-10 space-x-8">
+          <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
+          <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
+          <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
+          <!-- <a href="#about" class="nav-link text-black hover:text-gray-600 px-2">About Us</a> -->
+          <a href="#contact" class="nav-link text-black hover:text-gray-600 px-2">Contact</a>
+          <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
+          <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
+        </div>
+      </div>
+
+      <div class="flex items-center">
+        <div class="hidden md:flex items-center space-x-2">
+          <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-search text-gray-600"></i>
+          </a>
+          <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-shopping-cart text-gray-600"></i>
+            <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">3</span>
+          </a>
+
+          <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-user text-gray-600"></i>
+          </a>
+
+          <!-- NEW Login button (desktop) -->
+          <a
+            href="profile login.html"
+            class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+          >
+            Login
+          </a>
+        </div>
+        <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
+          <i class="fas fa-bars text-black"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div id="cartSidebar"
+       class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40">
+    <!-- ...cart content unchanged... -->
+  </div>
+  <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4" id="mobile-menu">
+    <div class="flex justify-between items-center mb-8">
+      <div class="brand text-xl font-bold">HEAT HAVEN</div>
+      <button id="close-menu">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+    </div>
+    <div class="flex flex-col space-y-4">
+      <a href="#home" class="nav-link text-black hover:text-gray-600">Home</a>
+      <a href="#products" class="nav-link text-black hover:text-gray-600">Products</a>
+      <a href="#deals" class="nav-link text-black hover:text-gray-600">Heat Haven Deals</a>
+      <a href="#about" class="nav-link text-black hover:text-gray-600">About Us</a>
+      <a href="#contact" class="nav-link text-black hover:text-gray-600">Contact</a>
+      <a href="#apparels" class="nav-link text-black hover:text-gray-600">Appareals</a>
+      <a href="#search" class="nav-link text-black hover:text-gray-600">Products.apparels</a>
+    </div>
+    <div class="mt-8 pt-4 border-t border-gray-200">
+      <div class="flex items-center space-x-4">
+        <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+          <i class="fas fa-search text-gray-600"></i>
+        </a>
+        <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+          <i class="fas fa-shopping-cart text-gray-600"></i>
+          <span
+            class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">3</span>
+        </a>
+        <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+          <i class="fas fa-user text-gray-600"></i>
+        </a>
+        <!-- NEW Login button (mobile) -->
+        <a
+          href="profile login.html"
+          class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+        >
+          Login
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    <section class="max-w-7xl mx-auto px-6 py-12">
+        <h1 class="text-3xl font-bold mb-10">Your Shopping Cart 🛒</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div class="lg:col-span-2 space-y-5" id="cart-items-column">
+                <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <img src="images/aj 1 chicago solo (1).png" class="w-24 object-contain">
+                        <div>
+                            <h3 class="font-semibold text-lg">Air Jordan 1 Retro High</h3>
+                            <p class="text-sm text-gray-500">Chicago Bulls</p>
+                            <p class="font-semibold mt-1">₹5,559.12</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="flex border rounded-lg overflow-hidden">
+                            <button class="qty-minus px-3 py-1">−</button>
+                            <span class="qty-value px-4 py-1 border-x">1</span>
+                            <button class="qty-plus px-3 py-1">+</button>
+                        </div>
+                        <button class="remove-item text-gray-400 hover:text-red-500">✕</button>
+                    </div>
+                </div>
+
+                <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <img src="images/travis x fragment high solo.png" class="w-24 object-contain">
+                        <div>
+                            <h3 class="font-semibold text-lg">Travis Scott x Fragment High</h3>
+                            <p class="text-sm text-gray-500">Fragment</p>
+                            <p class="font-semibold mt-1">₹5,559.12</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="flex border rounded-lg overflow-hidden">
+                            <button class="qty-minus px-3 py-1">−</button>
+                            <span class="qty-value px-4 py-1 border-x">1</span>
+                            <button class="qty-plus px-3 py-1">+</button>
+                        </div>
+                        <button class="remove-item text-gray-400 hover:text-red-500">✕</button>
+                    </div>
+                </div>
+
+                <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <img src="images/crocs horchata solo.png" class="w-24 object-contain">
+                        <div>
+                            <h3 class="font-semibold text-lg">Travis Scott x Fragment High</h3>
+                            <p class="text-sm text-gray-500">Fragment</p>
+                            <p class="font-semibold mt-1">₹5,559.12</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="flex border rounded-lg overflow-hidden">
+                            <button class="qty-minus px-3 py-1">−</button>
+                            <span class="qty-value px-4 py-1 border-x">1</span>
+                            <button class="qty-plus px-3 py-1">+</button>
+                        </div>
+                        <button class="remove-item text-gray-400 hover:text-red-500">✕</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spring-card rounded-xl p-5 h-fit sticky top-24">
+                <h2 class="text-xl font-semibold mb-5">Order Summary</h2>
+
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Subtotal</span>
+                        <span>₹11,118.24</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Shipping</span>
+                        <span>Free</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Tax</span>
+                        <span>Free</span>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <div class="flex justify-between font-semibold text-lg mb-5">
+                    <span>Total</span>
+                    <span>₹11,118.24</span>
+                </div>
+
+                <button class="checkout-spring w-full bg-black text-white py-3 rounded-lg">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartSection = document.querySelector('section');
+            const itemsColumn = document.getElementById('cart-items-column');
+
+            cartSection.addEventListener('click', function (e) {
+                if (e.target.classList.contains('qty-plus')) {
+                    const container = e.target.closest('.flex.border');
+                    const valueSpan = container.querySelector('.qty-value');
+                    let current = parseInt(valueSpan.textContent) || 1;
+                    valueSpan.textContent = current + 1;
+                }
+
+                if (e.target.classList.contains('qty-minus')) {
+                    const container = e.target.closest('.flex.border');
+                    const valueSpan = container.querySelector('.qty-value');
+                    let current = parseInt(valueSpan.textContent) || 1;
+                    if (current > 1) {
+                        valueSpan.textContent = current - 1;
+                    }
+                }
+
+                if (e.target.classList.contains('remove-item')) {
+                    const card = e.target.closest('.spring-card');
+                    if (card) {
+                        card.remove();
+                    }
+
+                    const remaining = itemsColumn.querySelectorAll('.spring-card').length;
+                    if (remaining === 0) {
+                        itemsColumn.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

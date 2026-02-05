@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Haven – Order History</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Fonts + Animations -->
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f8f8f8;
+    }
+
+    h1, h2, .brand {
+      font-family: "Archivo Black", sans-serif;
+    }
+
+    /* ===== SPRING EFFECTS ===== */
+    .spring {
+      animation: spring 0.28s ease-out;
+    }
+
+    @keyframes spring {
+      0% { transform: scale(1); }
+      40% { transform: scale(0.94); }
+      70% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    /* Order card hover */
+    .order-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .order-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    /* Buttons hover */
+    .action-btn {
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+ <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="brand text-2xl font-bold">
+            <a href="index.html" class="text-black">HEAT HAVEN</a>
+          </div>
+          <div class="hidden md:flex items-center ml-10 space-x-8">
+            <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
+            <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
+            <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
+            <a href="#contact" class="nav-link text-black hover:text-gray-600 px-2">Contact</a>
+            <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
+            <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="hidden md:flex items-center space-x-2">
+            <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-search text-gray-600"></i>
+            </a>
+            <!-- Cart with badge that updates -->
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-shopping-cart text-gray-600"></i>
+              <span
+                id="cart-count"
+                class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
+              >0</span>
+            </a>
+            
+
+            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-user text-gray-600"></i>
+            </a>
+
+            <a
+              href="profile login.html"
+              class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+            >
+              Login
+            </a>
+          </div>
+          <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
+            <i class="fas fa-bars text-black"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+ </nav>    
+
+    <!-- Cart Sidebar placeholder -->
+    <div
+      id="cartSidebar"
+      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
+    ></div>
+    <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+
+    <!-- Cart Sidebar placeholder -->
+    <div
+      id="cartSidebar"
+      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
+    ></div>
+    <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+  </nav>
+
+<!-- ORDER HISTORY -->
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <!-- HEADER -->
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold">Order History</h1>
+      <p class="text-gray-500">View and track your previous purchases</p>
+    </div>
+
+    <!-- ORDER 1 -->
+    <div class="order-card bg-white rounded-xl shadow p-6 mb-6">
+      <div class="flex justify-between items-center border-b pb-4 mb-4">
+        <div>
+          <p class="text-sm text-gray-500">Order ID</p>
+          <p class="font-semibold">#HH102348</p>
+          <p class="text-sm text-gray-500">12 Jan 2025</p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">
+          Delivered
+        </span>
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex gap-4 items-center">
+          <img src="images/aj 1 chichgo.png" class="w-20 h-20 rounded object-cover">
+          <div class="flex-1">
+            <p class="font-semibold">Air Jordan 1 Retro High</p>
+            <p class="text-sm text-gray-500">Size: UK 9</p>
+          </div>
+          <p class="font-semibold">₹5,559.12</p>
+        </div>
+
+        <div class="flex gap-4 items-center">
+          <img src="images/travis x fragment high.png" class="w-20 h-20 rounded object-cover">
+          <div class="flex-1">
+            <p class="font-semibold">Travis Scott x Fragment High</p>
+            <p class="text-sm text-gray-500">Size: UK 10</p>
+          </div>
+          <p class="font-semibold">₹5,559.12</p>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center border-t pt-4 mt-4">
+        <p class="font-semibold">Total: ₹11,118.24</p>
+        <div class="flex gap-3">
+          <button class="action-btn border px-4 py-2 rounded">
+            View Details
+          </button>
+          <button class="action-btn bg-black text-white px-4 py-2 rounded">
+            Reorder
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 2 -->
+    <div class="order-card bg-white rounded-xl shadow p-6">
+      <div class="flex justify-between items-center border-b pb-4 mb-4">
+        <div>
+          <p class="text-sm text-gray-500">Order ID</p>
+          <p class="font-semibold">#HH102112</p>
+          <p class="text-sm text-gray-500">28 Dec 2024</p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-700">
+          In Transit
+        </span>
+      </div>
+
+      <div class="flex gap-4 items-center">
+        <img src="images/yzy 700 v3 azael.png" class="w-20 h-20 rounded object-cover">
+        <div class="flex-1">
+          <p class="font-semibold">Yeezy 700 V3 Azael</p>
+          <p class="text-sm text-gray-500">Size: UK 8</p>
+        </div>
+        <p class="font-semibold">₹4,759.12</p>
+      </div>
+
+      <div class="flex justify-between items-center border-t pt-4 mt-4">
+        <p class="font-semibold">Total: ₹4,759.12</p>
+        <button class="action-btn border px-4 py-2 rounded">
+          Track Order
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-black text-white py-8 mt-12">
+  <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-400">
+    © 2025 Heat Haven. All rights reserved.
+  </div>
+</footer>
+
+<!-- SPRING SCRIPT -->
+<script>
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest(".order-card");
+    const btn = e.target.closest(".action-btn");
+
+    if (card) {
+      card.classList.remove("spring");
+      void card.offsetWidth;
+      card.classList.add("spring");
+    }
+
+    if (btn) {
+      btn.classList.remove("spring");
+      void btn.offsetWidth;
+      btn.classList.add("spring");
+    }
+  });
+</script>
+
+</body>
+</html>

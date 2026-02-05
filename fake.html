@@ -1,0 +1,101 @@
+<!-- SIGN UP CARD -->
+  <div class="flex items-start justify-center px-6 pt-20">
+    <div class="spring-card rise-enter bg-white text-black w-full max-w-md rounded-2xl p-8 shadow-2xl -mt-6">
+
+      <h2 class="text-2xl font-bold mb-1">Join Heat Haven 🔥</h2>
+      <p class="text-gray-500 mb-6">Create your account to access exclusive sneaker drops.</p>
+
+      <form id="signupForm" class="space-y-4">
+
+        <input type="text" placeholder="Full Name" required
+          class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500">
+
+        <input type="email" placeholder="Email Address" required
+          class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500">
+
+        <input type="password" id="password" placeholder="Password" required
+          class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500">
+
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required
+          class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500">
+
+        <label class="flex items-center text-sm text-gray-600">
+          <input type="checkbox" required class="mr-2">
+          I agree to the Terms & Privacy Policy
+        </label>
+
+        <button type="submit"
+          class="spring-card w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700">
+          Create Account
+        </button>
+
+        <div class="flex items-center gap-3 my-4">
+          <div class="h-px bg-gray-300 flex-1"></div>
+          <span class="text-gray-400 text-sm">OR</span>
+          <div class="h-px bg-gray-300 flex-1"></div>
+        </div>
+
+        <button type="button"
+          class="spring-card w-full border py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5">
+          Sign up with Google
+        </button>
+
+        <button type="button"
+          class="spring-card w-full bg-black text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-900">
+          <img src="images/apple.png" class="w-5 invert">
+          Sign up with Apple
+        </button>
+
+      </form>
+
+      <p class="text-center text-sm mt-6">
+        Already have an account?
+        <a href="login.html" class="text-red-600 font-semibold hover:underline">Log in</a>
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("signupForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirmPassword").value;
+
+    if (password !== confirm) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form[0].value,
+          email: form[1].value,
+          password
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.message || "Signup failed");
+        return;
+      }
+
+      alert("Account created successfully!");
+      window.location.href = "login.html";
+    } catch {
+      alert("Server not reachable");
+    }
+  });
+</script>
+
+</body>
+</html>

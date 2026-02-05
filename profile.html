@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heat Haven - Profile</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script> <!-- [web:11] -->
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  > <!-- [web:12] -->
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap'); /* [web:17] */
+
+    :root {
+      --primary: #000000;
+      --secondary: #ffffff;
+      --accent: #ff4500;
+      --light: #f8f8f8;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--primary);
+      background-image: url("images/travis scott wallpaper pc.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand {
+      font-family: 'Archivo Black', sans-serif;
+      letter-spacing: -0.5px;
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .page-transition {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SPRING HOVER EFFECT */
+    .spring-card {
+      transition:
+        transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        background-color 0.25s ease;
+      will-change: transform, box-shadow;
+    }
+
+    .spring-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="bg-white/80 backdrop-blur shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="brand text-2xl font-bold">
+            <a href="#" class="text-black">HEAT HAVEN</a>
+          </div>
+          <div class="hidden md:flex items-center ml-10 space-x-8">
+            <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
+            <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
+            <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
+            <a href="owners.html" class="nav-link text-black hover:text-gray-600 px-2">Owners</a>
+            <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
+            <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="hidden md:flex items-center space-x-2">
+            <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-search text-gray-600"></i>
+            </a>
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-shopping-cart text-gray-600"></i>
+              <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">3</span>
+            </a>
+            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-user text-gray-600"></i>
+            </a>
+          </div>
+          <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
+            <i class="fas fa-bars text-black"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4" id="mobile-menu">
+      <div class="flex justify-between items-center mb-8">
+        <div class="brand text-xl font-bold">HEAT HAVEN</div>
+        <button id="close-menu">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="nav-link text-black hover:text-gray-600">Home</a>
+        <a href="#products" class="nav-link text-black hover:text-gray-600">Products</a>
+        <a href="#deals" class="nav-link text-black hover:text-gray-600">Heat Haven Deals</a>
+        <a href="#about" class="nav-link text-black hover:text-gray-600">About Us</a>
+        <a href="#contact" class="nav-link text-black hover:text-gray-600">Contact</a>
+        <a href="#apparels" class="nav-link text-black hover:text-gray-600">Appareals</a>
+        <a href="#search" class="nav-link text-black hover:text-gray-600">Products.apparels</a>
+      </div>
+      <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="flex items-center space-x-4">
+          <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-search text-gray-600"></i>
+          </a>
+          <a href="#cart" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-shopping-cart text-gray-600"></i>
+            <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">3</span>
+          </a>
+          <a href="#account" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-user text-gray-600"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROFILE HEADER -->
+  <section class="max-w-6xl mx-auto px-6 pt-10 pb-10 page-transition">
+    <div
+      class="spring-card inline-flex flex-col md:flex-row items-center md:items-start gap-6
+             bg-white/20 text-black
+             rounded-2xl p-6 shadow-xl
+             backdrop-blur-lg border border-white/40
+             max-w-xl md:max-w-3xl mx-auto"
+    >
+      <!-- Avatar -->
+      <div class="relative flex-shrink-0">
+        <img
+          src="images/profile.jpeg"
+          class="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-red-600 object-cover"
+        />
+        <button
+          class="absolute bottom-1 right-1 bg-red-600 p-2 rounded-full text-xs md:text-sm hover:bg-red-700"
+        >
+          ✎
+        </button>
+      </div>
+
+      <!-- User Info -->
+      <div class="mt-4 md:mt-0 md:ml-4">
+        <h1 class="text-3xl md:text-4xl font-bold">Kanishak Choudhary</h1>
+        <p class="text-white mt-2">Sneaker Collector • Heat Haven Member</p>
+
+        <div class="flex gap-6 mt-4">
+          <div>
+            <p class="text-xl font-bold">12</p>
+            <p class="text-white text-sm">
+              <span class="font-bold">Orders</span>
+            </p>
+          </div>
+          <div>
+            <p class="text-xl font-bold">3</p>
+            <p class="text-white text-sm">
+              <span class="font-bold">Wishlist</span>
+            </p>
+          </div>
+          <div>
+            <p class="text-xl font-bold">1</p>
+            <p class="text-white text-sm">
+              <span class="font-bold">Returns</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE CONTENT: left column narrower -->
+  <section class="max-w-7xl mx-auto px-6 pb-20 grid grid-cols-[260px_minmax(0,1fr)] gap-8 -mt-4">
+    <!-- LEFT MENU -->
+    <div class="page-transition w-[260px]">
+      <!-- Account Details -->
+      <a href="account_details.html" class="block mb-4">
+        <button
+          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
+                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
+        >
+          Account Details
+        </button>
+      </a>
+
+      <!-- Orders -->
+      <a href="orders.html" class="block mb-4">
+        <button
+          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
+                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
+        >
+          Orders
+        </button>
+      </a>
+
+      <!-- Addresses -->
+      <a href="address.html" class="block mb-4">
+        <button
+          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
+                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
+        >
+          Addresses
+        </button>
+      </a>
+
+      <!-- Wishlist -->
+      <a href="wishlist.html" class="block mb-4">
+        <button
+          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
+                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
+        >
+          Wishlist
+        </button>
+      </a>
+
+      <!-- Logout WITHOUT glass, WITHOUT spring -->
+      <a href="logout.html" class="block">
+        <button
+          class="w-full text-white py-3 rounded-xl
+                 bg-red-500 hover:bg-red-600 shadow-md"
+        >
+          Logout
+        </button>
+      </a>
+    </div>
+
+    <!-- DETAILS CARD (takes remaining space) -->
+    <div
+      class="spring-card
+             bg-white/20 text-black
+             rounded-2xl p-8 shadow-xl
+             backdrop-blur-lg border border-white/40
+             page-transition"
+    >
+      <h2 class="text-2xl font-bold mb-6">Account Information</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Full Name -->
+        <div class="spring-card bg-white/10 rounded-xl p-3">
+          <label class="text-sm font-semibold">Full Name</label>
+          <input
+            type="text"
+            value="Kanishak Choudhary"
+            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="spring-card bg-white/10 rounded-xl p-3">
+          <label class="text-sm font-semibold">Email</label>
+          <input
+            type="email"
+            value="kanishakchoudhary268@gmail.com"
+            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
+          />
+        </div>
+
+        <!-- Phone -->
+        <div class="spring-card bg-white/10 rounded-xl p-3">
+          <label class="text-sm font-semibold">Phone</label>
+          <input
+            type="text"
+            placeholder="+91 XXXXX XX488"
+            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="spring-card bg-white/10 rounded-xl p-3">
+          <label class="text-sm font-semibold">Password</label>
+          <input
+            type="password"
+            value="password"
+            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
+          />
+        </div>
+      </div>
+
+      <!-- Save Changes WITH spring effect and link target -->
+      <a href="save_changes.html" class="inline-block mt-8">
+        <button class="spring-card bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700">
+          Save Changes
+        </button>
+      </a>
+    </div>
+  </section>
+</body>
+</html>

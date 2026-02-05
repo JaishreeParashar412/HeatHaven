@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved Addresses</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Spring Effect Styles -->
+  <style>
+    .address-card {
+      transition:
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .address-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
+    }
+  </style><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Haven - Premium Sneaker Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    :root {
+      --primary: #000000;
+      --secondary: #ffffff;
+      --accent: #ff4500;
+      --light: #f8f8f8;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      color: var(--primary);
+      background-color: var(--secondary);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .brand {
+      font-family: "Archivo Black", sans-serif;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 80vh;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .brand-filter button.active {
+      background-color: var(--primary);
+      color: var(--secondary);
+    }
+
+    .shoe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .whatsapp-banner {
+      background-color: #25d366;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.03);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .page-transition {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Base Add to Cart press effect */
+    .cart-animation {
+      transition: all 0.2s ease-in-out;
+    }
+    .cart-animation:active {
+      transform: scale(0.95);
+    }
+
+    /* Spring for wishlist heart */
+    @keyframes heart-spring {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.3); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    .heart-spring {
+      animation: heart-spring 0.25s ease-out;
+    }
+
+    /* Spring for Add to Cart button */
+    @keyframes cart-spring {
+      0% { transform: scale(1); }
+      40% { transform: scale(0.95); }
+      70% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .cart-spring {
+      animation: cart-spring 0.25s ease-out;
+    }
+
+    /* Toast notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 9999;
+    }
+    #toast.show {
+      display: flex;
+      animation: toast-fade 2s ease-out;
+    }
+    @keyframes toast-fade {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+      }
+      10% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      90% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- WhatsApp Floating Button -->
+  <div class="fixed bottom-10 right-6 z-50">
+    <a
+      href="https://wa.me/1234567890?text=I%20want%20to%20place%20an%20order"
+      class="whatsapp-banner flex items-center justify-center rounded-full p-4 shadow-xl"
+    >
+      <i class="fab fa-whatsapp text-white text-3xl"></i>
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="brand text-2xl font-bold">
+            <a href="index.html" class="text-black">HEAT HAVEN</a>
+          </div>
+          <div class="hidden md:flex items-center ml-10 space-x-8">
+            <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
+            <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
+            <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
+            <a href="#contact" class="nav-link text-black hover:text-gray-600 px-2">Contact</a>
+            <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
+            <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="hidden md:flex items-center space-x-2">
+            <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-search text-gray-600"></i>
+            </a>
+            <!-- Cart with badge that updates -->
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-shopping-cart text-gray-600"></i>
+              <span
+                id="cart-count"
+                class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
+              >0</span>
+            </a>
+            
+
+            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+              <i class="fas fa-user text-gray-600"></i>
+            </a>
+
+            <a
+              href="profile login.html"
+              class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+            >
+              Login
+            </a>
+          </div>
+          <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
+            <i class="fas fa-bars text-black"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Sidebar placeholder -->
+    <div
+      id="cartSidebar"
+      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
+    ></div>
+    <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+
+    <!-- Cart Sidebar placeholder -->
+    <div
+      id="cartSidebar"
+      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
+    ></div>
+    <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+
+    <!-- Mobile menu
+    <div
+      class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4"
+      id="mobile-menu"
+    >
+      <div class="flex justify-between items-center mb-8">
+        <div class="brand text-xl font-bold">HEAT HAVEN</div>
+        <button id="close-menu">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="nav-link text-black hover:text-gray-600">Home</a>
+        <a href="#products" class="nav-link text-black hover:text-gray-600">Products</a>
+        <a href="#deals" class="nav-link text-black hover:text-gray-600">Heat Haven Deals</a>
+        <a href="#about" class="nav-link text-black hover:text-gray-600">About Us</a>
+        <a href="#contact" class="nav-link text-black hover:text-gray-600">Contact</a>
+        <a href="#apparels" class="nav-link text-black hover:text-gray-600">Appareals</a>
+        <a href="#search" class="nav-link text-black hover:text-gray-600">Products.apparels</a>
+      </div>
+      <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="flex items-center space-x-4">
+          <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-search text-gray-600"></i>
+          </a>
+           Mobile cart (no badge to avoid duplicate state) 
+          <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-shopping-cart text-gray-600"></i>
+          </a>
+          <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-shopping-cart text-gray-600"></i>
+          </a>
+          <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
+            <i class="fas fa-user text-gray-600"></i>
+          </a>
+          <a
+            href="profile login.html"
+            class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
+          >
+            Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav> -->
+
+    <!-- PAGE WRAPPER -->
+<div class="max-w-6xl mx-auto px-6 py-10 page-transition">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight">Saved Addresses</h1>
+      <p class="text-gray-500 mt-1">
+        Choose where you want your order delivered
+      </p>
+    </div>
+
+    <button
+      class="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-900 transition"
+    >
+      + Add New Address
+    </button>
+  </div>
+
+  <!-- Address Cards -->
+  <div class="space-y-6">
+
+    <!-- Address Card -->
+    <div class="address-card bg-white border rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
+            Default
+          </span>
+          <h2 class="text-lg font-semibold">Home</h2>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+        <div class="flex gap-5">
+          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100">
+            <i class="fas fa-house text-gray-600"></i>
+          </div>
+
+          <div>
+            <p class="font-medium">Kanishak Choudhary</p>
+            <p class="text-gray-600 text-sm leading-relaxed mt-1">
+              238 , First Floor<br />
+              Galli no.8 , Mohan Garden<br />
+              New Delhi – 110058<br />
+              India
+            </p>
+            <p class="text-sm mt-2 text-gray-800">
+              +91 92054 43488
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button
+            class="bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-900 transition"
+          >
+            Deliver Here
+          </button>
+          <button
+            class="border px-4 py-2 rounded-lg text-sm hover:bg-gray-50 transition"
+          >
+            Edit
+          </button>
+          <button
+            class="text-red-600 px-4 py-2 rounded-lg text-sm hover:bg-red-50 transition"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address Card -->
+    <div class="address-card bg-white border rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Work</h2>
+      </div>
+
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+        <div class="flex gap-5">
+          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100">
+            <i class="fas fa-briefcase text-gray-600"></i>
+          </div>
+
+          <div>
+            <p class="font-medium">Kanishak Choudhary</p>
+            <p class="text-gray-600 text-sm leading-relaxed mt-1">
+              Office 12, Tech Park<br />
+              Sector 44, Gurugram – 122003<br />
+              India
+            </p>
+            <p class="text-sm mt-2 text-gray-800">
+              +91 92054 43488
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button class="bg-black text-white px-4 py-2 rounded-lg text-sm">
+            Deliver Here
+          </button>
+          <button class="border px-4 py-2 rounded-lg text-sm">
+            Edit
+          </button>
+          <button class="text-red-600 px-4 py-2 rounded-lg text-sm hover:bg-red-50">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address Card -->
+    <div class="address-card bg-white border rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Other</h2>
+      </div>
+
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+        <div class="flex gap-5">
+          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100">
+            <i class="fas fa-location-dot text-gray-600"></i>
+          </div>
+
+          <div>
+            <p class="font-medium">Kanishak Choudhary</p>
+            <p class="text-gray-600 text-sm leading-relaxed mt-1">
+              House 20, Palam Vihar<br />
+              Sector 1, Delhi – 110045<br />
+              India
+            </p>
+            <p class="text-sm mt-2 text-gray-800">
+              +91 92054 43488
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button class="bg-black text-white px-4 py-2 rounded-lg text-sm">
+            Deliver Here
+          </button>
+          <button class="border px-4 py-2 rounded-lg text-sm">
+            Edit
+          </button>
+          <button class="text-red-600 px-4 py-2 rounded-lg text-sm hover:bg-red-50">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
