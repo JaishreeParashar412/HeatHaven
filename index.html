@@ -193,270 +193,142 @@
 
   <!-- Main Content -->
   <div id="app" class="page-transition">
-    <!-- Home Section -->
+    <!-- Hero -->
     <section id="home" class="relative">
       <div class="relative">
         <video autoplay muted loop class="hero-video">
-          <source
-            src="images/Nike Jordan 1 Chicago _ Cinematic Shoe Commercial _ Nepal(720P_HD).mp4"
-            type="video/mp4"
-          />
+          <source src="images copy/Nike Jordan 1 Chicago _ Cinematic Shoe Commercial _ Nepal(720P_HD).mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div class="text-center text-white px-4">
             <h1 class="text-4xl md:text-6xl font-bold mb-4">HEAT HAVEN</h1>
             <p class="text-xl md:text-2xl mb-8">Discover the Hottest Sneakers in the Game</p>
-            <a
-              href="product.html"
-              class="bg-blue-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-gray-800 transition duration-300 inline-block"
-            >
-              Shop Now
-            </a>
+            <a href="product.html" class="bg-red-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-gray-800 transition duration-300 inline-block">Shop Now</a>
           </div>
         </div>
       </div>
     </section>
     
 
-    <!-- Products Section -->
-    <section id="products" class="py-12 bg-white">
+   <!-- Products Section -->
+    <section id="products" class="py-12 bg-white dark:bg-amoled"></section>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold mb-8">Featured Sneakers</h2>
-        <a href="product.html" class="text-black font-medium hover:underline">View All</a>
+        <h2 class="text-3xl font-bold mb-2 dark:text-white">Featured Sneakers</h2>
+        <a href="product.html" class="text-black dark:text-white font-medium hover:underline">View All</a>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-6">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <!-- Product 1 -->
-          <div
-            class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
-            data-brand="jordan"
-          >
+          <div class="shoe-card bg-white dark:bg-cardDark rounded-lg overflow-hidden shadow-md transition duration-300 group relative" data-brand="jordan">
             <div class="relative">
-              <button
-                class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
-                aria-label="Add to wishlist"
-              >
+              <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
               </button>
-
-              <img
-                src="images/aj 1 chicago solo (1).png"
-                alt="Jordan"
-                class="w-full h-64 object-cover group-hover:hidden"
-              />
-              <img
-                src="images/aj 1 chichgo.png"
-                alt="Jordan hover"
-                class="w-full h-64 object-cover hidden group-hover:block"
-              />
-
-              <div
-                class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded"
-              >
-                SALE !
-              </div>
+              <img src="images/aj 1 chicago solo (1).png" alt="Jordan" class="w-full h-64 object-cover group-hover:hidden" />
+              <img src="images/aj 1 chichgo.png" alt="Jordan hover" class="w-full h-64 object-cover hidden group-hover:block" />
+              <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">SALE !</div>
             </div>
-
             <div class="p-4">
-              <h3 class="text-lg font-bold mb-1">Air Jordan 1 Retro High</h3>
-              <p class="text-gray-600 text-sm mb-2">Chicago Bulls</p>
+              <h3 class="text-lg font-bold mb-1 dark:text-white">Air Jordan 1 Retro High</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">Chicago Bulls</p>
               <div class="mb-3">
-                <label class="block text-xs text-gray-500 mb-1">Select size</label>
-                <select
-                  class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
-                >
+                <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">Select size</label>
+                <select class="w-full bg-white dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option value="uk6">UK 6</option>
-                  <option value="uk7">UK 7</option>
-                  <option value="uk8">UK 8</option>
-                  <option value="uk9">UK 9</option>
-                  <option value="uk10">UK 10</option>
-                  <option value="uk11">UK 11</option>
-                  <option value="uk12">UK 12</option>
+                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
                 <div>
                   <span class="text-gray-500 line-through mr-2">₹6,250.36</span>
-                  <span class="font-bold">₹5,559.12</span>
+                  <span class="font-bold dark:text-white">₹5,559.12</span>
                 </div>
-                <button
-                  class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation"
-                >
-                  Add to Cart
-                </button>
+                <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
               </div>
             </div>
           </div>
 
           <!-- Product 2 -->
-          <div
-            class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
-            data-brand="yeezy"
-          >
+          <div class="shoe-card bg-white dark:bg-cardDark rounded-lg overflow-hidden shadow-md transition duration-300 group relative" data-brand="yeezy">
             <div class="relative">
-              <button
-                class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
-                aria-label="Add to wishlist"
-              >
+              <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
               </button>
-
-              <img
-                src="images/yzy 700 v3 azael solo.png"
-                alt="Yeezy"
-                class="w-full h-64 object-cover group-hover:hidden"
-              />
-              <img
-                src="images/yzy 700 v3 azael.png"
-                alt="Yeezy hover"
-                class="w-full h-64 object-cover hidden group-hover:block"
-              />
+              <img src="images/yzy 700 v3 azael solo.png" alt="Yeezy" class="w-full h-64 object-cover group-hover:hidden" />
+              <img src="images/yzy 700 v3 azael.png" alt="Yeezy hover" class="w-full h-64 object-cover hidden group-hover:block" />
             </div>
-
             <div class="p-4">
-              <h3 class="text-lg font-bold mb-1">Yeezy 700 V3</h3>
-              <p class="text-gray-600 text-sm mb-2">Azael</p>
+              <h3 class="text-lg font-bold mb-1 dark:text-white">Yeezy 700 V3</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">Azael</p>
               <div class="mb-3">
-                <label class="block text-xs text-gray-500 mb-1">Select size</label>
-                <select
-                  class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
-                >
+                <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">Select size</label>
+                <select class="w-full bg-white dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option value="uk6">UK 6</option>
-                  <option value="uk7">UK 7</option>
-                  <option value="uk8">UK 8</option>
-                  <option value="uk9">UK 9</option>
-                  <option value="uk10">UK 10</option>
-                  <option value="uk11">UK 11</option>
-                  <option value="uk12">UK 12</option>
+                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
                 <div>
                   <span class="text-gray-500 line-through mr-2">₹5,250.36</span>
-                  <span class="font-bold">₹4,759.12</span>
+                  <span class="font-bold dark:text-white">₹4,759.12</span>
                 </div>
-                <button
-                  class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation"
-                >
-                  Add to Cart
-                </button>
+                <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
               </div>
             </div>
           </div>
 
           <!-- Product 3 -->
-          <div
-            class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
-            data-brand="nike"
-          >
+          <div class="shoe-card bg-white dark:bg-cardDark rounded-lg overflow-hidden shadow-md transition duration-300 group relative" data-brand="nike">
             <div class="relative">
-              <button
-                class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
-                aria-label="Add to wishlist"
-              >
-                <i class="far fa-heart text-gray-700 text-lg"></i> 
+              <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
+                <i class="far fa-heart text-gray-700 text-lg"></i>
               </button>
-
-              <img
-                src="images/uptempo slide bulls solo.png"
-                alt="Nike"
-                class="w-full h-64 object-cover group-hover:hidden"
-              />
-              <img
-                src="images/uptempo slide bulls.png"
-                alt="Nike hover"
-                class="w-full h-64 object-cover hidden group-hover:block"
-              />
+              <img src="images/uptempo slide bulls solo.png" alt="Nike" class="w-full h-64 object-cover group-hover:hidden" />
+              <img src="images/uptempo slide bulls.png" alt="Nike hover" class="w-full h-64 object-cover hidden group-hover:block" />
             </div>
-
             <div class="p-4">
-              <h3 class="text-lg font-bold mb-1">Nike Uptempo Slide Bulls</h3>
-              <p class="text-gray-600 text-sm mb-2">Bulls</p>
+              <h3 class="text-lg font-bold mb-1 dark:text-white">Nike Uptempo Slide Bulls</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">Bulls</p>
               <div class="mb-3">
-                <label class="block text-xs text-gray-500 mb-1">Select size</label>
-                <select
-                  class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
-                >
+                <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">Select size</label>
+                <select class="w-full bg-white dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option value="uk6">UK 6</option>
-                  <option value="uk7">UK 7</option>
-                  <option value="uk8">UK 8</option>
-                  <option value="uk9">UK 9</option>
-                  <option value="uk10">UK 10</option>
-                  <option value="uk11">UK 11</option>
-                  <option value="uk12">UK 12</option>
+                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
-                <div>
-                  <span class="font-bold">₹3,559.12</span>
-                </div>
-                <button
-                  class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation"
-                >
-                  Add to Cart
-                </button>
+                <div><span class="font-bold dark:text-white">₹3,559.12</span></div>
+                <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
               </div>
             </div>
           </div>
 
           <!-- Product 4 -->
-          <div
-            class="shoe-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 group relative"
-            data-brand="jordan"
-          >
+          <div class="shoe-card bg-white dark:bg-cardDark rounded-lg overflow-hidden shadow-md transition duration-300 group relative" data-brand="jordan">
             <div class="relative">
-              <button
-                class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition"
-                aria-label="Add to wishlist"
-              >
+              <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
               </button>
-
-              <img
-                src="images/travis x fragment high solo.png"
-                alt="Nike"
-                class="w-full h-64 object-cover group-hover:hidden"
-              />
-              <img
-                src="images/travis x fragment high.png"
-                alt="Nike hover"
-                class="w-full h-64 object-cover hidden group-hover:block"
-              />
+              <img src="images/travis x fragment high solo.png" alt="Travis" class="w-full h-64 object-cover group-hover:hidden" />
+              <img src="images/travis x fragment high.png" alt="Travis hover" class="w-full h-64 object-cover hidden group-hover:block" />
             </div>
-
             <div class="p-4">
-              <h3 class="text-lg font-bold mb-1">Travis Scott x Fragment High</h3>
-              <p class="text-gray-600 text-sm mb-2">Fragment</p>
+              <h3 class="text-lg font-bold mb-1 dark:text-white">Travis Scott x Fragment High</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">Fragment</p>
               <div class="mb-3">
-                <label class="block text-xs text-gray-500 mb-1">Select size</label>
-                <select
-                  class="w-full bg-white border border-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-black cursor-pointer"
-                >
+                <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">Select size</label>
+                <select class="w-full bg-white dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option value="uk6">UK 6</option>
-                  <option value="uk7">UK 7</option>
-                  <option value="uk8">UK 8</option>
-                  <option value="uk9">UK 9</option>
-                  <option value="uk10">UK 10</option>
-                  <option value="uk11">UK 11</option>
-                  <option value="uk12">UK 12</option>
+                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
-                <div>
-                  <span class="font-bold">₹5,559.12</span>
-                </div>
-                <button
-                  class="bg-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation"
-                >
-                  Add to Cart
-                </button>
+                <div><span class="font-bold dark:text-white">₹5,559.12</span></div>
+                <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
