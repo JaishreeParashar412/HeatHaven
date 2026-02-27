@@ -137,67 +137,58 @@
         </div>
       </div>
     </div>
+
+    <!-- Filter Dropdown -->
+    <div id="filterDropdown" class="hidden absolute right-6 top-16 w-64 bg-white dark:bg-cardDark shadow-xl rounded-lg p-4 z-50">
+      <h3 class="font-bold text-lg mb-3 dark:text-white">Filter Products</h3>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1 dark:text-gray-300">Brand</label>
+        <select id="brandFilter" class="w-full border border-gray-300 dark:bg-cardDark dark:bg-gray-700 dark:text-white rounded px-2 py-1 text-sm">
+          <option value="all">All Brands</option>
+          <option value="jordan">Jordan</option>
+          <option value="nike">Nike</option>
+          <option value="yeezy">Yeezy</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1 dark:text-gray-300">Max Price: ₹<span id="priceValue">700000</span></label>
+        <input id="priceFilter" type="range" min="1000" max="700000" step="100" value="700000" class="w-full cursor-pointer custom-slider" />
+      </div>
+      <div class="flex justify-between">
+        <button id="applyFilter" class="bg-black dark:bg-white dark:text-black text-white px-3 py-1 rounded text-sm">Apply</button>
+        <button id="resetFilter" class="text-sm text-gray-600 dark:text-gray-400 hover:underline">Reset</button>
+      </div>
+    </div>
+
+    
+
+    
+
     <!-- Mobile menu -->
-    <div
-      class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4"
-      id="mobile-menu"
-    >
+    <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white dark:bg-zinc-950 border-l dark:border-zinc-900 shadow-2xl z-50 p-4" id="mobile-menu">
       <div class="flex justify-between items-center mb-8">
-        <div class="brand text-xl font-bold">HEAT HAVEN</div>
-        <button id="close-menu">
-          <i class="fas fa-times text-xl"></i>
-        </button>
+        <div class="brand text-xl font-bold dark:text-white">HEAT HAVEN</div>
+        <button id="close-menu"><i class="fas fa-times text-xl dark:text-zinc-400"></i></button>
       </div>
       <div class="flex flex-col space-y-4">
-        <a href="#home" class="nav-link text-black hover:text-gray-600"
-          >Home</a
-        >
-        <a href="#products" class="nav-link text-black hover:text-gray-600"
-          >Products</a
-        >
-        <a href="#deals" class="nav-link text-black hover:text-gray-600"
-          >Heat Haven Deals</a
-        >
-        <a href="#about" class="nav-link text-black hover:text-gray-600"
-          >About Us</a
-        >
-        <a href="owners.html" class="nav-link text-black hover:text-gray-600"
-          >Owners</a
-        >
-        <a href="#apparels" class="nav-link text-black hover:text-gray-600"
-          >Appareals</a
-        >
-        <a href="#search" class="nav-link text-black hover:text-gray-600"
-          >Products.apparels</a
-        >
+        <a href="#home"       class="text-black dark:text-zinc-400 hover:dark:text-white transition-colors">Home</a>
+        <a href="#products"   class="text-black dark:text-zinc-400 hover:dark:text-white transition-colors">Products</a>
+        <a href="#deals"      class="text-black dark:text-zinc-400 hover:dark:text-white transition-colors">Hot Deals</a>
+        <a href="#about"      class="text-black dark:text-zinc-400 hover:dark:text-white transition-colors">About Us</a>
+        <a href="owners.html" class="text-black dark:text-zinc-400 hover:dark:text-white transition-colors">Owners</a>
+        <a href="#apparels"   class="text-black dark:text-zinc-400 hover:dark:text-white transition-colors">Apparels</a>
       </div>
-      <div class="mt-8 pt-4 border-t border-gray-200">
-        <div class="flex items-center space-x-4">
-          <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
-            <i class="fas fa-search text-gray-600"></i>
-          </a>
-          <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
-            <i class="fas fa-shopping-cart text-gray-600"></i>
-            <span
-              class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
-              >3</span
-            >
-          </a>
-          <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
-            <i class="fas fa-user text-gray-600"></i>
-          </a>
-          <!-- NEW Login button (mobile) -->
-          <a
-            href="profile login.html"
-            class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
-          >
-            Login
-          </a>
+      <div class="mt-8 pt-4 border-t border-gray-200 dark:border-zinc-900">
+        <div class="flex items-center space-x-3">
+          <a href="#search"      class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900"><i class="fas fa-search text-gray-600 dark:text-zinc-500"></i></a>
+          <a href="cart.html"    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900"><i class="fas fa-shopping-cart text-gray-600 dark:text-zinc-500"></i></a>
+          <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900"><i class="fas fa-user text-gray-600 dark:text-zinc-500"></i></a>
+          <a href="profile login.html" class="px-3 py-1.5 rounded-full text-xs font-medium border border-gray-300 dark:border-zinc-800 text-gray-800 dark:text-zinc-400 hover:bg-black hover:text-white transition">Login</a>
         </div>
       </div>
     </div>
   </nav>
-
+  
   <!-- Brand Filter -->
   <section id="brand-filter" class="py-8 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
