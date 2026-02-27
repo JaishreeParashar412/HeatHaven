@@ -91,95 +91,52 @@
     </button>
   </div>
 
-  <!-- Navigation -->
-  <nav class="bg-white shadow-md sticky top-0 z-40">
+ <!-- Navigation -->
+  <nav class="bg-white dark:bg-navdark shadow-md dark:shadow-black sticky top-0 z-40 border-b border-transparent dark:border-zinc-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <div class="brand text-2xl font-bold">
-            <a href="index.html" class="text-black">HEAT HAVEN</a>
+            <a href="index.html" class="text-black dark:text-white">HEAT HAVEN</a>
           </div>
           <div class="hidden md:flex items-center ml-10 space-x-8">
-            <a
-              href="index.html"
-              class="nav-link text-black hover:text-gray-600 px-2"
-              >Home</a
-            >
-            <a
-              href="product.html"
-              class="nav-link text-black hover:text-gray-600 px-2"
-              >Products</a
-            >
-            <a
-              href="deals.html"
-              class="nav-link text-black hover:text-gray-600 px-2"
-              >Hot Deals</a
-            >
-            <a
-              href="owners.html"
-              class="nav-link text-black hover:text-gray-600 px-2"
-              >Owners</a
-            >
-            <a
-              href="apparels.html"
-              class="nav-link text-black hover:text-gray-600 px-2"
-              >Appareals</a
-            >
-            <a
-              href="products_apparels.html"
-              class="nav-link text-black hover:text-gray-600 px-2"
-              >Products_Apparels</a
-            >
+            <a href="index.html"             class="text-black dark:text-zinc-400 hover:text-gray-600 dark:hover:text-white px-2 transition-colors">Home</a>
+            <a href="product.html"           class="text-black dark:text-zinc-400 hover:text-gray-600 dark:hover:text-white px-2 transition-colors">Products</a>
+            <a href="deals.html"             class="text-black dark:text-zinc-400 hover:text-gray-600 dark:hover:text-white px-2 transition-colors">Hot Deals</a>
+            <a href="owners.html"            class="text-black dark:text-zinc-400 hover:text-gray-600 dark:hover:text-white px-2 transition-colors">Owners</a>
+            <a href="apparels.html"          class="text-black dark:text-zinc-400 hover:text-gray-600 dark:hover:text-white px-2 transition-colors">Apparels</a>
+            <a href="products_apparels.html" class="text-black dark:text-zinc-400 hover:text-gray-600 dark:hover:text-white px-2 transition-colors">Products_Apparels</a>
           </div>
         </div>
-
         <div class="flex items-center">
           <div class="hidden md:flex items-center space-x-2">
-            <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
-              <i class="fas fa-search text-gray-600"></i>
+            <a href="#search" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
+              <i class="fas fa-search text-gray-600 dark:text-zinc-500"></i>
             </a>
-            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
-              <i class="fas fa-shopping-cart text-gray-600"></i>
-              <span
-                id="cart-count"
-                class="cart-badge bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4"
-              >
-                0
-              </span>
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
+              <i class="fas fa-shopping-cart text-gray-600 dark:text-zinc-500"></i>
+              <span id="cart-count" class="cart-badge bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">0</span>
             </a>
-
-            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
-              <i class="fas fa-user text-gray-600"></i>
+             <a href="#" id="filterBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark">
+              <i class="fas fa-filter text-gray-600 dark:text-gray-300"></i>
             </a>
-
-            <!-- NEW Login button (desktop) -->
-            <a
-              href="profile login.html"
-              class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
-            >
+            <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
+              <i class="fas fa-user text-gray-600 dark:text-zinc-500"></i>
+            </a>
+            <a href="profile login.html"
+               class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium
+                      border border-gray-300 dark:border-zinc-800
+                      text-gray-800 dark:text-zinc-400
+                      hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">
               Login
             </a>
           </div>
-          <button
-            class="md:hidden p-2 rounded-md focus:outline-none"
-            id="mobile-menu-button"
-          >
-            <i class="fas fa-bars text-black"></i>
+          <button class="md:hidden p-2 rounded-md" id="mobile-menu-button">
+            <i class="fas fa-bars text-black dark:text-white"></i>
           </button>
         </div>
       </div>
     </div>
-
-    <!-- Cart Sidebar -->
-    <div
-      id="cartSidebar"
-      class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40"
-    ></div>
-    <div
-      id="cartOverlay"
-      class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"
-    ></div>
-
     <!-- Mobile menu -->
     <div
       class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4"
