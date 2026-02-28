@@ -59,102 +59,173 @@
     .dark #theme-toggle .sun-icon  { opacity:0; transform:rotate(-90deg) scale(0.4); }
     .dark #theme-toggle .moon-icon { opacity:1; transform:rotate(0deg) scale(1); }
 
+    /* ── Nav Search Pill ── */
+    .nav-search-pill {
+      display:flex; align-items:center;
+      min-width:220px; padding:0;
+      border-radius:999px; border:none; cursor:pointer;
+      background:transparent;
+      font-family:"Poppins",sans-serif;
+      font-size:13px; font-weight:500;
+      transition:transform 0.15s;
+      position:relative; white-space:nowrap;
+    }
+    .nav-search-pill:hover { transform:scale(1.02); }
+    .nav-search-pill:active { transform:scale(0.97); } 
+    .nav-search-pill .pill-border {
+      position:absolute; inset:0; border-radius:999px; padding:2px;
+      background:linear-gradient(100deg,#4285f4,#ea4335,#fbbc04,#34a853,#4285f4);
+      background-size:250% 250%;
+      animation:pill-gradient 3s ease infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events:none;
+    }
+    .nav-search-pill .pill-inner {
+      display:flex; align-items:center; gap:10px; width:100%;
+      padding:8px 18px 8px 14px; border-radius:999px;
+      background:#f8f9fa; position:relative; z-index:1;
+      transition:background 0.2s, box-shadow 0.2s;
+    }
+    .nav-search-pill:hover .pill-inner {
+      background:#fff;
+      box-shadow:0 2px 16px rgba(66,133,244,0.18), 0 1px 6px rgba(234,67,53,0.1);
+    }
+    .pill-search-icon {
+      width:28px; height:28px; flex-shrink:0;
+      background:linear-gradient(135deg,#4285f4,#34a853);
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      transition:transform 0.2s;
+    }
+    .nav-search-pill:hover .pill-search-icon { transform:rotate(-10deg) scale(1.1); }
+    .pill-search-icon svg { width:13px; height:13px; }
+    .pill-label { flex:1; text-align:left; color:#5f6368; font-size:13px; }
+    .nav-search-pill .pill-kbd {
+      display:inline-flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.07); border-radius:6px;
+      padding:2px 7px; font-size:11px; font-family:monospace;
+      color:#999; line-height:1.5; flex-shrink:0;
+    }
+    .dark .nav-search-pill .pill-inner { background:#1a1a1a; }
+    .dark .nav-search-pill:hover .pill-inner { background:#222; box-shadow:0 2px 16px rgba(66,133,244,0.12); }
+    .dark .pill-label { color:#9aa0a6; }
+    .dark .nav-search-pill .pill-kbd { background:rgba(255,255,255,0.07); color:#666; }
+    @keyframes pill-gradient {
+      0%   { background-position:0% 50%; }
+      50%  { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
+    }
+
     /* ════════════════════════════════════
        SEARCH OVERLAY
     ════════════════════════════════════ */
     #search-overlay {
-      position: fixed; inset: 0; z-index: 999;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
-      display: flex; flex-direction: column; align-items: center;
-      padding-top: 80px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease;
+      position:fixed; inset:0; z-index:9998;
+      background:rgba(255,255,255,0.85);
+      backdrop-filter:blur(20px);
+      display:flex; flex-direction:column; align-items:center;
+      justify-content:flex-start; padding-top:120px;
+      opacity:0; pointer-events:none;
+      transition:opacity 0.3s ease;
     }
-    #search-overlay.open { opacity: 1; pointer-events: all; }
+    .dark #search-overlay { background:rgba(0,0,0,0.88); }
+    #search-overlay.open { opacity:1; pointer-events:all; }
 
-    #search-box-wrap {
-      width: 100%; max-width: 640px; padding: 0 16px;
-      position: relative;
+    #search-box-wrap { width:100%; max-width:620px; padding:0 20px; position:relative; }
+
+    .search-border-wrap {
+      position:relative; border-radius:999px; padding:3px;
+      background:linear-gradient(135deg,#4285f4,#ea4335,#fbbc04,#34a853,#4285f4);
+      background-size:300% 300%;
+      animation:gradient-shift 4s ease infinite;
+      box-shadow:0 8px 40px rgba(66,133,244,0.25), 0 4px 20px rgba(234,67,53,0.15);
     }
+    @keyframes gradient-shift {
+      0%   { background-position:0% 50%; }
+      50%  { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
+    }
+    .search-inner {
+      display:flex; align-items:center;
+      background:#fff; border-radius:999px;
+      padding:14px 20px 14px 22px; gap:14px;
+    }
+    .dark .search-inner { background:#111; }
+    .search-icon-wrap { color:#5f6368; flex-shrink:0; font-size:18px; display:flex; align-items:center; }
+    .dark .search-icon-wrap { color:#9aa0a6; }
 
     #search-input {
-      width: 100%;
-      padding: 16px 52px 16px 20px;
-      border-radius: 16px;
-      border: 2px solid rgba(255,255,255,0.15);
-      background: #fff;
-      font-family: "Poppins", sans-serif;
-      font-size: 16px;
-      color: #111;
-      outline: none;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      transition: border-color 0.2s;
+      flex:1; border:none; outline:none; background:transparent;
+      font-family:"Poppins",sans-serif; font-size:18px; color:#202124;
+      letter-spacing:0.01em;
     }
-    .dark #search-input { background: #111; color: #fff; border-color: rgba(255,255,255,0.1); }
-    #search-input:focus { border-color: #ef4444; }
+    .dark #search-input { color:#e8eaed; }
+    #search-input::placeholder { color:#9aa0a6; }
 
     #search-clear-btn {
-      position: absolute; right: 32px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer;
-      color: #999; font-size: 18px;
-      display: none;
+      background:none; border:none; cursor:pointer;
+      color:#9aa0a6; font-size:16px; display:none;
+      padding:4px; border-radius:50%;
+      transition:color 0.15s, background 0.15s; flex-shrink:0;
     }
-    #search-clear-btn.visible { display: block; }
+    #search-clear-btn:hover { background:#f1f3f4; color:#5f6368; }
+    .dark #search-clear-btn:hover { background:#303134; }
+    #search-clear-btn.visible { display:flex; align-items:center; justify-content:center; }
 
     #search-results-panel {
-      width: 100%; max-width: 640px; padding: 0 16px;
-      margin-top: 12px;
-      max-height: calc(100vh - 220px);
-      overflow-y: auto;
-      display: none;
+      width:100%; max-width:620px; padding:0 20px;
+      margin-top:16px;
+      max-height:calc(100vh - 280px); overflow-y:auto; display:none;
     }
-    #search-results-panel.has-results { display: block; }
-    #search-results-panel::-webkit-scrollbar { width: 4px; }
-    #search-results-panel::-webkit-scrollbar-thumb { background: #555; border-radius: 2px; }
+    #search-results-panel.has-results { display:block; }
+    #search-results-panel::-webkit-scrollbar { width:4px; }
+    #search-results-panel::-webkit-scrollbar-thumb { background:#ccc; border-radius:2px; }
+    .dark #search-results-panel::-webkit-scrollbar-thumb { background:#444; }
 
     .search-result-item {
-      display: flex; align-items: center; gap: 14px;
-      padding: 12px 16px;
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.15s;
-      animation: result-in 0.2s ease;
+      display:flex; align-items:center; gap:14px;
+      padding:12px 18px; background:#fff; border-radius:14px;
+      margin-bottom:8px; cursor:pointer;
+      transition:background 0.15s, transform 0.15s, box-shadow 0.15s;
+      animation:result-in 0.2s ease;
+      box-shadow:0 1px 6px rgba(0,0,0,0.08);
     }
-    @keyframes result-in { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-    .dark .search-result-item { background: #111; }
-    .search-result-item:hover { background: #f5f5f5; transform: translateX(4px); }
-    .dark .search-result-item:hover { background: #1a1a1a; }
-    .search-result-item:last-child { margin-bottom: 0; }
+    @keyframes result-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    .dark .search-result-item { background:#1c1c1e; box-shadow:none; }
+    .search-result-item:hover { background:#f8f9fa; transform:translateY(-1px); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+    .dark .search-result-item:hover { background:#2c2c2e; }
 
-    .sri-img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: #f0f0f0; }
-    .dark .sri-img { background: #222; }
-    .sri-info { flex: 1; min-width: 0; }
-    .sri-name { font-weight: 700; font-size: 14px; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .dark .sri-name { color: #f0f0f0; }
-    .sri-sub { font-size: 12px; color: #888; margin-top: 2px; }
-    .sri-price { font-weight: 700; font-size: 14px; color: #111; flex-shrink: 0; text-align: right; }
-    .dark .sri-price { color: #f0f0f0; }
-    .sri-old { font-size: 11px; color: #aaa; text-decoration: line-through; display: block; }
+    .sri-img { width:52px; height:52px; object-fit:cover; border-radius:10px; flex-shrink:0; background:#f1f3f4; }
+    .dark .sri-img { background:#2c2c2e; }
+    .sri-info { flex:1; min-width:0; }
+    .sri-name { font-weight:600; font-size:14px; color:#202124; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .dark .sri-name { color:#e8eaed; }
+    .sri-sub { font-size:12px; color:#5f6368; margin-top:2px; }
+    .dark .sri-sub { color:#9aa0a6; }
+    .sri-price { font-weight:700; font-size:14px; color:#202124; flex-shrink:0; }
+    .dark .sri-price { color:#e8eaed; }
 
     .search-no-results {
-      text-align: center; padding: 32px 16px;
-      background: #fff; border-radius: 12px;
-      font-size: 14px; color: #888;
+      text-align:center; padding:40px 16px;
+      background:#fff; border-radius:14px;
+      font-size:14px; color:#5f6368;
+      box-shadow:0 1px 6px rgba(0,0,0,0.08);
     }
-    .dark .search-no-results { background: #111; color: #666; }
-    .search-no-results .emoji { font-size: 32px; display: block; margin-bottom: 8px; }
+    .dark .search-no-results { background:#1c1c1e; color:#9aa0a6; box-shadow:none; }
+    .search-no-results .emoji { font-size:36px; display:block; margin-bottom:10px; }
 
-    .search-highlight { background: #fef08a; border-radius: 2px; padding: 0 1px; color: #111; }
-    .dark .search-highlight { background: #854d0e; color: #fef9c3; }
+    .search-highlight { color:#1a73e8; font-weight:700; }
+    .dark .search-highlight { color:#8ab4f8; }
 
     #search-close-hint {
-      margin-top: 14px;
-      font-size: 12px; color: rgba(255,255,255,0.5);
-      font-family: "Poppins", sans-serif;
+      margin-top:16px; font-size:12px;
+      color:#9aa0a6; font-family:"Poppins",sans-serif;
     }
+    #search-close-hint kbd {
+      background:rgba(0,0,0,0.08); color:#5f6368;
+      padding:2px 8px; border-radius:4px; font-family:monospace;
+    }
+    .dark #search-close-hint kbd { background:rgba(255,255,255,0.1); color:#9aa0a6; }
 
     /* ════════════════════════════════════
        CHAT WIDGET
@@ -243,11 +314,16 @@
   ════════════════════════════════════ -->
   <div id="search-overlay" role="dialog" aria-label="Search products">
     <div id="search-box-wrap">
-      <input id="search-input" type="text" placeholder="Search sneakers, brands, colorways…" autocomplete="off" aria-label="Search" />
-      <button id="search-clear-btn" aria-label="Clear search">✕</button>
+      <div class="search-border-wrap">
+        <div class="search-inner">
+          <div class="search-icon-wrap"><i class="fas fa-search"></i></div>
+          <input id="search-input" type="text" placeholder="Ask anything…" autocomplete="off" aria-label="Search" />
+          <button id="search-clear-btn" aria-label="Clear search">✕</button>
+        </div>
+      </div>
     </div>
     <div id="search-results-panel" role="listbox"></div>
-    <p id="search-close-hint">Press <kbd style="background:rgba(255,255,255,0.15);padding:2px 6px;border-radius:4px;font-family:monospace">Esc</kbd> to close</p>
+    <p id="search-close-hint">Press <kbd>Esc</kbd> to close</p>
   </div>
 
   <!-- ── Dark Mode Toggle ── -->
@@ -279,15 +355,25 @@
             <a href="product.html"           class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Products</a>
             <a href="deals.html"             class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Hot Deals</a>
             <a href="#contact"               class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Contact</a>
-            <a href="apparels.html"          class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Apparels</a>
-            <a href="products_apparels.html" class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Products_Apparels</a>
+            <!-- <a href="apparels.html"          class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Apparels</a>
+            <a href="products_apparels.html" class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Products_Apparels</a> -->
           </div>
         </div>
         <div class="flex items-center">
           <div class="hidden md:flex items-center space-x-2">
-            <!-- ★ SEARCH BUTTON — now triggers overlay -->
-            <button id="search-open-btn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark" aria-label="Open search">
-              <i class="fas fa-search text-gray-600 dark:text-gray-300"></i>
+            <!-- ★ Search pill toggle -->
+            <button id="search-open-btn" class="nav-search-pill" aria-label="Open search">
+              <div class="pill-border"></div>
+              <span class="pill-inner">
+                <span class="pill-search-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </span>
+                <span class="pill-label">Search sneakers…</span>
+                <span class="pill-kbd">👟</span>
+              </span>
             </button>
             <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark relative">
               <i class="fas fa-shopping-cart text-gray-600 dark:text-gray-300"></i>
@@ -811,6 +897,11 @@
     document.getElementById("search-open-btn-mobile")?.addEventListener("click", () => {
       document.getElementById("mobile-menu").classList.remove("open");
       openSearch();
+    });
+
+    // Cmd/Ctrl+K to open search
+    document.addEventListener("keydown", e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); }
     });
 
     // Close on overlay background click
