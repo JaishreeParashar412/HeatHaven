@@ -436,15 +436,28 @@
         </div>
         <div class="flex items-center">
           <div class="hidden md:flex items-center space-x-2">
-            <a href="#search" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
-              <i class="fas fa-search text-gray-600 dark:text-zinc-500"></i>
-            </a>
-            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
+            <!-- ★ Search pill toggle -->
+            <button id="search-open-btn" class="nav-search-pill" aria-label="Open search">
+              <div class="pill-border"></div>
+              <span class="pill-inner">
+                <span class="pill-search-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </span>
+                <span class="pill-label">Search sneakers…</span>
+                <span class="pill-kbd">
+                  <img src="images/heat haven main logo.png" alt="Logo" class="h-5 w-5 object-contain">
+                </span>
+              </span>
+            </button>
+            <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors relative">
               <i class="fas fa-shopping-cart text-gray-600 dark:text-zinc-500"></i>
-              <span id="cart-count" class="cart-badge bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">0</span>
+              <span id="cart-count" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
             </a>
-             <a href="#" id="filterBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark">
-              <i class="fas fa-filter text-gray-600 dark:text-gray-300"></i>
+            <a href="#" id="filterBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
+              <i class="fas fa-filter text-gray-600 dark:text-zinc-500"></i>
             </a>
             <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900 transition-colors">
               <i class="fas fa-user text-gray-600 dark:text-zinc-500"></i>
@@ -464,31 +477,44 @@
       </div>
     </div>
 
-    <!-- Filter Dropdown -->
-    <div id="filterDropdown" class="hidden absolute right-6 top-16 w-64 bg-white dark:bg-cardDark shadow-xl rounded-lg p-4 z-50">
-      <h3 class="font-bold text-lg mb-3 dark:text-white">Filter Products</h3>
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-1 dark:text-gray-300">Brand</label>
-        <select id="brandFilter" class="w-full border border-gray-300 dark:bg-cardDark dark:bg-gray-700 dark:text-white rounded px-2 py-1 text-sm">
+    <!-- Filter Dropdown — dual range slider -->
+    <div id="filterDropdown" class="hidden absolute right-6 top-16 w-68 bg-white dark:bg-zinc-950 border dark:border-zinc-900 shadow-2xl rounded-xl p-5 z-50" style="width:280px;">
+      <h3 class="font-bold text-base mb-4 dark:text-white">Filter Products</h3>
+      <div class="mb-5">
+        <label class="block text-sm font-medium mb-2 dark:text-zinc-300">Brand</label>
+        <select id="brandFilter" class="w-full border border-gray-200 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none cursor-pointer">
           <option value="all">All Brands</option>
-          <option value="jordan">Jordan</option>
           <option value="nike">Nike</option>
+          <option value="adidas">Adidas</option>
+          <option value="jordan">Jordan</option>
           <option value="yeezy">Yeezy</option>
+          <option value="newbalance">New Balance</option>
+          <option value="puma">Puma</option>
+          <option value="crocs">Crocs</option>
+          <option value="rick owens">Rick Owens</option>
+          <option value="slides">Slides</option>
         </select>
       </div>
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-1 dark:text-gray-300">Max Price: ₹<span id="priceValue">700000</span></label>
-        <input id="priceFilter" type="range" min="1000" max="700000" step="100" value="700000" class="w-full cursor-pointer custom-slider" />
+      <div class="mb-5">
+        <div class="flex justify-between items-center mb-2">
+          <label class="text-sm font-medium dark:text-zinc-300">Price Range</label>
+          <span class="text-xs font-semibold text-red-500">₹<span id="priceMin">1,000</span> – ₹<span id="priceMax">7,00,000</span></span>
+        </div>
+        <div class="range-wrap">
+          <div class="range-track"></div>
+          <div class="range-fill" id="rangeFill"></div>
+          <input type="range" id="rangeMin" min="1000" max="700000" step="500" value="1000" />
+          <input type="range" id="rangeMax" min="1000" max="700000" step="500" value="700000" />
+        </div>
+        <div class="flex justify-between text-xs text-gray-400 dark:text-zinc-600 mt-1">
+          <span>₹1,000</span><span>₹7,00,000</span>
+        </div>
       </div>
-      <div class="flex justify-between">
-        <button id="applyFilter" class="bg-black dark:bg-white dark:text-black text-white px-3 py-1 rounded text-sm">Apply</button>
-        <button id="resetFilter" class="text-sm text-gray-600 dark:text-gray-400 hover:underline">Reset</button>
+      <div class="flex gap-2">
+        <button id="applyFilter" class="flex-1 bg-black dark:bg-white dark:text-black text-white py-2 rounded-lg text-sm font-medium hover:opacity-80 transition">Apply</button>
+        <button id="resetFilter" class="flex-1 border border-gray-200 dark:border-zinc-800 text-gray-600 dark:text-zinc-400 py-2 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-zinc-900 transition">Reset</button>
       </div>
     </div>
-
-    
-
-    
 
     <!-- Mobile menu -->
     <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white dark:bg-zinc-950 border-l dark:border-zinc-900 shadow-2xl z-50 p-4" id="mobile-menu">
@@ -506,7 +532,9 @@
       </div>
       <div class="mt-8 pt-4 border-t border-gray-200 dark:border-zinc-900">
         <div class="flex items-center space-x-3">
-          <a href="#search"      class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900"><i class="fas fa-search text-gray-600 dark:text-zinc-500"></i></a>
+          <button id="search-open-btn-mobile" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900" aria-label="Search">
+            <i class="fas fa-search text-gray-600 dark:text-zinc-500"></i>
+          </button>
           <a href="cart.html"    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900"><i class="fas fa-shopping-cart text-gray-600 dark:text-zinc-500"></i></a>
           <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-900"><i class="fas fa-user text-gray-600 dark:text-zinc-500"></i></a>
           <a href="profile login.html" class="px-3 py-1.5 rounded-full text-xs font-medium border border-gray-300 dark:border-zinc-800 text-gray-800 dark:text-zinc-400 hover:bg-black hover:text-white transition">Login</a>
@@ -515,7 +543,7 @@
     </div>
   </nav>
 
-  <!-- Brand Filter -->
+  <!-- Brand Filter Pills -->
   <section id="brand-filter" class="py-8 bg-gray-50 dark:bg-black border-b dark:border-zinc-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold mb-5 dark:text-white">Shop by Brand</h2>
@@ -546,12 +574,11 @@
       <h2 class="text-3xl font-bold mb-8 dark:text-white">Featured Sneakers</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-        <!-- Product 1 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="jordan">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="jordan" data-price="5559" data-name="Air Jordan 1 Retro High" data-colorway="Chicago Bulls"
+             data-img="images/aj 1 chicago solo (1).png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/aj 1 chicago solo (1).png" alt="Jordan" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/aj 1 chichgo.png" alt="Jordan hover" class="w-full h-64 object-cover hidden group-hover:block" />
             <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">SALE !</div>
@@ -559,318 +586,239 @@
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Air Jordan 1 Retro High</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Chicago Bulls</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
-              <div>
-                <span class="text-gray-400 dark:text-zinc-700 line-through mr-1 text-sm">₹6,250</span>
-                <span class="font-bold dark:text-white">₹5,559</span>
-              </div>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <div><span class="text-gray-400 dark:text-zinc-700 line-through mr-1 text-sm">₹6,250</span><span class="font-bold dark:text-white">₹5,559</span></div>
+              <button class="bg-black dark:bg-red-600 dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="slides">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="slides" data-price="5559" data-name="Nike Uptempo Slide" data-colorway="Chicago Bulls"
+             data-img="images/uptempo slide bulls solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/uptempo slide bulls solo.png" alt="Slide" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/uptempo slide bulls.png" alt="Slide hover" class="w-full h-64 object-cover hidden group-hover:block" />
+            <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">LIMITED PIECES ⏳</div>
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Nike Uptempo Slide</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Chicago Bulls</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-red-600 dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 3 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="nike">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="nike" data-price="5559" data-name="Nike SB Dunk Low" data-colorway="Golf"
+             data-img="images/sb gulf solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/sb gulf solo.png" alt="SB" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/sb gulf.png" alt="SB hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Nike SB Dunk Low</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Golf</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-red-600 dark:text-white text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 4 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="adidas">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="adidas" data-price="5559" data-name="Adidas Campus" data-colorway="Clear Sky Gum"
+             data-img="images/adidas campus clear sky gum solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/adidas campus clear sky gum solo.png" alt="Adidas" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/adidas campus clear sky gum.png" alt="Adidas hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Adidas Campus</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Clear Sky Gum</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 5 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="nike">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="nike" data-price="5559" data-name="Air Force 1 Low" data-colorway="Lakers Home"
+             data-img="images/af1 kobe solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/af1 kobe solo.png" alt="AF1" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/af1 kobe yellow.png" alt="AF1 hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Air Force 1 Low</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Lakers Home</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 6 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="yeezy">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="yeezy" data-price="5559" data-name="Yeezy Boost 350 V2" data-colorway="Zebra"
+             data-img="images/yeezy zebra solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/yeezy zebra solo.png" alt="Yeezy" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/yeezy zebra.png" alt="Yeezy hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Yeezy Boost 350 V2</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Zebra</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 7 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="yeezy">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="yeezy" data-price="5559" data-name="Yeezy 700 V3" data-colorway="Azael"
+             data-img="images/yzy 700 v3 azael solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/yzy 700 v3 azael solo.png" alt="Yeezy 700" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/yzy 700 v3 azael.png" alt="Yeezy 700 hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Yeezy 700 V3</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Azael</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 8 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="rick owens">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="rick owens" data-price="5559" data-name="Rick Owens Hollywood High" data-colorway="Black Milk"
+             data-img="images/rick owens hollywood high black milk solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/rick owens hollywood high black milk solo.png" alt="Rick Owens" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/rick owens hollywood high black milk.png" alt="Rick Owens hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Rick Owens Hollywood High</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Black Milk</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 9 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="puma">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="puma" data-price="5559" data-name="Puma Melns" data-colorway="La France"
+             data-img="images/puma melns la france solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/puma melns la france solo.png" alt="Puma" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/puma melons lafrance.png" alt="Puma hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Puma Melns</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">La France</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 10 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="jordan">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="jordan" data-price="5559" data-name="Travis x Fragment High" data-colorway="Fragment"
+             data-img="images/travis x fragment high solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/travis x fragment high solo.png" alt="Travis" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/travis x fragment high.png" alt="Travis hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Travis x Fragment High</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Fragment</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 11 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="newbalance">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="newbalance" data-price="5559" data-name="New Balance 990v5" data-colorway="Grey"
+             data-img="images/nb 990v5 solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/nb 990v5 solo.png" alt="NB" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/nb 990v5.png" alt="NB hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">New Balance 990v5</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Grey</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 12 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="jordan">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="jordan" data-price="5559" data-name="Air Jordan 4 Retro" data-colorway="Breds"
+             data-img="images/aj4 bred solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/aj4 bred solo.png" alt="AJ4" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/aj4 bred.png" alt="AJ4 hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Air Jordan 4 Retro</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Breds</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 13 -->
-        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none dark:shadow-none group relative" data-brand="crocs">
+        <div class="shoe-card bg-white dark:bg-amoled rounded-xl overflow-hidden shadow-sm dark:shadow-none group relative"
+             data-brand="crocs" data-price="5559" data-name="Salehe Bembury x Crocs" data-colorway="Horchata"
+             data-img="images/crocs horchata solo.png">
           <div class="relative">
-            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
-              <i class="far fa-heart text-gray-700 text-lg"></i>
-            </button>
+            <button class="wishlist-btn spring-btn absolute top-3 left-3 z-10 bg-white hover:bg-white rounded-full p-2 shadow-sm transition"><i class="far fa-heart text-gray-700 text-lg"></i></button>
             <img src="images/crocs horchata solo.png" alt="Crocs" class="w-full h-64 object-cover group-hover:hidden" />
             <img src="images/crocs horchata.png" alt="Crocs hover" class="w-full h-64 object-cover hidden group-hover:block" />
           </div>
           <div class="p-4">
             <h3 class="text-lg font-bold mb-1 dark:text-white">Salehe Bembury x Crocs</h3>
             <p class="text-gray-500 dark:text-zinc-600 text-sm mb-3">Horchata</p>
-            <div class="mb-3">
-              <select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer">
-                <option value="" disabled selected>Choose size</option>
-                <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
-              </select>
-            </div>
+            <div class="mb-3"><select class="w-full bg-white dark:bg-amoled dark:text-white border border-gray-200 dark:border-zinc-800 text-sm rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"><option value="" disabled selected>Choose size</option><option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option></select></div>
             <div class="flex justify-between items-center">
               <span class="font-bold dark:text-white">₹5,559</span>
-              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-zinc-200 spring-btn add-to-cart-btn transition">Add to Cart</button>
+              <button class="bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-800 spring-btn add-to-cart-btn transition">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -878,7 +826,7 @@
       </div>
     </div>
   </section>
-
+  
   <!-- Footer -->
   <footer class="bg-black text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
