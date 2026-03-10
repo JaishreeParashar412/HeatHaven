@@ -377,98 +377,99 @@
 </div>
 
      <!-- Navigation -->
-<nav class="bg-white shadow-md sticky top-0 z-40">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex items-center">
-        <div class="brand text-2xl font-bold">
-          <a href="#" class="text-black">HEAT HAVEN</a>
+  <nav class="bg-white dark:bg-amoled shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="brand text-2xl font-bold">
+            <a href="index.html" class="text-black dark:text-white">HEAT HAVEN</a>
+          </div>
+          <div class="hidden md:flex items-center ml-10 space-x-8">
+            <a href="index.html"   class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Home</a>
+            <a href="product.html" class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Products</a>
+            <a href="deals.html"   class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Hot Deals</a>
+            <a href="#contact"     class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Contact</a>
+          </div>
         </div>
-        <div class="hidden md:flex items-center ml-10 space-x-8">
-          <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
-          <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
-          <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
-          <!-- <a href="#about" class="nav-link text-black hover:text-gray-600 px-2">About Us</a> -->
-          <a href="#contact" class="nav-link text-black hover:text-gray-600 px-2">Contact</a>
-          <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
-          <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
-        </div>
+      <!-- Right actions -->
+      <div class="hidden md:flex items-center gap-2 flex-shrink-0">
+
+        <!-- ── SEARCH PILL (matches screenshot) ── -->
+        <button id="search-pill" aria-label="Search" onclick="openSearch()">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <span class="pill-text">Search sneakers…</span>
+          <span class="pill-emoji">👟</span>
+        </button>
+
+        <!-- Cart -->
+        <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark relative">
+              <i class="fas fa-shopping-cart text-gray-600 dark:text-gray-300"></i>
+              <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </a>
+
+        <!-- Filter -->
+        <button id="filterBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark transition" aria-label="Filter">
+          <i class="fas fa-filter text-gray-600 dark:text-gray-300"></i>
+        </button>
+
+        <!-- Profile -->
+        <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark transition">
+          <i class="fas fa-user text-gray-600 dark:text-gray-300"></i>
+        </a>
+
+        <!-- Login -->
+        <a href="profile login.html"
+           class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600
+                  text-gray-800 dark:text-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+          Login
+        </a>
       </div>
 
-      <div class="flex items-center">
-        <div class="hidden md:flex items-center space-x-2">
-          <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
-            <i class="fas fa-search text-gray-600"></i>
-          </a>
-          <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
-            <i class="fas fa-shopping-cart text-gray-600"></i>
-            <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">3</span>
-          </a>
-
-          <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
-            <i class="fas fa-user text-gray-600"></i>
-          </a>
-
-          <!-- NEW Login button (desktop) -->
-          <a
-            href="profile login.html"
-            class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
-          >
-            Login
-          </a>
-        </div>
-        <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
-          <i class="fas fa-bars text-black"></i>
+      <!-- Mobile hamburger -->
+      <div class="md:hidden ml-auto">
+        <button class="p-2" id="mobile-menu-button">
+          <i class="fas fa-bars text-black dark:text-white text-lg"></i>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Cart Sidebar -->
-  <div id="cartSidebar"
-       class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40">
-    <!-- ...cart content unchanged... -->
-  </div>
-  <div id="cartOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
-
   <!-- Mobile menu -->
-  <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-4" id="mobile-menu">
+  <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white dark:bg-cardDark shadow-xl z-50 p-5" id="mobile-menu">
     <div class="flex justify-between items-center mb-8">
-      <div class="brand text-xl font-bold">HEAT HAVEN</div>
-      <button id="close-menu">
-        <i class="fas fa-times text-xl"></i>
-      </button>
+      <div class="brand text-xl dark:text-white">HEAT HAVEN</div>
+      <button id="close-menu"><i class="fas fa-times text-xl dark:text-white"></i></button>
     </div>
-    <div class="flex flex-col space-y-4">
-      <a href="#home" class="nav-link text-black hover:text-gray-600">Home</a>
-      <a href="#products" class="nav-link text-black hover:text-gray-600">Products</a>
-      <a href="#deals" class="nav-link text-black hover:text-gray-600">Heat Haven Deals</a>
-      <a href="#about" class="nav-link text-black hover:text-gray-600">About Us</a>
-      <a href="#contact" class="nav-link text-black hover:text-gray-600">Contact</a>
-      <a href="#apparels" class="nav-link text-black hover:text-gray-600">Appareals</a>
-      <a href="#search" class="nav-link text-black hover:text-gray-600">Products.apparels</a>
+
+    <div class="flex flex-col space-y-5">
+      <a href="index.html"   class="text-black dark:text-gray-200 font-medium">Home</a>
+      <a href="product.html" class="text-black dark:text-gray-200 font-medium">Products</a>
+      <a href="deals.html"   class="text-black dark:text-gray-200 font-medium">Hot Deals</a>
+      <a href="#contact"     class="text-black dark:text-gray-200 font-medium">Contact</a>
     </div>
-    <div class="mt-8 pt-4 border-t border-gray-200">
-      <div class="flex items-center space-x-4">
-        <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
-          <i class="fas fa-search text-gray-600"></i>
-        </a>
-        <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100">
-          <i class="fas fa-shopping-cart text-gray-600"></i>
-          <span
-            class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center -mt-8 ml-4">3</span>
-        </a>
-        <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100">
-          <i class="fas fa-user text-gray-600"></i>
-        </a>
-        <!-- NEW Login button (mobile) -->
-        <a
-          href="profile login.html"
-          class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:bg-black hover:text-white transition"
-        >
-          Login
-        </a>
+
+    <!-- Mobile search -->
+    <button onclick="openSearch()" class="mt-6 w-full flex items-center gap-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2.5 text-sm text-gray-400">
+      <div class="pill-icon" style="width:24px;height:24px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;">
+          <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
       </div>
+      Search sneakers…
+    </button>
+    <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700 flex items-center gap-3 flex-wrap">
+      <a href="cart.html" class="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark">
+        <i class="fas fa-shopping-cart text-gray-600 dark:text-gray-300"></i>
+        <span class="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span>
+      </a>
+      <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark">
+        <i class="fas fa-user text-gray-600 dark:text-gray-300"></i>
+      </a>
+      <a href="profile login.html" class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-black hover:text-white transition">Login</a>
     </div>
   </div>
 </nav>
