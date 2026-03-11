@@ -444,14 +444,13 @@
       <div class="brand text-xl dark:text-white">HEAT HAVEN</div>
       <button id="close-menu"><i class="fas fa-times text-xl dark:text-white"></i></button>
     </div>
-
     <div class="flex flex-col space-y-5">
       <a href="index.html"   class="text-black dark:text-gray-200 font-medium">Home</a>
       <a href="product.html" class="text-black dark:text-gray-200 font-medium">Products</a>
       <a href="deals.html"   class="text-black dark:text-gray-200 font-medium">Hot Deals</a>
       <a href="#contact"     class="text-black dark:text-gray-200 font-medium">Contact</a>
     </div>
-
+    
     <!-- Mobile search -->
     <button onclick="openSearch()" class="mt-6 w-full flex items-center gap-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2.5 text-sm text-gray-400">
       <div class="pill-icon" style="width:24px;height:24px;">
@@ -473,140 +472,3 @@
     </div>
   </div>
 </nav>
-
-    <section class="max-w-7xl mx-auto px-6 py-12">
-        <h1 class="text-3xl font-bold mb-10">Your Shopping Cart 🛒</h1>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div class="lg:col-span-2 space-y-5" id="cart-items-column">
-                <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <img src="images/aj 1 chicago solo (1).png" class="w-24 object-contain">
-                        <div>
-                            <h3 class="font-semibold text-lg">Air Jordan 1 Retro High</h3>
-                            <p class="text-sm text-gray-500">Chicago Bulls</p>
-                            <p class="font-semibold mt-1">₹5,559.12</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <div class="flex border rounded-lg overflow-hidden">
-                            <button class="qty-minus px-3 py-1">−</button>
-                            <span class="qty-value px-4 py-1 border-x">1</span>
-                            <button class="qty-plus px-3 py-1">+</button>
-                        </div>
-                        <button class="remove-item text-gray-400 hover:text-red-500">✕</button>
-                    </div>
-                </div>
-
-                <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <img src="images/travis x fragment high solo.png" class="w-24 object-contain">
-                        <div>
-                            <h3 class="font-semibold text-lg">Travis Scott x Fragment High</h3>
-                            <p class="text-sm text-gray-500">Fragment</p>
-                            <p class="font-semibold mt-1">₹5,559.12</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <div class="flex border rounded-lg overflow-hidden">
-                            <button class="qty-minus px-3 py-1">−</button>
-                            <span class="qty-value px-4 py-1 border-x">1</span>
-                            <button class="qty-plus px-3 py-1">+</button>
-                        </div>
-                        <button class="remove-item text-gray-400 hover:text-red-500">✕</button>
-                    </div>
-                </div>
-
-                <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <img src="images/crocs horchata solo.png" class="w-24 object-contain">
-                        <div>
-                            <h3 class="font-semibold text-lg">Travis Scott x Fragment High</h3>
-                            <p class="text-sm text-gray-500">Fragment</p>
-                            <p class="font-semibold mt-1">₹5,559.12</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <div class="flex border rounded-lg overflow-hidden">
-                            <button class="qty-minus px-3 py-1">−</button>
-                            <span class="qty-value px-4 py-1 border-x">1</span>
-                            <button class="qty-plus px-3 py-1">+</button>
-                        </div>
-                        <button class="remove-item text-gray-400 hover:text-red-500">✕</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="spring-card rounded-xl p-5 h-fit sticky top-24">
-                <h2 class="text-xl font-semibold mb-5">Order Summary</h2>
-
-                <div class="space-y-3 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Subtotal</span>
-                        <span>₹11,118.24</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Shipping</span>
-                        <span>Free</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Tax</span>
-                        <span>Free</span>
-                    </div>
-                </div>
-
-                <hr class="my-5">
-
-                <div class="flex justify-between font-semibold text-lg mb-5">
-                    <span>Total</span>
-                    <span>₹11,118.24</span>
-                </div>
-
-                <button class="checkout-spring w-full bg-black text-white py-3 rounded-lg">
-                    Proceed to Checkout
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cartSection = document.querySelector('section');
-            const itemsColumn = document.getElementById('cart-items-column');
-
-            cartSection.addEventListener('click', function (e) {
-                if (e.target.classList.contains('qty-plus')) {
-                    const container = e.target.closest('.flex.border');
-                    const valueSpan = container.querySelector('.qty-value');
-                    let current = parseInt(valueSpan.textContent) || 1;
-                    valueSpan.textContent = current + 1;
-                }
-
-                if (e.target.classList.contains('qty-minus')) {
-                    const container = e.target.closest('.flex.border');
-                    const valueSpan = container.querySelector('.qty-value');
-                    let current = parseInt(valueSpan.textContent) || 1;
-                    if (current > 1) {
-                        valueSpan.textContent = current - 1;
-                    }
-                }
-
-                if (e.target.classList.contains('remove-item')) {
-                    const card = e.target.closest('.spring-card');
-                    if (card) {
-                        card.remove();
-                    }
-
-                    const remaining = itemsColumn.querySelectorAll('.spring-card').length;
-                    if (remaining === 0) {
-                        itemsColumn.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
