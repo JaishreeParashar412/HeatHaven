@@ -450,7 +450,7 @@
       <a href="deals.html"   class="text-black dark:text-gray-200 font-medium">Hot Deals</a>
       <a href="#contact"     class="text-black dark:text-gray-200 font-medium">Contact</a>
     </div>
-    
+
     <!-- Mobile search -->
     <button onclick="openSearch()" class="mt-6 w-full flex items-center gap-3 bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2.5 text-sm text-gray-400">
       <div class="pill-icon" style="width:24px;height:24px;">
@@ -472,3 +472,91 @@
     </div>
   </div>
 </nav>
+
+<!-- ══════════════════════════════════════
+     CART SECTION
+══════════════════════════════════════ -->
+<section class="max-w-7xl mx-auto px-6 py-12">
+  <h1 class="text-3xl font-bold mb-4">Your Shopping Cart 🛒</h1>
+
+  <!-- Quick brand pills -->
+  <div class="flex flex-wrap gap-3 mb-8">
+    <button class="cart-pill active px-4 py-1.5 rounded-full text-sm font-medium border transition bg-black text-white border-black" data-brand="all">All</button>
+    <button class="cart-pill px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 transition" data-brand="jordan">Jordan</button>
+    <button class="cart-pill px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 transition" data-brand="travis">Travis Scott</button>
+    <button class="cart-pill px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 transition" data-brand="crocs">Crocs</button>
+    <button class="cart-pill px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 transition" data-brand="nike">Nike</button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:pr-[22rem] xl:pr-[26rem]">
+    <div class="lg:col-span-3 space-y-5" id="cart-items-column">
+
+      <!-- Cart items with data-name, data-colorway, data-img for search -->
+      <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4 cart-item"
+           data-brand="jordan" data-price="5559"
+           data-name="Air Jordan 1 Retro High" data-colorway="Chicago Bulls"
+           data-img="images/aj 1 chicago solo (1).png">
+        <div class="flex items-center gap-4">
+          <img src="images/aj 1 chicago solo (1).png" class="w-24 object-contain" onerror="this.src='https://via.placeholder.com/96x96/f3f4f6/111111?text=AJ1'">
+          <div>
+            <h3 class="font-semibold text-lg">Air Jordan 1 Retro High</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Chicago Bulls</p>
+            <p class="font-semibold mt-1">₹5,559.12</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+            <button class="qty-minus px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">−</button>
+            <span class="qty-value px-4 py-1 border-x border-gray-300 dark:border-gray-600 dark:bg-black">1</span>
+            <button class="qty-plus px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">+</button>
+          </div>
+          <button class="remove-item text-gray-400 hover:text-red-500 text-lg leading-none">✕</button>
+        </div>
+      </div>
+
+      <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4 cart-item"
+           data-brand="travis" data-price="5559"
+           data-name="Travis Scott x Fragment High" data-colorway="Fragment Design"
+           data-img="images/travis x fragment high solo.png">
+        <div class="flex items-center gap-4">
+          <img src="images/travis x fragment high solo.png" class="w-24 object-contain" onerror="this.src='https://via.placeholder.com/96x96/f3f4f6/111111?text=Travis'">
+          <div>
+            <h3 class="font-semibold text-lg">Travis Scott x Fragment High</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Fragment Design</p>
+            <p class="font-semibold mt-1">₹5,559.12</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+            <button class="qty-minus px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">−</button>
+            <span class="qty-value px-4 py-1 border-x border-gray-300 dark:border-gray-600 dark:bg-black">1</span>
+            <button class="qty-plus px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">+</button>
+          </div>
+          <button class="remove-item text-gray-400 hover:text-red-500 text-lg leading-none">✕</button>
+        </div>
+      </div>
+
+      <div class="spring-card rounded-xl p-5 flex items-center justify-between gap-4 cart-item"
+           data-brand="crocs" data-price="5559"
+           data-name="Crocs Classic Clog" data-colorway="Horchata Edition"
+           data-img="images/crocs horchata solo.png">
+        <div class="flex items-center gap-4">
+          <img src="images/crocs horchata solo.png" class="w-24 object-contain" onerror="this.src='https://via.placeholder.com/96x96/f3f4f6/111111?text=Crocs'">
+          <div>
+            <h3 class="font-semibold text-lg">Crocs Classic Clog</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Horchata Edition</p>
+            <p class="font-semibold mt-1">₹5,559.12</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+            <button class="qty-minus px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">−</button>
+            <span class="qty-value px-4 py-1 border-x border-gray-300 dark:border-gray-600 dark:bg-black">1</span>
+            <button class="qty-plus px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">+</button>
+          </div>
+          <button class="remove-item text-gray-400 hover:text-red-500 text-lg leading-none">✕</button>
+        </div>
+      </div>
+
+      <p id="empty-msg" class="text-gray-400 text-sm hidden">No items match this filter.</p>
+    </div>
