@@ -560,3 +560,37 @@
 
       <p id="empty-msg" class="text-gray-400 text-sm hidden">No items match this filter.</p>
     </div>
+
+  <!-- Order Summary (fixed) -->
+    <div class="spring-card rounded-xl p-6 h-fit lg:fixed lg:top-24 lg:right-6 lg:w-80 xl:w-96">
+      <h2 class="text-xl font-semibold mb-5">Order Summary</h2>
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between">
+          <span class="text-gray-500 dark:text-gray-400">Subtotal</span>
+          <span id="summary-subtotal">₹16,677.36</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500 dark:text-gray-400">Items</span>
+          <span id="summary-count">3</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500 dark:text-gray-400">Shipping</span>
+          <span class="text-green-500 font-medium">Free</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500 dark:text-gray-400">Tax</span>
+          <span class="text-green-500 font-medium">Included</span>
+        </div>
+      </div>
+      <hr class="my-5 border-gray-200 dark:border-gray-700">
+      <div class="flex justify-between font-semibold text-lg mb-5">
+        <span>Total</span>
+        <span id="summary-total">₹16,677.36</span>
+      </div>
+      <button class="checkout-spring w-full bg-black dark:bg-white text-white dark:text-black py-3 rounded-lg font-semibold">
+        Proceed to Checkout →
+      </button>
+      <p class="text-xs text-center text-gray-400 mt-3">Secure checkout · Free returns</p>
+    </div>
+  </div>
+</section>
