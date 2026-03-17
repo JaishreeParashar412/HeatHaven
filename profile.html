@@ -1,79 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Heat Haven - Profile</title>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script> <!-- [web:11] -->
-
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  > <!-- [web:12] -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { amoled:'#000000', cardDark:'#0a0a0a', hoverDark:'#111111' } } }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap'); /* [web:17] */
-
-    :root {
-      --primary: #000000;
-      --secondary: #ffffff;
-      --accent: #ff4500;
-      --light: #f8f8f8;
-    }
-
+    :root { --primary:#000; --accent:#ff4500; }
     body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--primary);
-      background-image: url("images/travis scott wallpaper pc.jpg");
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      background-image: url("images/mountain.jpeg");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      overflow-x: hidden;
+      background-attachment: fixed;
     }
+    h1,h2,h3,h4,.brand { font-family:"Archivo Black",sans-serif; letter-spacing:-0.5px; }
 
-    h1, h2, h3, h4, .brand {
-      font-family: 'Archivo Black', sans-serif;
-      letter-spacing: -0.5px;
-    }
+    .mobile-menu { transform:translateX(100%); transition:transform 0.3s ease-in-out; }
+    .mobile-menu.open { transform:translateX(0); }
 
-    .mobile-menu {
-      transform: translateX(100%);
-      transition: transform 0.3s ease-in-out;
-    }
-    .mobile-menu.open {
-      transform: translateX(0);
-    }
+    .page-transition { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-    .page-transition {
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* SPRING HOVER EFFECT */
     .spring-card {
-      transition:
-        transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        box-shadow 0.25s ease,
-        border-color 0.25s ease,
-        background-color 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.25s ease, border-color 0.25s ease;
       will-change: transform, box-shadow;
     }
+    .spring-card:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 18px 32px rgba(0,0,0,0.35); }
 
-    .spring-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+    .sun-icon  { display:block; width:20px; height:20px; }
+    .moon-icon { display:none;  width:20px; height:20px; }
+    .dark .sun-icon  { display:none; }
+    .dark .moon-icon { display:block; }
+
+    /* Toast */
+    #toast {
+      position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px);
+      background:#111; color:#fff; padding:10px 20px; border-radius:999px;
+      font-size:13px; z-index:9999; opacity:0; transition:opacity 0.3s,transform 0.3s; pointer-events:none;
     }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* ══ NAV SEARCH PILL (gradient border — matches index/product/deals) ══ */
+    .nav-search-pill {
+      display:flex; align-items:center; min-width:190px; padding:0;
+      border-radius:999px; border:none; cursor:pointer; background:transparent;
+      font-family:"Poppins",sans-serif; font-size:13px; font-weight:500;
+      transition:transform 0.15s; position:relative; white-space:nowrap;
+    }
+    .nav-search-pill:hover { transform:scale(1.02); }
+    .nav-search-pill:active { transform:scale(0.97); }
+    .nav-search-pill .pill-border {
+      position:absolute; inset:0; border-radius:999px; padding:2px;
+      background:linear-gradient(100deg,#4285f4,#ea4335,#fbbc04,#34a853,#4285f4);
+      background-size:250% 250%; animation:pill-gradient 3s ease infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none;
+    }
+    .nav-search-pill .pill-inner {
+      display:flex; align-items:center; gap:10px; width:100%;
+      padding:8px 18px 8px 14px; border-radius:999px; background:#f8f9fa;
+      position:relative; z-index:1; transition:background 0.2s, box-shadow 0.2s;
+    }
+    .nav-search-pill:hover .pill-inner { background:#fff; box-shadow:0 2px 16px rgba(66,133,244,0.18),0 1px 6px rgba(234,67,53,0.1); }
+    .pill-search-icon {
+      width:28px; height:28px; flex-shrink:0;
+      background:linear-gradient(135deg,#4285f4,#34a853);
+      border-radius:50%; display:flex; align-items:center; justify-content:center; transition:transform 0.2s;
+    }
+    .nav-search-pill:hover .pill-search-icon { transform:rotate(-10deg) scale(1.1); }
+    .pill-search-icon svg { width:13px; height:13px; }
+    .pill-label { flex:1; text-align:left; color:#5f6368; font-size:13px; }
+    .pill-kbd {
+      display:inline-flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.07); border-radius:6px;
+      padding:2px 7px; font-size:11px; font-family:monospace; color:#999; line-height:1.5; flex-shrink:0;
+    }
+    .dark .nav-search-pill .pill-inner { background:#1a1a1a; }
+    .dark .nav-search-pill:hover .pill-inner { background:#222; box-shadow:0 2px 16px rgba(66,133,244,0.12); }
+    .dark .pill-label { color:#9aa0a6; }
+    .dark .pill-kbd { background:rgba(255,255,255,0.07); color:#666; }
+    @keyframes pill-gradient { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+    /* ══ SEARCH OVERLAY ══ */
+    #search-overlay {
+      position:fixed; inset:0; z-index:99999;
+      background:rgba(255,255,255,0.85); backdrop-filter:blur(20px);
+      display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:120px;
+      opacity:0; pointer-events:none; transition:opacity 0.3s ease;
+    }
+    .dark #search-overlay { background:rgba(0,0,0,0.88); }
+    #search-overlay.open { opacity:1; pointer-events:all; }
+    #search-box-wrap { width:100%; max-width:620px; padding:0 20px; position:relative; }
+    .search-border-wrap {
+      position:relative; border-radius:999px; padding:3px;
+      background:linear-gradient(135deg,#4285f4,#ea4335,#fbbc04,#34a853,#4285f4);
+      background-size:300% 300%; animation:gradient-shift 4s ease infinite;
+      box-shadow:0 8px 40px rgba(66,133,244,0.25),0 4px 20px rgba(234,67,53,0.15);
+    }
+    @keyframes gradient-shift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+    .search-inner { display:flex; align-items:center; background:#fff; border-radius:999px; padding:14px 20px 14px 22px; gap:14px; }
+    .dark .search-inner { background:#111; }
+    .search-icon-wrap { color:#5f6368; flex-shrink:0; font-size:18px; display:flex; align-items:center; }
+    .dark .search-icon-wrap { color:#9aa0a6; }
+    #search-input { flex:1; border:none; outline:none; background:transparent; font-family:"Poppins",sans-serif; font-size:18px; color:#202124; letter-spacing:0.01em; }
+    .dark #search-input { color:#e8eaed; }
+    #search-input::placeholder { color:#9aa0a6; }
+    #search-clear-btn { background:none; border:none; cursor:pointer; color:#9aa0a6; font-size:16px; display:none; padding:4px; border-radius:50%; transition:color 0.15s,background 0.15s; flex-shrink:0; }
+    #search-clear-btn:hover { background:#f1f3f4; color:#5f6368; }
+    .dark #search-clear-btn:hover { background:#303134; }
+    #search-clear-btn.visible { display:flex; align-items:center; justify-content:center; }
+    #search-results-panel { width:100%; max-width:620px; padding:0 20px; margin-top:16px; max-height:calc(100vh - 280px); overflow-y:auto; display:none; }
+    #search-results-panel.has-results { display:block; }
+    #search-results-panel::-webkit-scrollbar { width:4px; }
+    #search-results-panel::-webkit-scrollbar-thumb { background:#ccc; border-radius:2px; }
+    .dark #search-results-panel::-webkit-scrollbar-thumb { background:#444; }
+    .search-result-item { display:flex; align-items:center; gap:14px; padding:12px 18px; background:#fff; border-radius:14px; margin-bottom:8px; cursor:pointer; transition:background 0.15s,transform 0.15s,box-shadow 0.15s; animation:result-in 0.2s ease; box-shadow:0 1px 6px rgba(0,0,0,0.08); }
+    @keyframes result-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    .dark .search-result-item { background:#1c1c1e; box-shadow:none; }
+    .search-result-item:hover { background:#f8f9fa; transform:translateY(-1px); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+    .dark .search-result-item:hover { background:#2c2c2e; }
+    .sri-img { width:52px; height:52px; object-fit:contain; border-radius:10px; flex-shrink:0; background:#f1f3f4; }
+    .dark .sri-img { background:#2c2c2e; }
+    .sri-info { flex:1; min-width:0; }
+    .sri-name { font-weight:600; font-size:14px; color:#202124; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .dark .sri-name { color:#e8eaed; }
+    .sri-sub { font-size:12px; color:#5f6368; margin-top:2px; }
+    .dark .sri-sub { color:#9aa0a6; }
+    .sri-price { font-weight:700; font-size:14px; color:#202124; flex-shrink:0; }
+    .dark .sri-price { color:#e8eaed; }
+    .search-no-results { text-align:center; padding:40px 16px; background:#fff; border-radius:14px; font-size:14px; color:#5f6368; box-shadow:0 1px 6px rgba(0,0,0,0.08); }
+    .dark .search-no-results { background:#1c1c1e; color:#9aa0a6; box-shadow:none; }
+    .search-no-results .emoji { font-size:36px; display:block; margin-bottom:10px; }
+    .search-highlight { color:#1a73e8; font-weight:700; }
+    .dark .search-highlight { color:#8ab4f8; }
+    #search-close-hint { margin-top:16px; font-size:12px; color:#9aa0a6; font-family:"Poppins",sans-serif; }
+    #search-close-hint kbd { background:rgba(0,0,0,0.08); color:#5f6368; padding:2px 8px; border-radius:4px; font-family:monospace; }
+    .dark #search-close-hint kbd { background:rgba(255,255,255,0.1); color:#9aa0a6; }
   </style>
 </head>
 
-<body>
+<body class="text-black transition-colors duration-300">
+
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" role="dialog" aria-label="Search products">
+  <div id="search-box-wrap">
+    <div class="search-border-wrap">
+      <div class="search-inner">
+        <div class="search-icon-wrap"><i class="fas fa-search"></i></div>
+        <input id="search-input" type="text" placeholder="Search sneakers, brands, colorways…" autocomplete="off" aria-label="Search" />
+        <button id="search-clear-btn" aria-label="Clear search">✕</button>
+      </div>
+    </div>
+  </div>
+  <div id="search-results-panel" role="listbox"></div>
+  <p id="search-close-hint">Press <kbd>Esc</kbd> to close</p>
+</div>
+
+<!-- Dark Mode Toggle -->
+<div class="fixed bottom-10 right-6 z-50">
+  <button id="theme-toggle"
+    class="flex items-center justify-center w-12 h-12 rounded-full shadow-xl bg-gray-200 dark:bg-cardDark transition-all duration-300 hover:scale-110"
+    aria-label="Toggle dark mode">
+    <svg class="sun-icon text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/>
+      <path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+    <svg class="moon-icon text-yellow-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+    </svg>
+  </button>
+</div>
+
   <!-- Navigation -->
   <nav class="bg-white/80 backdrop-blur shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
