@@ -386,163 +386,84 @@ function showToast(msg) {
   clearTimeout(showToast._t);
   showToast._t = setTimeout(() => t.classList.remove("show"), 2200);
 }
-    >
-      <!-- Avatar -->
-      <div class="relative flex-shrink-0">
-        <img
-          src="images/profile.jpeg"
-          class="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-red-600 object-cover"
-        />
-        <button
-          class="absolute bottom-1 right-1 bg-red-600 p-2 rounded-full text-xs md:text-sm hover:bg-red-700"
-        >
-          ✎
-        </button>
+
+// ── SEARCH ────────────────────────────────────────────────
+const PRODUCT_INDEX = [
+  { name:'Air Jordan 1 Retro High',      colorway:'Chicago Bulls',    brand:'Jordan',      price:5559, img:'images/aj 1 chichgo.png' },
+  { name:'Nike Uptempo Slide',           colorway:'Chicago Bulls',    brand:'Nike',        price:5559, img:'images/uptempo slide bulls.png' },
+  { name:'Nike SB Dunk Low',             colorway:'Gulf',             brand:'Nike',        price:5559, img:'images/sb gulf.png' },
+  { name:'Adidas Campus',               colorway:'Clear Sky Gum',    brand:'Adidas',      price:5559, img:'images/adidas campus clear sky gum.png' },
+  { name:'Air Force 1 Low',             colorway:'Lakers Home',      brand:'Nike',        price:5559, img:'images/af1 kobe yellow.png' },
+  { name:'Yeezy Boost 350 V2',          colorway:'Zebra',            brand:'Yeezy',       price:5559, img:'images/yeezy zebra.png' },
+  { name:'Yeezy 700 V3',                colorway:'Azael',            brand:'Yeezy',       price:5559, img:'images/yzy 700 v3 azael.png' },
+  { name:'Rick Owens Hollywood High',   colorway:'Black Milk',       brand:'Rick Owens',  price:5559, img:'images/rick owens hollywood high black milk.png' },
+  { name:'Puma Melns',                  colorway:'La France',        brand:'Puma',        price:5559, img:'images/puma melons lafrance.png' },
+  { name:'Travis x Fragment High',      colorway:'Fragment',         brand:'Jordan',      price:5559, img:'images/travis x fragment high.png' },
+  { name:'New Balance 990v5',           colorway:'Grey',             brand:'New Balance', price:5559, img:'images/nb 990v5.png' },
+  { name:'Air Jordan 4 Retro',          colorway:'Breds',            brand:'Jordan',      price:5559, img:'images/aj4 bred.png' },
+  { name:'Salehe Bembury x Crocs',      colorway:'Horchata',         brand:'Crocs',       price:5559, img:'images/crocs horchata.png' },
+];
+
+const overlay      = document.getElementById("search-overlay");
+const searchInput  = document.getElementById("search-input");
+const clearBtn     = document.getElementById("search-clear-btn");
+const resultsPanel = document.getElementById("search-results-panel");
+
+function openSearch() { overlay.classList.add("open"); setTimeout(() => searchInput.focus(), 50); }
+function closeSearch() {
+  overlay.classList.remove("open");
+  searchInput.value = ""; clearBtn.classList.remove("visible");
+  resultsPanel.innerHTML = ""; resultsPanel.classList.remove("has-results");
+}
+
+document.getElementById("search-open-btn").addEventListener("click", openSearch);
+document.getElementById("search-open-btn-mobile")?.addEventListener("click", () => { document.getElementById("mobile-menu").classList.remove("open"); openSearch(); });
+overlay.addEventListener("click", e => { if (e.target === overlay) closeSearch(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeSearch();
+  if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); }
+});
+clearBtn.addEventListener("click", () => { searchInput.value = ""; clearBtn.classList.remove("visible"); resultsPanel.innerHTML = ""; resultsPanel.classList.remove("has-results"); searchInput.focus(); });
+
+function escH(str) { return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function escReg(str) { return str.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+function highlight(text, q) {
+  if (!q) return escH(text);
+  return escH(text).replace(new RegExp(`(${escReg(q)})`,"gi"),'<span class="search-highlight">$1</span>');
+}
+
+function runSearch(query) {
+  clearBtn.classList.toggle("visible", query.length > 0);
+  if (!query.trim()) { resultsPanel.innerHTML = ""; resultsPanel.classList.remove("has-results"); return; }
+  const q = query.toLowerCase();
+  const hits = PRODUCT_INDEX.filter(p =>
+    p.name.toLowerCase().includes(q) || p.colorway.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
+  );
+  resultsPanel.classList.add("has-results");
+  if (!hits.length) {
+    resultsPanel.innerHTML = `<div class="search-no-results"><span class="emoji">👟</span>No sneakers found for "<strong>${escH(query)}</strong>"</div>`;
+    return;
+  }
+  resultsPanel.innerHTML = hits.map((p,i) => `
+    <div class="search-result-item" data-idx="${i}" role="option" tabindex="0" style="animation-delay:${i*40}ms">
+      <img class="sri-img" src="${escH(p.img)}" alt="${escH(p.name)}" onerror="this.src='https://via.placeholder.com/52'" />
+      <div class="sri-info">
+        <div class="sri-name">${highlight(p.name, query)}</div>
+        <div class="sri-sub">${highlight(p.colorway, query)} · ${highlight(p.brand, query)}</div>
       </div>
+      <div class="sri-price">₹${p.price.toLocaleString("en-IN")}</div>
+    </div>`).join("");
 
-      <!-- User Info -->
-      <div class="mt-4 md:mt-0 md:ml-4">
-        <h1 class="text-3xl md:text-4xl font-bold">Kanishak Choudhary</h1>
-        <p class="text-white mt-2">Sneaker Collector • Heat Haven Member</p>
+  resultsPanel.querySelectorAll(".search-result-item").forEach((item, i) => {
+    item.addEventListener("click", () => { closeSearch(); window.location.href = "product.html"; });
+    item.addEventListener("keydown", e => { if (e.key === "Enter") item.click(); });
+  });
+}
 
-        <div class="flex gap-6 mt-4">
-          <div>
-            <p class="text-xl font-bold">12</p>
-            <p class="text-white text-sm">
-              <span class="font-bold">Orders</span>
-            </p>
-          </div>
-          <div>
-            <p class="text-xl font-bold">3</p>
-            <p class="text-white text-sm">
-              <span class="font-bold">Wishlist</span>
-            </p>
-          </div>
-          <div>
-            <p class="text-xl font-bold">1</p>
-            <p class="text-white text-sm">
-              <span class="font-bold">Returns</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROFILE CONTENT: left column narrower -->
-  <section class="max-w-7xl mx-auto px-6 pb-20 grid grid-cols-[260px_minmax(0,1fr)] gap-8 -mt-4">
-    <!-- LEFT MENU -->
-    <div class="page-transition w-[260px]">
-      <!-- Account Details -->
-      <a href="account_details.html" class="block mb-4">
-        <button
-          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
-                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
-        >
-          Account Details
-        </button>
-      </a>
-
-      <!-- Orders -->
-      <a href="orders.html" class="block mb-4">
-        <button
-          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
-                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
-        >
-          Orders
-        </button>
-      </a>
-
-      <!-- Addresses -->
-      <a href="address.html" class="block mb-4">
-        <button
-          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
-                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
-        >
-          Addresses
-        </button>
-      </a>
-
-      <!-- Wishlist -->
-      <a href="wishlist.html" class="block mb-4">
-        <button
-          class="spring-card w-full border border-white/40 py-3 rounded-lg flex items-center justify-center gap-2
-                 bg-white/20 backdrop-blur-lg hover:bg-white/30"
-        >
-          Wishlist
-        </button>
-      </a>
-
-      <!-- Logout WITHOUT glass, WITHOUT spring -->
-      <a href="logout.html" class="block">
-        <button
-          class="w-full text-white py-3 rounded-xl
-                 bg-red-500 hover:bg-red-600 shadow-md"
-        >
-          Logout
-        </button>
-      </a>
-    </div>
-
-    <!-- DETAILS CARD (takes remaining space) -->
-    <div
-      class="spring-card
-             bg-white/20 text-black
-             rounded-2xl p-8 shadow-xl
-             backdrop-blur-lg border border-white/40
-             page-transition"
-    >
-      <h2 class="text-2xl font-bold mb-6">Account Information</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Full Name -->
-        <div class="spring-card bg-white/10 rounded-xl p-3">
-          <label class="text-sm font-semibold">Full Name</label>
-          <input
-            type="text"
-            value="Kanishak Choudhary"
-            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
-          />
-        </div>
-
-        <!-- Email -->
-        <div class="spring-card bg-white/10 rounded-xl p-3">
-          <label class="text-sm font-semibold">Email</label>
-          <input
-            type="email"
-            value="kanishakchoudhary268@gmail.com"
-            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
-          />
-        </div>
-
-        <!-- Phone -->
-        <div class="spring-card bg-white/10 rounded-xl p-3">
-          <label class="text-sm font-semibold">Phone</label>
-          <input
-            type="text"
-            placeholder="+91 XXXXX XX488"
-            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
-          />
-        </div>
-
-        <!-- Password -->
-        <div class="spring-card bg-white/10 rounded-xl p-3">
-          <label class="text-sm font-semibold">Password</label>
-          <input
-            type="password"
-            value="password"
-            class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90"
-          />
-        </div>
-      </div>
-
-      <!-- Save Changes WITH spring effect and link target -->
-      <a href="save_changes.html" class="inline-block mt-8">
-        <button class="spring-card bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700">
-          Save Changes
-        </button>
-      </a>
-    </div>
-  </section>
+let dbt;
+searchInput.addEventListener("input", () => { clearTimeout(dbt); dbt = setTimeout(() => runSearch(searchInput.value), 160); });
+</script>
 </body>
 </html>
+    >
+     
