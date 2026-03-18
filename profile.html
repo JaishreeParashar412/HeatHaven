@@ -354,6 +354,38 @@
 <div id="toast"></div>
 
 <script>
+
+  // ── DARK MODE ──────────────────────────────────────────────
+if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
+// ── MOBILE MENU ───────────────────────────────────────────
+document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.add("open"));
+document.getElementById("close-menu").addEventListener("click", () => document.getElementById("mobile-menu").classList.remove("open"));
+
+// ── CART BADGE ────────────────────────────────────────────
+function getCart() { try { return JSON.parse(localStorage.getItem("hh_cart") || "[]"); } catch(e) { return []; } }
+function updateCartBadge() {
+  const t = getCart().reduce((s,i) => s + i.qty, 0);
+  document.querySelectorAll("#cart-count, #cart-count-mobile").forEach(el => el.textContent = t);
+}
+updateCartBadge();
+
+// ── WISHLIST COUNT ────────────────────────────────────────
+function getWishlist() { try { return JSON.parse(localStorage.getItem("hh_wishlist") || "[]"); } catch(e) { return []; } }
+const wcEl = document.getElementById("wishlist-count");
+if (wcEl) wcEl.textContent = getWishlist().length;
+
+// ── TOAST ─────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove("show"), 2200);
+}
     >
       <!-- Avatar -->
       <div class="relative flex-shrink-0">
