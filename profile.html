@@ -320,7 +320,40 @@
       </button>
     </a>
   </div>
+<!-- DETAILS CARD -->
+  <div class="spring-card bg-white/20 text-black dark:text-white rounded-2xl p-8 shadow-xl backdrop-blur-lg border border-white/40">
+    <h2 class="text-2xl font-bold mb-6">Account Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="spring-card bg-white/10 rounded-xl p-3">
+        <label class="text-sm font-semibold">Full Name</label>
+        <input type="text" value="Kanishak Choudhary"
+          class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90 text-black" />
+      </div>
+      <div class="spring-card bg-white/10 rounded-xl p-3">
+        <label class="text-sm font-semibold">Email</label>
+        <input type="email" value="kanishakchoudhary268@gmail.com"
+          class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90 text-black" />
+      </div>
+      <div class="spring-card bg-white/10 rounded-xl p-3">
+        <label class="text-sm font-semibold">Phone</label>
+        <input type="text" placeholder="+91 XXXXX XX488"
+          class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90 text-black" />
+      </div>
+      <div class="spring-card bg-white/10 rounded-xl p-3">
+        <label class="text-sm font-semibold">Password</label>
+        <input type="password" value="password"
+          class="w-full mt-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 bg-white/90 text-black" />
+      </div>
+    </div>
+    <a href="save_changes.html" class="inline-block mt-8">
+      <button class="spring-card bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 font-semibold transition">Save Changes</button>
+    </a>
+  </div>
+</section>
 
+<div id="toast"></div>
+
+<script>
     >
       <!-- Avatar -->
       <div class="relative flex-shrink-0">
