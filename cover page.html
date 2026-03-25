@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -393,10 +393,9 @@
       </div>
     </div>
   </nav>
-  <!-- Main Content -->
-  <div id="app" class="page-transition">
 
-    <!-- Hero -->
+
+ <div id="app" class="page-transition">
     <section id="home" class="relative">
       <div class="relative">
         <video autoplay muted loop class="hero-video">
@@ -405,25 +404,27 @@
         </video>
         <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div class="text-center text-white px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">HEAT HAVEN</h1>
-            <p class="text-xl md:text-2xl mb-8">Discover the Hottest Sneakers in the Game</p>
-            <a href="product.html" class="bg-red-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-gray-800 transition duration-300 inline-block">Shop Now</a>
+            <h1 class="text-4xl md:text-6xl font-bold mb-2">
+              <span class="hero-title-word">HEAT</span>&nbsp;<span class="hero-title-word">HAVEN</span>
+            </h1>
+            <span class="hero-accent-line"></span>
+            <p class="hero-sub text-xl md:text-2xl mb-8">Discover the Hottest Sneakers in the Game</p>
+            <a href="product.html" class="hero-cta bg-red-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-gray-800 transition duration-300 inline-block">Shop Now</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Products -->
     <section id="products" class="py-12 bg-white dark:bg-amoled">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold mb-2 dark:text-white">Featured Sneakers</h2>
+        <h2 class="text-3xl font-bold mb-2 dark:text-white section-heading reveal">Featured Sneakers</h2>
         <a href="product.html" class="text-black dark:text-white font-medium hover:underline">View All</a>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-6" id="productGrid">
 
-          <!-- Product 1 -->
+          <!-- Card 1: data-product-id="1" added for wishlist API -->
           <div class="shoe-card bg-white dark:bg-amoled rounded-lg overflow-hidden shadow-md dark:shadow-none transition duration-300 group relative"
                data-brand="jordan" data-name="Air Jordan 1 Retro High" data-colorway="Chicago Bulls" data-price="5559"
-               data-img="images/aj%201%20chichgo.png">
+               data-img="images/aj%201%20chichgo.png" data-product-id="1">
             <div class="relative">
               <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white hover:bg-gray-50 rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
@@ -439,23 +440,27 @@
                 <label class="block text-xs text-gray-500 dark:text-zinc-600 mb-1">Select size</label>
                 <select class="size-select w-full bg-white dark:bg-amoled dark:text-white border border-gray-300 dark:border-zinc-800 text-sm rounded px-2 py-1 focus:outline-none cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
+                  <option value="UK 6">UK 6</option><option value="UK 7">UK 7</option><option value="UK 8">UK 8</option>
+                  <option value="UK 9">UK 9</option><option value="UK 10">UK 10</option><option value="UK 11">UK 11</option><option value="UK 12">UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
-                <div>
-                  <span class="text-gray-400 line-through mr-2 text-sm">₹6,250</span>
-                  <span class="font-bold dark:text-white">₹5,559</span>
-                </div>
+                <div><span class="font-bold dark:text-white">₹21,500</span></div>
                 <button class="add-to-cart-btn bg-black dark:bg-red-600 text-white px-4 py-1.5 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
+              </div>
+              <div class="mt-3 pt-3 border-t border-gray-100 dark:border-zinc-800">
+                <a href="ar-tryon.html?id=jordan1-chicago&name=Air%20Jordan%201%20Retro%20High&colorway=Chicago%20Bulls&brand=Air%20Jordan&price=5559&img=images%2Faj%25201%2520chichgo.png" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="color:#c30d0d;background:rgba(201,0,0,0.08);border:1px solid rgba(0,201,177,0.2);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Try On AR
+                </a>
               </div>
             </div>
           </div>
 
-          <!-- Product 2 -->
+          <!-- Card 2: data-product-id="2" -->
           <div class="shoe-card bg-white dark:bg-amoled rounded-lg overflow-hidden shadow-md dark:shadow-none transition duration-300 group relative"
                data-brand="yeezy" data-name="Yeezy 700 V3" data-colorway="Azael" data-price="4759"
-               data-img="images/yzy%20700%20v3%20azael.png">
+               data-img="images/yzy%20700%20v3%20azael.png" data-product-id="2">
             <div class="relative">
               <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white hover:bg-gray-50 rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
@@ -470,23 +475,27 @@
                 <label class="block text-xs text-gray-500 dark:text-zinc-600 mb-1">Select size</label>
                 <select class="size-select w-full bg-white dark:bg-amoled dark:text-white border border-gray-300 dark:border-zinc-800 text-sm rounded px-2 py-1 focus:outline-none cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
+                  <option value="UK 6">UK 6</option><option value="UK 7">UK 7</option><option value="UK 8">UK 8</option>
+                  <option value="UK 9">UK 9</option><option value="UK 10">UK 10</option><option value="UK 11">UK 11</option><option value="UK 12">UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
-                <div>
-                  <span class="text-gray-400 line-through mr-2 text-sm">₹5,250</span>
-                  <span class="font-bold dark:text-white">₹4,759</span>
-                </div>
+                <div><span class="font-bold dark:text-white">₹18,000</span></div>
                 <button class="add-to-cart-btn bg-black dark:bg-red-600 text-white px-4 py-1.5 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
+              </div>
+              <div class="mt-3 pt-3 border-t border-gray-100 dark:border-zinc-800">
+                <a href="ar-tryon.html" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="color:#00c9b1;background:rgba(0,201,177,0.08);border:1px solid rgba(0,201,177,0.2);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Try On AR
+                </a>
               </div>
             </div>
           </div>
 
-          <!-- Product 3 -->
+          <!-- Card 3: data-product-id="3" -->
           <div class="shoe-card bg-white dark:bg-amoled rounded-lg overflow-hidden shadow-md dark:shadow-none transition duration-300 group relative"
                data-brand="nike" data-name="Nike Uptempo Slide Bulls" data-colorway="Bulls" data-price="3559"
-               data-img="images/uptempo%20slide%20bulls.png">
+               data-img="images/uptempo%20slide%20bulls.png" data-product-id="3">
             <div class="relative">
               <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white hover:bg-gray-50 rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
@@ -501,20 +510,27 @@
                 <label class="block text-xs text-gray-500 dark:text-zinc-600 mb-1">Select size</label>
                 <select class="size-select w-full bg-white dark:bg-amoled dark:text-white border border-gray-300 dark:border-zinc-800 text-sm rounded px-2 py-1 focus:outline-none cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
+                  <option value="UK 6">UK 6</option><option value="UK 7">UK 7</option><option value="UK 8">UK 8</option>
+                  <option value="UK 9">UK 9</option><option value="UK 10">UK 10</option><option value="UK 11">UK 11</option><option value="UK 12">UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
-                <span class="font-bold dark:text-white">₹3,559</span>
+                <span class="font-bold dark:text-white">₹28,000</span>
                 <button class="add-to-cart-btn bg-black dark:bg-red-600 text-white px-4 py-1.5 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
+              </div>
+              <div class="mt-3 pt-3 border-t border-gray-100 dark:border-zinc-800">
+                <a href="ar-tryon.html" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="color:#00c9b1;background:rgba(0,201,177,0.08);border:1px solid rgba(0,201,177,0.2);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Try On AR
+                </a>
               </div>
             </div>
           </div>
 
-          <!-- Product 4 -->
+          <!-- Card 4: data-product-id="4" -->
           <div class="shoe-card bg-white dark:bg-amoled rounded-lg overflow-hidden shadow-md dark:shadow-none transition duration-300 group relative"
                data-brand="jordan" data-name="Travis Scott x Fragment High" data-colorway="Fragment" data-price="5559"
-               data-img="images/travis%20x%20fragment%20high.png">
+               data-img="images/travis%20x%20fragment%20high.png" data-product-id="4">
             <div class="relative">
               <button class="wishlist-btn absolute top-3 left-3 z-10 bg-white hover:bg-gray-50 rounded-full p-2 shadow-sm transition" aria-label="Add to wishlist">
                 <i class="far fa-heart text-gray-700 text-lg"></i>
@@ -529,12 +545,19 @@
                 <label class="block text-xs text-gray-500 dark:text-zinc-600 mb-1">Select size</label>
                 <select class="size-select w-full bg-white dark:bg-amoled dark:text-white border border-gray-300 dark:border-zinc-800 text-sm rounded px-2 py-1 focus:outline-none cursor-pointer">
                   <option value="" disabled selected>Choose size</option>
-                  <option>UK 6</option><option>UK 7</option><option>UK 8</option><option>UK 9</option><option>UK 10</option><option>UK 11</option><option>UK 12</option>
+                  <option value="UK 6">UK 6</option><option value="UK 7">UK 7</option><option value="UK 8">UK 8</option>
+                  <option value="UK 9">UK 9</option><option value="UK 10">UK 10</option><option value="UK 11">UK 11</option><option value="UK 12">UK 12</option>
                 </select>
               </div>
               <div class="flex justify-between items-center">
-                <span class="font-bold dark:text-white">₹5,559</span>
+                <span class="font-bold dark:text-white">₹3,06,000</span>
                 <button class="add-to-cart-btn bg-black dark:bg-red-600 text-white px-4 py-1.5 rounded text-sm hover:bg-gray-800 cart-animation">Add to Cart</button>
+              </div>
+              <div class="mt-3 pt-3 border-t border-gray-100 dark:border-zinc-800">
+                <a href="ar-tryon.html" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="color:#00c9b1;background:rgba(0,201,177,0.08);border:1px solid rgba(0,201,177,0.2);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Try On AR
+                </a>
               </div>
             </div>
           </div>
@@ -543,10 +566,9 @@
       </div>
     </section>
 
-    <!-- Partners -->
     <section id="deals" class="py-12 bg-gray-50 dark:bg-amoled">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold mb-8 text-black dark:text-white">Sneaker Partners</h2>
+        <h2 class="text-3xl font-bold mb-8 text-black dark:text-white section-heading reveal">Sneaker Partners</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div class="deal-card bg-white dark:bg-cardDark rounded-lg overflow-hidden shadow-md transform transition duration-300 ease-out hover:-translate-y-2 hover:scale-105 hover:shadow-xl">
             <img src="images/nike logo.jpg" alt="Nike" class="w-full h-48 object-cover" />
@@ -568,24 +590,22 @@
       </div>
     </section>
 
-    <!-- About -->
     <section id="about" class="py-16 bg-black text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
+          <div class="reveal-left">
             <h2 class="text-3xl font-bold mb-6">About Heat Haven</h2>
             <p class="text-gray-300 mb-4">Founded in 2025, Heat Haven has become the premier destination for sneaker enthusiasts and collectors alike.</p>
             <p class="text-gray-300 mb-4">Our team of experts carefully curates each item in our collection to ensure authenticity, quality, and style.</p>
             <p class="text-gray-300">Beyond just selling shoes, we're passionate about sneaker culture and building a movement.</p>
           </div>
-          <div class="relative transform transition duration-300 ease-out hover:-translate-y-3 hover:scale-105">
+          <div class="relative reveal-right transform transition duration-300 ease-out hover:-translate-y-3 hover:scale-105">
             <img src="images/heat haven lgog new.png" alt="Heat Haven logo" class="w-full rounded-lg shadow-lg" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact" class="py-16 bg-white dark:bg-amoled">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold mb-8 text-center dark:text-white">Contact Us ☎️</h2>
@@ -625,7 +645,6 @@
     </section>
   </div>
 
-  <!-- Footer -->
   <footer class="bg-black text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -633,9 +652,10 @@
         <div>
           <h3 class="text-lg font-bold mb-4">Shop</h3>
           <ul class="space-y-2">
-            <li><a href="product.html"     class="text-gray-400 hover:text-white text-sm">All Products</a></li>
-            <li><a href="wishlist.html"    class="text-gray-400 hover:text-white text-sm">My Wishlist</a></li>
-            <li><a href="#"               class="text-gray-400 hover:text-white text-sm">SALE ! Items</a></li>
+            <li><a href="product.html"  class="text-gray-400 hover:text-white text-sm">All Products</a></li>
+            <li><a href="wishlist.html" class="text-gray-400 hover:text-white text-sm">My Wishlist</a></li>
+            <li><a href="ar-tryon.html" class="text-gray-400 hover:text-white text-sm">👟 AR Try-On</a></li>
+            <li><a href="#"             class="text-gray-400 hover:text-white text-sm">SALE ! Items</a></li>
           </ul>
         </div>
         <div>
@@ -668,7 +688,6 @@
     </div>
   </footer>
 
-  <!-- Toast -->
   <div id="toast">
     <i class="fas fa-check-circle" style="color:#22c55e;"></i>
     <span>Added to cart!</span>
@@ -708,19 +727,20 @@
     </button>
   </div>
 
+  <!-- ════════════════════════════════════════════════════════════
+       MAIN SCRIPTS
+  ════════════════════════════════════════════════════════════ -->
   <script>
-    // ─── DARK MODE ───────────────────────────────────────────────
+    // ── THEME ─────────────────────────────────────────────────────────────────
     if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
     document.getElementById("theme-toggle").addEventListener("click", () => {
       const isDark = document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
     });
 
-    // ─── MOBILE MENU ─────────────────────────────────────────────
+    // ── MOBILE MENU ───────────────────────────────────────────────────────────
     document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.add("open"));
     document.getElementById("close-menu").addEventListener("click", () => document.getElementById("mobile-menu").classList.remove("open"));
-
-    // ─── SMOOTH SCROLL ────────────────────────────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener("click", function(e) {
         const id = this.getAttribute("href");
@@ -733,277 +753,342 @@
       });
     });
 
-    // ─── TOAST ────────────────────────────────────────────────────
+    // ── TOAST ─────────────────────────────────────────────────────────────────
     function showToast(msg, isError) {
-      const t    = document.getElementById("toast");
-      const icon = t.querySelector("i");
-      const span = t.querySelector("span");
-      span.textContent = msg;
-      icon.className = isError ? "fas fa-exclamation-circle" : "fas fa-check-circle";
-      icon.style.color = isError ? "#facc15" : "#22c55e";
-      t.classList.remove("show");
-      void t.offsetWidth;
-      t.classList.add("show");
+      const t=document.getElementById("toast"),icon=t.querySelector("i"),span=t.querySelector("span");
+      span.textContent=msg; icon.className=isError?"fas fa-exclamation-circle":"fas fa-check-circle";
+      icon.style.color=isError?"#facc15":"#22c55e"; t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
     }
 
-    // ─── CART (localStorage) ──────────────────────────────────────
-    function getCart() { try { return JSON.parse(localStorage.getItem("hh_cart") || "[]"); } catch(e) { return []; } }
-    function saveCart(cart) { localStorage.setItem("hh_cart", JSON.stringify(cart)); }
+    // ════════════════════════════════════════════════════════════
+    // BACKEND API CONFIG
+    // ════════════════════════════════════════════════════════════
+    const API = 'http://localhost:5000/api';
 
-    function updateCartBadge() {
-      const total = getCart().reduce((s, i) => s + i.qty, 0);
-      document.querySelectorAll("#cart-count, #cart-count-mobile").forEach(el => el.textContent = total);
+    function getToken()    { return localStorage.getItem('hh_token'); }
+    function isLoggedIn()  { return !!getToken(); }
+    function authHeaders() {
+      return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` };
     }
+
+    async function apiCall(endpoint, options = {}) {
+      try {
+        const res  = await fetch(API + endpoint, options);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Something went wrong');
+        return data;
+      } catch (err) {
+        showToast(err.message, true);
+        throw err;
+      }
+    }
+
+    // ── UPDATE NAV: show user name or Login link ───────────────────────────
+    function updateNavAuth() {
+      const user     = JSON.parse(localStorage.getItem('hh_user') || 'null');
+      const loginLink = document.getElementById('login-link');
+      if (user && loginLink) {
+        loginLink.textContent = user.name.split(' ')[0]; // show first name
+        loginLink.href = 'profile.html';
+      }
+    }
+    updateNavAuth();
+
+    // ── CART BADGE FROM BACKEND (falls back to localStorage if not logged in) ─
+    async function updateCartBadge() {
+      if (isLoggedIn()) {
+        try {
+          const { data } = await apiCall('/cart', { headers: authHeaders() });
+          document.querySelectorAll('#cart-count,#cart-count-mobile')
+            .forEach(el => el.textContent = data.count || 0);
+          return;
+        } catch (_) {}
+      }
+      // Fallback: localStorage count
+      try {
+        const cart  = JSON.parse(localStorage.getItem('hh_cart') || '[]');
+        const total = cart.reduce((s, i) => s + i.qty, 0);
+        document.querySelectorAll('#cart-count,#cart-count-mobile').forEach(el => el.textContent = total);
+      } catch (_) {}
+    }
+    updateCartBadge();
+
+    // ── ADD TO CART (API if logged in, localStorage fallback) ─────────────────
+    // Product name → variant ID map (seeded in order by setupDb.js)
+    const VARIANT_IDS = {
+      "Air Jordan 1 Retro High":      { "UK 6":1,  "UK 7":2,  "UK 8":3,  "UK 9":4,  "UK 10":5,  "UK 11":6,  "UK 12":7  },
+      "Yeezy 700 V3":                 { "UK 6":8,  "UK 7":9,  "UK 8":10, "UK 9":11, "UK 10":12, "UK 11":13, "UK 12":14 },
+      "Nike Uptempo Slide Bulls":     { "UK 6":15, "UK 7":16, "UK 8":17, "UK 9":18, "UK 10":19, "UK 11":20, "UK 12":21 },
+      "Travis Scott x Fragment High": { "UK 6":22, "UK 7":23, "UK 8":24, "UK 9":25, "UK 10":26, "UK 11":27, "UK 12":28 },
+    };
 
     document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", async (e) => {
         e.preventDefault();
-        const card = btn.closest(".shoe-card");
-        const sizeSelect = card ? card.querySelector("select") : null;
-        const size = sizeSelect ? sizeSelect.value : "";
+        const card       = btn.closest(".shoe-card");
+        const sizeSelect = card?.querySelector("select");
+        const size       = sizeSelect?.value;
+
         if (!size) {
           if (sizeSelect) {
             sizeSelect.classList.add("select-shake");
-            sizeSelect.style.borderColor = "#ef4444";
-            sizeSelect.style.boxShadow = "0 0 0 2px rgba(239,68,68,0.25)";
+            sizeSelect.style.borderColor  = "#ef4444";
+            sizeSelect.style.boxShadow    = "0 0 0 2px rgba(239,68,68,0.25)";
             setTimeout(() => { sizeSelect.classList.remove("select-shake"); sizeSelect.style.borderColor = ""; sizeSelect.style.boxShadow = ""; }, 500);
           }
           showToast("Pick a size first! 👟", true);
           return;
         }
-        const item = {
-          id:       (card.dataset.name || "item") + "-" + size,
-          name:     card.dataset.name     || "Sneaker",
-          colorway: card.dataset.colorway || "",
-          brand:    card.dataset.brand    || "",
-          price:    parseFloat(card.dataset.price) || 0,
-          img:      card.dataset.img      || "",
-          size:     size,
-          qty:      1
-        };
-        const cart = getCart();
-        const existing = cart.find(i => i.id === item.id);
-        if (existing) { existing.qty++; } else { cart.push(item); }
-        saveCart(cart);
-        updateCartBadge();
-        const badge = document.getElementById("cart-count");
-        if (badge) { badge.classList.remove("cart-bump"); void badge.offsetWidth; badge.classList.add("cart-bump"); }
+
         const orig = btn.textContent;
-        btn.textContent = "✓ Added!";
-        btn.disabled = true; btn.style.opacity = "0.8";
-        setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.opacity = ""; }, 1500);
-        showToast("Added to cart!", false);
+        btn.textContent = "...";
+        btn.disabled    = true;
+
+        if (isLoggedIn()) {
+          // ── API path ──────────────────────────────────────────
+          try {
+            const productName = card.dataset.name;
+            const variantId   = VARIANT_IDS[productName]?.[size];
+            if (!variantId) { showToast("Size not found", true); btn.textContent = orig; btn.disabled = false; return; }
+
+            await apiCall('/cart', {
+              method:  'POST',
+              headers: authHeaders(),
+              body:    JSON.stringify({ variant_id: variantId, qty: 1 })
+            });
+
+            btn.textContent = "✓ Added!";
+            showToast("Added to cart!", false);
+            updateCartBadge();
+
+            const badge = document.getElementById("cart-count");
+            if (badge) { badge.classList.remove("cart-bump"); void badge.offsetWidth; badge.classList.add("cart-bump"); }
+          } catch (_) {
+            btn.textContent = orig;
+          }
+        } else {
+          // ── localStorage fallback (guest) ─────────────────────
+          const item = {
+            id:       (card.dataset.name || "item") + "-" + size,
+            name:     card.dataset.name    || "Sneaker",
+            colorway: card.dataset.colorway || "",
+            brand:    card.dataset.brand    || "",
+            price:    parseFloat(card.dataset.price) || 0,
+            img:      card.dataset.img      || "",
+            size,
+            qty: 1
+          };
+          try {
+            const cart     = JSON.parse(localStorage.getItem("hh_cart") || "[]");
+            const existing = cart.find(i => i.id === item.id);
+            if (existing) { existing.qty++; } else { cart.push(item); }
+            localStorage.setItem("hh_cart", JSON.stringify(cart));
+          } catch (_) {}
+
+          btn.textContent = "✓ Added!";
+          showToast("Added to cart!", false);
+          updateCartBadge();
+        }
+
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1500);
       });
     });
 
-    // ─── WISHLIST (localStorage — hh_wishlist) ────────────────────
-    function getWishlist() {
-      try { return JSON.parse(localStorage.getItem("hh_wishlist") || "[]"); }
-      catch(e) { return []; }
-    }
-    function saveWishlist(w) { localStorage.setItem("hh_wishlist", JSON.stringify(w)); }
+    // ── WISHLIST (API if logged in, localStorage fallback) ────────────────────
+    function getLocalWishlist()     { try { return JSON.parse(localStorage.getItem("hh_wishlist") || "[]"); } catch(_){return[];} }
+    function saveLocalWishlist(w)   { localStorage.setItem("hh_wishlist", JSON.stringify(w)); }
 
     function syncWishlistUI() {
-      const w = getWishlist();
+      const w = getLocalWishlist();
       document.querySelectorAll(".wishlist-btn").forEach(btn => {
-        const card = btn.closest(".shoe-card");
-        if (!card) return;
-        const id = (card.dataset.name || "") + "-wish";
+        const card = btn.closest(".shoe-card"); if (!card) return;
+        const id   = (card.dataset.name || "") + "-wish";
         const inList = w.some(i => i.id === id);
-        const icon = btn.querySelector("i");
-        if (inList) {
-          if (icon.classList.contains("far")) icon.classList.replace("far", "fas");
-          icon.classList.add("text-red-500");
-          icon.classList.remove("text-gray-700");
-        } else {
-          if (icon.classList.contains("fas")) icon.classList.replace("fas", "far");
-          icon.classList.remove("text-red-500");
-          icon.classList.add("text-gray-700");
-        }
+        const icon   = btn.querySelector("i");
+        if (inList) { if (icon.classList.contains("far")) icon.classList.replace("far","fas"); icon.classList.add("text-red-500"); icon.classList.remove("text-gray-700"); }
+        else        { if (icon.classList.contains("fas")) icon.classList.replace("fas","far"); icon.classList.remove("text-red-500"); icon.classList.add("text-gray-700"); }
       });
     }
 
     document.querySelectorAll(".wishlist-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const card = btn.closest(".shoe-card");
-        if (!card) return;
+      btn.addEventListener("click", async () => {
+        const card      = btn.closest(".shoe-card"); if (!card) return;
+        const productId = card.dataset.productId;
+        const icon      = btn.querySelector("i");
+        icon.style.animation = "none"; void icon.offsetWidth; icon.style.animation = "heart-spring 0.25s ease-out";
 
-        const id       = (card.dataset.name || "") + "-wish";
-        const name     = card.dataset.name     || "Sneaker";
-        const colorway = card.dataset.colorway || "";
-        const brand    = card.dataset.brand    || "";
-        const price    = parseFloat(card.dataset.price) || 0;
-        const img      = card.dataset.img      || "";
-
-        let w = getWishlist();
-        const exists = w.some(i => i.id === id);
-
-        if (exists) {
-          // Remove
-          w = w.filter(i => i.id !== id);
-          saveWishlist(w);
-          syncWishlistUI();
-          showToast("Removed from wishlist", false);
+        if (isLoggedIn()) {
+          // ── API path ──────────────────────────────────────────
+          try {
+            const data = await apiCall(`/wishlist/${productId}`, { method: 'POST', headers: authHeaders() });
+            if (data.wishlisted) { if (icon.classList.contains("far")) icon.classList.replace("far","fas"); icon.classList.add("text-red-500"); }
+            else                 { if (icon.classList.contains("fas")) icon.classList.replace("fas","far"); icon.classList.remove("text-red-500"); }
+            showToast(data.message, false);
+          } catch (_) {}
         } else {
-          // Add
-          w.push({ id, name, colorway, brand, price, img });
-          saveWishlist(w);
-          syncWishlistUI();
-          showToast("❤️ Saved to wishlist!", false);
+          // ── localStorage fallback (guest) ─────────────────────
+          const id       = (card.dataset.name || "") + "-wish";
+          const name     = card.dataset.name     || "Sneaker";
+          const colorway = card.dataset.colorway || "";
+          const brand    = card.dataset.brand    || "";
+          const price    = parseFloat(card.dataset.price) || 0;
+          const img      = card.dataset.img      || "";
+          let w          = getLocalWishlist();
+          const exists   = w.some(i => i.id === id);
+          if (exists) { w = w.filter(i => i.id !== id); saveLocalWishlist(w); syncWishlistUI(); showToast("Removed from wishlist", false); }
+          else        { w.push({id,name,colorway,brand,price,img}); saveLocalWishlist(w); syncWishlistUI(); showToast("❤️ Saved to wishlist!", false); }
         }
-
-        // Heart spring animation
-        const icon = btn.querySelector("i");
-        icon.style.animation = "none";
-        void icon.offsetWidth;
-        icon.style.animation = "heart-spring 0.25s ease-out";
       });
     });
-
-    // Restore red hearts on page load for already-wishlisted items
     syncWishlistUI();
-    updateCartBadge();
 
-    // ─── FILTER PANEL ────────────────────────────────────────────
+    // ── FILTER PANEL ──────────────────────────────────────────────────────────
     const filterBtn     = document.getElementById("filterBtn");
     const filterPanel   = document.getElementById("filterPanel");
     const filterOverlay = document.getElementById("filterOverlay");
     const products      = document.querySelectorAll(".shoe-card");
 
-    function openFilter() {
-      const rect = filterBtn.getBoundingClientRect();
-      filterPanel.style.top   = (rect.bottom + 8 + window.scrollY) + "px";
-      filterPanel.style.right = (window.innerWidth - rect.right - 4) + "px";
-      filterPanel.classList.add("open");
-      filterOverlay.classList.remove("hidden");
-    }
-    function closeFilter() { filterPanel.classList.remove("open"); filterOverlay.classList.add("hidden"); }
-    filterBtn.addEventListener("click", (e) => {
-      e.preventDefault(); e.stopPropagation();
-      filterPanel.classList.contains("open") ? closeFilter() : openFilter();
-    });
+    function openFilter(){const rect=filterBtn.getBoundingClientRect();filterPanel.style.top=(rect.bottom+8+window.scrollY)+"px";filterPanel.style.right=(window.innerWidth-rect.right-4)+"px";filterPanel.classList.add("open");filterOverlay.classList.remove("hidden");}
+    function closeFilter(){filterPanel.classList.remove("open");filterOverlay.classList.add("hidden");}
+    filterBtn.addEventListener("click",(e)=>{e.preventDefault();e.stopPropagation();filterPanel.classList.contains("open")?closeFilter():openFilter();});
+    function fpUpdate(){const MIN=1000,MAX=700000;let lo=parseInt(document.getElementById("fpMin").value),hi=parseInt(document.getElementById("fpMax").value);if(lo>=hi){lo=hi-1000;document.getElementById("fpMin").value=lo;}const lp=((lo-MIN)/(MAX-MIN))*100,rp=100-((hi-MIN)/(MAX-MIN))*100;document.getElementById("fpFill").style.left=lp+"%";document.getElementById("fpFill").style.right=rp+"%";document.getElementById("fpPriceDisplay").textContent="₹"+lo.toLocaleString("en-IN")+" – ₹"+hi.toLocaleString("en-IN");}
+    function fpApply(){const brand=document.getElementById("fpBrand").value,lo=parseInt(document.getElementById("fpMin").value),hi=parseInt(document.getElementById("fpMax").value);products.forEach(p=>{const price=parseInt(p.dataset.price||"0"),show=(brand==="all"||p.dataset.brand===brand)&&price>=lo&&price<=hi;p.style.display=show?"":"none";});closeFilter();showToast("Filters applied!",false);}
+    function fpReset(){document.getElementById("fpBrand").value="all";document.getElementById("fpMin").value=1000;document.getElementById("fpMax").value=700000;fpUpdate();products.forEach(p=>p.style.display="");closeFilter();}
+    window.fpUpdate=fpUpdate;window.fpApply=fpApply;window.fpReset=fpReset;window.closeFilter=closeFilter;fpUpdate();
 
-    function fpUpdate() {
-      const MIN = 1000, MAX = 700000;
-      let lo = parseInt(document.getElementById("fpMin").value);
-      let hi = parseInt(document.getElementById("fpMax").value);
-      if (lo >= hi) { lo = hi - 1000; document.getElementById("fpMin").value = lo; }
-      const leftPct  = ((lo - MIN) / (MAX - MIN)) * 100;
-      const rightPct = 100 - ((hi - MIN) / (MAX - MIN)) * 100;
-      document.getElementById("fpFill").style.left  = leftPct  + "%";
-      document.getElementById("fpFill").style.right = rightPct + "%";
-      document.getElementById("fpPriceDisplay").textContent = "₹" + lo.toLocaleString("en-IN") + " – ₹" + hi.toLocaleString("en-IN");
-    }
-    function fpApply() {
-      const brand = document.getElementById("fpBrand").value;
-      const lo    = parseInt(document.getElementById("fpMin").value);
-      const hi    = parseInt(document.getElementById("fpMax").value);
-      products.forEach(p => {
-        const price = parseInt(p.dataset.price || "0");
-        const show  = (brand === "all" || p.dataset.brand === brand) && price >= lo && price <= hi;
-        p.style.display = show ? "" : "none";
-      });
-      closeFilter();
-      showToast("Filters applied!", false);
-    }
-    function fpReset() {
-      document.getElementById("fpBrand").value = "all";
-      document.getElementById("fpMin").value   = 1000;
-      document.getElementById("fpMax").value   = 700000;
-      fpUpdate();
-      products.forEach(p => p.style.display = "");
-      closeFilter();
-    }
-    window.fpUpdate = fpUpdate; window.fpApply = fpApply; window.fpReset = fpReset; window.closeFilter = closeFilter;
-    fpUpdate();
-
-    // ─── SEARCH ───────────────────────────────────────────────────
-    const PRODUCT_INDEX = Array.from(document.querySelectorAll(".shoe-card")).map(card => ({
-      name:     card.dataset.name     || "",
-      colorway: card.dataset.colorway || "",
-      brand:    card.dataset.brand    || "",
-      price:    parseInt(card.dataset.price || "0"),
-      img:      card.dataset.img      || "",
-      el:       card
-    }));
-    const overlay      = document.getElementById("search-overlay");
-    const searchInput  = document.getElementById("search-input");
-    const clearBtn     = document.getElementById("search-clear-btn");
-    const resultsPanel = document.getElementById("search-results-panel");
-    function openSearch() { overlay.classList.add("open"); searchInput.focus(); }
-    function closeSearch() { overlay.classList.remove("open"); searchInput.value = ""; clearBtn.classList.remove("visible"); resultsPanel.innerHTML = ""; resultsPanel.classList.remove("has-results"); }
-    document.getElementById("search-open-btn").addEventListener("click", openSearch);
-    document.getElementById("search-open-btn-mobile")?.addEventListener("click", () => { document.getElementById("mobile-menu").classList.remove("open"); openSearch(); });
-    document.addEventListener("keydown", e => { if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); } });
-    overlay.addEventListener("click", e => { if (e.target === overlay) closeSearch(); });
-    document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("open")) closeSearch(); });
-    clearBtn.addEventListener("click", () => { searchInput.value = ""; clearBtn.classList.remove("visible"); resultsPanel.innerHTML = ""; resultsPanel.classList.remove("has-results"); searchInput.focus(); });
-    function highlight(text, query) { if (!query) return escH(text); return escH(text).replace(new RegExp(`(${escapeRegex(query)})`, "gi"), '<span class="search-highlight">$1</span>'); }
-    function escH(str) { return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-    function escapeRegex(str) { return str.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
-    function runSearch(query) {
-      clearBtn.classList.toggle("visible", query.length > 0);
-      if (!query.trim()) { resultsPanel.innerHTML = ""; resultsPanel.classList.remove("has-results"); return; }
-      const q = query.toLowerCase();
-      const hits = PRODUCT_INDEX.filter(p => p.name.toLowerCase().includes(q) || p.colorway.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
+    // ── SEARCH OVERLAY ────────────────────────────────────────────────────────
+    const PRODUCT_INDEX=Array.from(document.querySelectorAll(".shoe-card")).map(card=>({name:card.dataset.name||"",colorway:card.dataset.colorway||"",brand:card.dataset.brand||"",price:parseInt(card.dataset.price||"0"),img:card.dataset.img||"",el:card}));
+    const overlay=document.getElementById("search-overlay"),searchInput=document.getElementById("search-input"),clearBtn=document.getElementById("search-clear-btn"),resultsPanel=document.getElementById("search-results-panel");
+    function openSearch(){overlay.classList.add("open");searchInput.focus();}
+    function closeSearch(){overlay.classList.remove("open");searchInput.value="";clearBtn.classList.remove("visible");resultsPanel.innerHTML="";resultsPanel.classList.remove("has-results");}
+    document.getElementById("search-open-btn").addEventListener("click",openSearch);
+    document.getElementById("search-open-btn-mobile")?.addEventListener("click",()=>{document.getElementById("mobile-menu").classList.remove("open");openSearch();});
+    document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="k"){e.preventDefault();openSearch();}});
+    overlay.addEventListener("click",e=>{if(e.target===overlay)closeSearch();});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("open"))closeSearch();});
+    clearBtn.addEventListener("click",()=>{searchInput.value="";clearBtn.classList.remove("visible");resultsPanel.innerHTML="";resultsPanel.classList.remove("has-results");searchInput.focus();});
+    function highlight(text,query){if(!query)return escH(text);return escH(text).replace(new RegExp(`(${escapeRegex(query)})`,"gi"),'<span class="search-highlight">$1</span>');}
+    function escH(str){return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+    function escapeRegex(str){return str.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+    function runSearch(query){
+      clearBtn.classList.toggle("visible",query.length>0);
+      if(!query.trim()){resultsPanel.innerHTML="";resultsPanel.classList.remove("has-results");return;}
+      const q=query.toLowerCase(),hits=PRODUCT_INDEX.filter(p=>p.name.toLowerCase().includes(q)||p.colorway.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q));
       resultsPanel.classList.add("has-results");
-      if (!hits.length) { resultsPanel.innerHTML = `<div class="search-no-results"><span class="emoji">👟</span>No sneakers found for "<strong>${escH(query)}</strong>"</div>`; return; }
-      resultsPanel.innerHTML = hits.map((p, i) => `
-        <div class="search-result-item" data-idx="${i}" role="option" tabindex="0" style="animation-delay:${i*40}ms">
-          <img class="sri-img" src="${escH(p.img)}" alt="${escH(p.name)}" onerror="this.style.background='#e5e5e5'" />
-          <div class="sri-info"><div class="sri-name">${highlight(p.name, query)}</div><div class="sri-sub">${highlight(p.colorway, query)} · ${highlight(p.brand, query)}</div></div>
-          <div class="sri-price">₹${p.price.toLocaleString("en-IN")}</div>
-        </div>`).join("");
-      resultsPanel.querySelectorAll(".search-result-item").forEach((item, i) => {
-        item.addEventListener("click", () => {
-          closeSearch();
-          setTimeout(() => { hits[i].el.scrollIntoView({ behavior:"smooth", block:"center" }); hits[i].el.style.boxShadow = "0 0 0 3px #ef4444"; setTimeout(() => { hits[i].el.style.boxShadow = ""; }, 1200); }, 200);
-        });
-      });
+      if(!hits.length){resultsPanel.innerHTML=`<div class="search-no-results"><span class="emoji">👟</span>No sneakers found for "<strong>${escH(query)}</strong>"</div>`;return;}
+      resultsPanel.innerHTML=hits.map((p,i)=>`<div class="search-result-item" data-idx="${i}" role="option" tabindex="0" style="animation-delay:${i*40}ms"><img class="sri-img" src="${escH(p.img)}" alt="${escH(p.name)}" onerror="this.style.background='#e5e5e5'" /><div class="sri-info"><div class="sri-name">${highlight(p.name,query)}</div><div class="sri-sub">${highlight(p.colorway,query)} · ${highlight(p.brand,query)}</div></div><div class="sri-price">₹${p.price.toLocaleString("en-IN")}</div></div>`).join("");
+      resultsPanel.querySelectorAll(".search-result-item").forEach((item,i)=>{item.addEventListener("click",()=>{closeSearch();setTimeout(()=>{hits[i].el.scrollIntoView({behavior:"smooth",block:"center"});hits[i].el.style.boxShadow="0 0 0 3px #ef4444";setTimeout(()=>{hits[i].el.style.boxShadow="";},1200);},200);});});
     }
     let debounceTimer;
-    searchInput.addEventListener("input", () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(() => runSearch(searchInput.value), 160); });
+    searchInput.addEventListener("input",()=>{clearTimeout(debounceTimer);debounceTimer=setTimeout(()=>runSearch(searchInput.value),160);});
 
-    // ─── AI CHAT ─────────────────────────────────────────────────
-    const SYSTEM_PROMPT = `You are a friendly, knowledgeable sneaker assistant for Heat Haven, a premium sneaker store based in India.
-STORE INFO: Heat Haven | Instagram: @heatheaven.23_ | Currency: ₹ | Sizes: UK 6–12
-PRODUCTS: Air Jordan 1 Retro High - Chicago Bulls - ₹5,559 | Nike Uptempo Slide Bulls - ₹3,559 | Yeezy 700 V3 Azael - ₹4,759 | Travis Scott x Fragment High - ₹5,559
-POLICIES: Free shipping above ₹5,000 | Returns: 7 days unworn | Payment: UPI/Card/COD | Delivery: 3–7 days
-PERSONALITY: Short 2-3 sentence replies, casual, enthusiastic, sneaker-culture savvy.`;
-    const QUICK_REPLIES = ["What's on sale? 🔥","Size guide","Shipping info","Best Jordans","Yeezy sizing","Returns"];
-    const chatWidget = document.getElementById("hh-chat-widget");
-    const chatToggle = document.getElementById("hh-chat-toggle");
-    const msgs = document.getElementById("hh-messages");
-    const input = document.getElementById("hh-input");
-    const sendBtn = document.getElementById("hh-send");
-    const chipsEl = document.getElementById("hh-chips");
-    const notifDot = document.getElementById("hh-notif-dot");
-    let chatHistory = [], isTyping = false, hasOpened = false;
-    chatToggle.addEventListener("click", () => { chatWidget.classList.toggle("open"); if (!hasOpened) { hasOpened = true; notifDot.style.display = "none"; showWelcome(); } });
-    function showWelcome() { setTimeout(() => { addBot("Hey! 👟 Welcome to **Heat Haven**. I'm your personal sneaker assistant."); setTimeout(() => { addBot("Ask me about products, sizing, shipping, or anything sneaker-related!"); showChips(); }, 800); }, 300); }
-    function showChips(chips = QUICK_REPLIES) { chipsEl.innerHTML = ""; chips.forEach(t => { const b = document.createElement("button"); b.className = "hh-chip"; b.textContent = t; b.onclick = () => { chipsEl.innerHTML = ""; sendMsg(t); }; chipsEl.appendChild(b); }); }
-    function addBot(text) { const d = document.createElement("div"); d.className = "hh-msg bot"; d.innerHTML = `<div class="hh-bot-avatar">HH</div><div class="hh-bubble">${text.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>")}</div>`; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; }
-    function addUser(text) { const d = document.createElement("div"); d.className = "hh-msg user"; d.innerHTML = `<div class="hh-bubble">${text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; }
-    function showTyping() { const d = document.createElement("div"); d.className = "hh-msg bot"; d.id = "hh-typing-indicator"; d.innerHTML = `<div class="hh-bot-avatar">HH</div><div class="hh-bubble" style="padding:10px 16px"><div class="hh-typing"><span></span><span></span><span></span></div></div>`; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; }
-    function hideTyping() { const e = document.getElementById("hh-typing-indicator"); if(e) e.remove(); }
-    async function sendMsg(text) {
-      text = text.trim(); if (!text || isTyping) return;
-      chipsEl.innerHTML = ""; addUser(text); input.value = "";
-      isTyping = true; sendBtn.style.opacity = "0.5";
-      chatHistory.push({ role:"user", content:text }); showTyping();
-      try {
-        const res  = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1000, system:SYSTEM_PROMPT, messages:chatHistory }) });
-        const data  = await res.json();
-        const reply = data.content?.[0]?.text || "Sorry, couldn't get a response. Try again!";
-        chatHistory.push({ role:"assistant", content:reply });
-        hideTyping(); addBot(reply);
-        showChips(["Tell me more","What's on sale?","Shipping","Contact support"]);
-      } catch(err) { hideTyping(); addBot("Connectivity issue! DM us on Instagram **@heatheaven.23_** 🙏"); }
-      isTyping = false; sendBtn.style.opacity = "1";
-    }
-    sendBtn.addEventListener("click", () => sendMsg(input.value));
-    input.addEventListener("keydown", e => { if (e.key === "Enter") sendMsg(input.value); });
-    setTimeout(() => { if (!hasOpened) notifDot.style.display = "block"; }, 3000);
+    // ── AI CHAT ───────────────────────────────────────────────────────────────
+    const QUICK_REPLIES = ["What's on sale? 🔥","Size guide","Shipping info","Best Jordans","Yeezy sizing","Returns policy"];
+    const chatWidget=document.getElementById("hh-chat-widget"),chatToggle=document.getElementById("hh-chat-toggle"),msgs=document.getElementById("hh-messages"),input=document.getElementById("hh-input"),sendBtn=document.getElementById("hh-send"),chipsEl=document.getElementById("hh-chips"),notifDot=document.getElementById("hh-notif-dot");
+    let hasOpened=false;
+    const KB = [
+      { keys:["sale","deal","discount","offer"], reply:"🔥 We've got the Air Jordan 1 Chicago on sale right now! Plus check out our Hot Deals page for more steals. Free shipping kicks in above ₹50,000 too!" },
+      { keys:["jordan","aj1","jordan 1","chicago bulls","air jordan"], reply:"The Air Jordan 1 Retro High Chicago Bulls is one of our most 🔥 pieces — a certified grail. Prices start at ₹21,500 and vary by size. Grab it before it's gone!" },
+      { keys:["yeezy","700","azael","adidas yeezy"], reply:"The Yeezy 700 V3 Azael is pure fire 🧲 — that alien aesthetic is unmatched. Prices range ₹12,400–₹20,500 depending on size. Yeezys run small so go half a size up!" },
+      { keys:["travis","fragment","travis scott"], reply:"The Travis Scott x Fragment High is the rarest drop we carry 👁️ — prices go from ₹94,000 to ₹3,06,000 depending on size. A true collector piece." },
+      { keys:["nike","uptempo","slide","bulls"], reply:"The Nike Uptempo Slide Bulls is a bold statement piece 🏀 — prices range ₹21,500–₹47,000 by size. Perfect for the culture." },
+      { keys:["size","sizing","fit","small","large","run"], reply:"📏 <strong>Heat Haven Size Guide</strong><br><br>👟 <strong>Air Jordans / Nike</strong> → Go half a size up.<br>🟡 <strong>Yeezys</strong> → Go a full size up.<br>⚖️ <strong>New Balance</strong> → True to size.<br>👟 <strong>Adidas</strong> → Generally true to size.<br><br>Still unsure? DM us @heatheaven.23_ 🙌" },
+      { keys:["shipping","delivery","ship","how long","when"], reply:"🚚 Free shipping above ₹50,000. ₹1,000 flat below that. 3–7 business days pan-India!" },
+      { keys:["return","exchange","refund","policy","unworn"], reply:"↩️ Returns within 7 days, unworn with original box. DM @heatheaven.23_ or email info@heathaven.in to start!" },
+      { keys:["pay","payment","upi","cod","cash","card"], reply:"💳 UPI, Cards (Visa/Mastercard/RuPay), and Cash on Delivery on select orders. 100% secure!" },
+      { keys:["authentic","real","legit","fake","original"], reply:"💯 Every pair is 100% authentic and verified by our team. No replicas, ever." },
+      { keys:["contact","reach","call","whatsapp","instagram","email"], reply:"📞 Reach us!<br>• Instagram: @heatheaven.23_<br>• WhatsApp: +91 9205443488<br>• Email: info@heathaven.in" },
+      { keys:["price","cost","how much","₹","rs"], reply:"💰 Prices vary by size — select a size on the card to see the exact price! AJ1 from ₹21,500 · Yeezy from ₹12,400 · Uptempo from ₹21,500 · Travis Fragment from ₹94,000" },
+      { keys:["ar","try on","tryon","camera","virtual"], reply:"📸 Tap the orange camera button bottom-right, or click 'Try On AR' on any card!" },
+      { keys:["stock","available","in stock","availability"], reply:"📦 If you see a size listed, it's available! Stock moves fast — add to cart ASAP." },
+      { keys:["login","account","sign up","register"], reply:"👤 Click the Login button top-right to create an account or sign in. Once logged in, your cart and wishlist sync to the backend!" },
+      { keys:["hello","hi","hey","sup","yo","hola","namaste"], reply:"Hey! 👋 Welcome to Heat Haven — your go-to spot for premium kicks in India. What can I help you with today? 👟" },
+      { keys:["thanks","thank you","thx","appreciate"], reply:"Anytime! 🙏 Happy to help. Stay fresh and keep it 🔥" },
+    ];
+    function getReply(text){const q=text.toLowerCase();for(const e of KB){if(e.keys.some(k=>q.includes(k)))return e.reply;}return "Hmm, not sure about that one! 🤔 DM us on Instagram <strong>@heatheaven.23_</strong> or WhatsApp <strong>+91 9205443488</strong> and our team will help! 👟";}
+    chatToggle.addEventListener("click",()=>{
+      chatWidget.classList.toggle("open");
+      if(!hasOpened){hasOpened=true;notifDot.style.display="none";setTimeout(()=>{addBot("Hey! 👟 Welcome to <strong>Heat Haven</strong>. I'm your personal sneaker assistant.");setTimeout(()=>{addBot("Ask me about products, sizing, shipping, or anything sneaker-related!");showChips();},800);},300);}
+    });
+    function showChips(chips=QUICK_REPLIES){chipsEl.innerHTML="";chips.forEach(t=>{const b=document.createElement("button");b.className="hh-chip";b.textContent=t;b.onclick=()=>{chipsEl.innerHTML="";sendMsg(t);};chipsEl.appendChild(b);});}
+    function addBot(html){const d=document.createElement("div");d.className="hh-msg bot";d.innerHTML=`<div class="hh-bot-avatar">HH</div><div class="hh-bubble">${html.replace(/\n/g,"<br>")}</div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+    function addUser(text){const d=document.createElement("div");d.className="hh-msg user";d.innerHTML=`<div class="hh-bubble">${escH(text)}</div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+    function showTyping(){const d=document.createElement("div");d.className="hh-msg bot";d.id="hh-typing-indicator";d.innerHTML=`<div class="hh-bot-avatar">HH</div><div class="hh-bubble" style="padding:10px 16px"><div class="hh-typing"><span></span><span></span><span></span></div></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+    function hideTyping(){const e=document.getElementById("hh-typing-indicator");if(e)e.remove();}
+    function sendMsg(text){text=text.trim();if(!text)return;chipsEl.innerHTML="";addUser(text);input.value="";showTyping();setTimeout(()=>{hideTyping();addBot(getReply(text));showChips(["Tell me more","Shipping info","Size guide","Contact us"]);},600+Math.random()*400);}
+    sendBtn.addEventListener("click",()=>sendMsg(input.value));
+    input.addEventListener("keydown",e=>{if(e.key==="Enter")sendMsg(input.value);});
+    setTimeout(()=>{if(!hasOpened)notifDot.style.display="block";},3000);
   </script>
+
+  <div id="cursor-glow"></div>
+
+  <script>
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => { glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; });
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .section-heading');
+    const cards     = document.querySelectorAll('.shoe-card');
+    cards.forEach((card,i) => { card.style.transitionDelay=(i*0.08)+'s'; });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+    cards.forEach(el => io.observe(el));
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if(link.getAttribute('href')===currentPage){link.classList.add('font-semibold');link.style.color='#ff4500';}
+    });
+    document.querySelectorAll('.deal-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;
+        card.style.transform=`perspective(800px) rotateX(${-y*10}deg) rotateY(${x*10}deg) translateY(-6px) scale(1.03)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform=''; });
+    });
+  </script>
+
+  <!-- DYNAMIC SIZE PRICING -->
+  <script>
+  (function () {
+    var PRICES = {
+      "Air Jordan 1 Retro High":      { "UK 6":22000,"UK 7":23000,"UK 8":21500,"UK 9":24000,"UK 10":24500,"UK 11":25000,"UK 12":25500 },
+      "Yeezy 700 V3":                 { "UK 6":12400,"UK 7":13000,"UK 8":18000,"UK 9":19000,"UK 10":17000,"UK 11":20500,"UK 12":20500 },
+      "Nike Uptempo Slide Bulls":     { "UK 6":26000,"UK 7":21500,"UK 8":28000,"UK 9":28000,"UK 10":36000,"UK 11":47000,"UK 12":33000 },
+      "Travis Scott x Fragment High": { "UK 6":94000,"UK 7":295000,"UK 8":306000,"UK 9":218000,"UK 10":222000,"UK 11":205000,"UK 12":127000 },
+    };
+    function rupees(n) { return '\u20b9' + Number(n).toLocaleString('en-IN'); }
+    function findPriceEl(card) {
+      var all = card.querySelectorAll('.font-bold');
+      for (var i = 0; i < all.length; i++) {
+        var el = all[i];
+        var isTitle = el.tagName === 'H3';
+        var hasRupee = el.textContent.trim().startsWith('\u20b9');
+        if (!isTitle && hasRupee) return el;
+      }
+      return null;
+    }
+    function initCard(card) {
+      var name = (card.dataset.name || '').trim();
+      var pricing = PRICES[name];
+      if (!pricing) return;
+      var select = card.querySelector('select.size-select');
+      if (!select) return;
+      var priceEl = findPriceEl(card);
+      if (!priceEl) return;
+      select.addEventListener('change', function () {
+        var price = pricing[this.value];
+        if (!price) return;
+        priceEl.classList.remove('hh-price-pop');
+        void priceEl.offsetWidth;
+        priceEl.classList.add('hh-price-pop');
+        priceEl.textContent = rupees(price);
+        card.dataset.price = price;
+      });
+    }
+    function init() { document.querySelectorAll('.shoe-card').forEach(function(card) { initCard(card); }); }
+    document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+  })();
+  </script>
+
 </body>
 </html>
