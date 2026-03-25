@@ -312,7 +312,7 @@
     </div>
   </div>
 
-  <!-- Navigation -->
+  <!-- Navigation Bar -->
   <nav class="bg-white dark:bg-amoled shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
@@ -329,7 +329,6 @@
         </div>
         <div class="flex items-center">
           <div class="hidden md:flex items-center space-x-2">
-            <!-- Wishlist heart → links to wishlist.html -->
             <a href="wishlist.html" id="nav-wishlist-btn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark transition-colors relative" aria-label="Wishlist">
               <i class="fas fa-heart text-red-600 dark:text-red-600"></i>
             </a>
@@ -355,7 +354,7 @@
             <a href="profile.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark">
               <i class="fas fa-user text-gray-600 dark:text-gray-300"></i>
             </a>
-            <a href="profile login.html" class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">Login</a>
+            <a href="profile login.html" id="login-link" class="ml-2 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">Login</a>
           </div>
           <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
             <i class="fas fa-bars text-black dark:text-white"></i>
@@ -363,8 +362,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Mobile menu -->
     <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white dark:bg-gray-900 shadow-lg z-50 p-4" id="mobile-menu">
       <div class="flex justify-between items-center mb-8">
         <div class="brand text-xl font-bold dark:text-white">HEAT HAVEN</div>
@@ -376,6 +373,10 @@
         <a href="deals.html"    class="nav-link text-black dark:text-white hover:text-gray-600">Hot Deals</a>
         <a href="#contact"      class="nav-link text-black dark:text-white hover:text-gray-600">Contact</a>
         <a href="wishlist.html" class="flex items-center gap-2 text-red-500 font-medium"><i class="fas fa-heart text-sm"></i> Wishlist</a>
+        <a href="ar-tryon.html" class="flex items-center gap-2 font-semibold" style="color:#00c9b1;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          AR Try-On
+        </a>
       </div>
       <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
         <div class="flex items-center space-x-4">
@@ -392,7 +393,6 @@
       </div>
     </div>
   </nav>
-
   <!-- Main Content -->
   <div id="app" class="page-transition">
 
