@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Haven – Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { amoled:'#000000', cardDark:'#0a0a0a', hoverDark:'#111111' } } }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family:"Poppins",sans-serif; overflow-x:hidden; }
+    html { scrollbar-gutter:stable; }
+    h1,h2,h3,h4,.brand { font-family:"Archivo Black",sans-serif; letter-spacing:-0.5px; }
+
+    .mobile-menu { transform:translateX(100%); transition:transform 0.3s ease-in-out; }
+    .mobile-menu.open { transform:translateX(0); }
+
+    .page-transition { animation:fadeIn 0.5s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Dark mode icons */
+    .sun-icon  { display:block; width:20px; height:20px; }
+    .moon-icon { display:none;  width:20px; height:20px; }
+    .dark .sun-icon  { display:none; }
+    .dark .moon-icon { display:block; }
+
+    nav { background:#fff; }
+    .dark nav { background:#000; border-bottom:1px solid #1a1a1a; }
+
+    /* Toast */
+    #toast {
+      position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px);
+      background:#111; color:#fff; padding:10px 22px; border-radius:999px;
+      font-size:13px; z-index:9999; opacity:0; transition:opacity 0.3s,transform 0.3s;
+      pointer-events:none; display:flex; align-items:center; gap:8px; white-space:nowrap;
+    }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* ── Section cards ── */
+    .checkout-section {
+      background:#fff; border:1px solid #e5e7eb; border-radius:16px;
+      transition:border-color 0.2s, box-shadow 0.2s;
+      animation:fadeIn 0.4s ease both;
+    }
+    .dark .checkout-section { background:#0f0f0f; border-color:#1f1f1f; }
+    .checkout-section:focus-within { border-color:#000; box-shadow:0 0 0 3px rgba(0,0,0,0.06); }
+    .dark .checkout-section:focus-within { border-color:#444; box-shadow:0 0 0 3px rgba(255,255,255,0.04); }
+
+    /* ── Inputs ── */
+    .inp {
+      width:100%; border:1.5px solid #e5e7eb; border-radius:10px;
+      padding:11px 14px; font-size:14px; font-family:"Poppins",sans-serif;
+      outline:none; background:#fff; color:#111;
+      transition:border-color 0.2s, box-shadow 0.2s;
+    }
+    .inp:focus { border-color:#000; box-shadow:0 0 0 3px rgba(0,0,0,0.06); }
+    .inp::placeholder { color:#aaa; }
+    .dark .inp { background:#111; border-color:#2a2a2a; color:#f0f0f0; }
+    .dark .inp:focus { border-color:#555; box-shadow:0 0 0 3px rgba(255,255,255,0.04); }
+    .dark .inp::placeholder { color:#555; }
+
+    /* ── Payment option cards ── */
+    .pay-card {
+      border:1.5px solid #e5e7eb; border-radius:12px; padding:14px 16px;
+      cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:12px;
+    }
+    .pay-card:hover { border-color:#000; background:#fafafa; }
+    .pay-card.selected { border-color:#000; background:#f5f5f5; }
+    .dark .pay-card { border-color:#2a2a2a; }
+    .dark .pay-card:hover { border-color:#555; background:#111; }
+    .dark .pay-card.selected { border-color:#fff; background:#111; }
+    .pay-radio {
+      width:18px; height:18px; border-radius:50%; border:2px solid #d1d5db;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      transition:border-color 0.2s;
+    }
+    .pay-card.selected .pay-radio { border-color:#000; }
+    .dark .pay-card.selected .pay-radio { border-color:#fff; }
+    .pay-radio-dot {
+      width:8px; height:8px; border-radius:50%; background:#000;
+      opacity:0; transform:scale(0); transition:opacity 0.2s, transform 0.2s;
+    }
+    .pay-card.selected .pay-radio-dot { opacity:1; transform:scale(1); }
+    .dark .pay-card.selected .pay-radio-dot { background:#fff; }
+
+    /* ── Address select cards ── */
+    .addr-card {
+      border:1.5px solid #e5e7eb; border-radius:12px; padding:14px 16px;
+      cursor:pointer; transition:all 0.2s; display:flex; align-items:flex-start; gap:12px;
+    }
+    .addr-card:hover { border-color:#000; }
+    .addr-card.selected { border-color:#000; background:#fafafa; }
+    .dark .addr-card { border-color:#2a2a2a; }
+    .dark .addr-card:hover { border-color:#555; }
+    .dark .addr-card.selected { border-color:#fff; background:#111; }
+
+    /* ── Order item row ── */
+    .order-item { animation:fadeIn 0.3s ease both; }
+
+    /* ── Place order button ── */
+    .place-btn {
+      width:100%; padding:15px; border-radius:14px; border:none; cursor:pointer;
+      font-family:"Poppins",sans-serif; font-size:15px; font-weight:700;
+      background:#000; color:#fff;
+      transition:transform 0.2s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.2s, background 0.2s;
+      box-shadow:0 6px 20px rgba(0,0,0,0.2);
+    }
+    .place-btn:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,0.3); background:#111; }
+    .place-btn:active { transform:scale(0.98); }
+    .dark .place-btn { background:#fff; color:#000; box-shadow:0 6px 20px rgba(255,255,255,0.08); }
+    .dark .place-btn:hover { box-shadow:0 10px 28px rgba(255,255,255,0.12); }
+
+    /* ── Step indicator ── */
+    .step { display:flex; align-items:center; gap:8px; }
+    .step-num {
+      width:28px; height:28px; border-radius:50%; font-size:12px; font-weight:700;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      font-family:"Archivo Black",sans-serif;
+    }
+    .step-num.active { background:#000; color:#fff; }
+    .step-num.done   { background:#22c55e; color:#fff; }
+    .step-num.future { background:#f3f4f6; color:#9ca3af; border:1.5px solid #e5e7eb; }
+    .dark .step-num.active { background:#fff; color:#000; }
+    .dark .step-num.done   { background:#22c55e; color:#fff; }
+    .dark .step-num.future { background:#111; color:#555; border-color:#2a2a2a; }
+    .step-line { flex:1; height:2px; background:#e5e7eb; border-radius:2px; min-width:24px; }
+    .step-line.done { background:#22c55e; }
+    .dark .step-line { background:#2a2a2a; }
+
+    /* ── Success overlay ── */
+    #success-overlay {
+      position:fixed; inset:0; z-index:99999;
+      background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity 0.4s ease;
+    }
+    #success-overlay.show { opacity:1; pointer-events:all; }
+    #success-box {
+      background:#fff; border-radius:24px; padding:48px 40px; text-align:center;
+      max-width:420px; width:90%; box-shadow:0 32px 80px rgba(0,0,0,0.3);
+      transform:scale(0.88) translateY(20px); transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #success-overlay.show #success-box { transform:scale(1) translateY(0); }
+    .dark #success-box { background:#0f0f0f; border:1px solid #2a2a2a; }
+    .checkmark-circle {
+      width:80px; height:80px; border-radius:50%; background:#22c55e;
+      display:flex; align-items:center; justify-content:center; margin:0 auto 20px;
+      animation:pop-in 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+    }
+    @keyframes pop-in { from{transform:scale(0)} to{transform:scale(1)} }
