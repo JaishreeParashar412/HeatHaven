@@ -519,3 +519,61 @@
       </div>
 
     </div>
+
+     <!-- RIGHT COLUMN — Order Summary -->
+    <div class="flex flex-col gap-5">
+
+      <!-- Items -->
+      <div class="checkout-section p-5" style="animation-delay:0ms">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold dark:text-white">Order Summary</h2>
+          <a href="cart.html" class="text-xs text-gray-400 dark:text-zinc-600 hover:text-black dark:hover:text-white transition flex items-center gap-1">
+            <i class="fas fa-pen text-xs"></i> Edit cart
+          </a>
+        </div>
+        <div id="order-items" class="flex flex-col gap-3 max-h-72 overflow-y-auto pr-1">
+          <!-- Rendered by JS -->
+        </div>
+        <div id="empty-cart-msg" class="hidden text-center py-8 text-sm text-gray-400 dark:text-zinc-600">
+          <i class="fas fa-shopping-cart text-2xl mb-2 block"></i>
+          Your cart is empty. <a href="product.html" class="underline">Browse sneakers →</a>
+        </div>
+      </div>
+
+      <!-- Totals -->
+      <div class="checkout-section p-5" style="animation-delay:80ms">
+        <div class="flex flex-col gap-3 text-sm">
+          <div class="flex justify-between text-gray-500 dark:text-zinc-500">
+            <span>Subtotal (<span id="item-count">0</span> items)</span>
+            <span id="subtotal-val">₹0</span>
+          </div>
+          <div class="flex justify-between text-gray-500 dark:text-zinc-500">
+            <span>Shipping</span>
+            <span id="shipping-val" class="text-green-500 font-medium">Free</span>
+          </div>
+          <div id="cod-row" class="flex justify-between text-amber-600 hidden">
+            <span>COD charge</span>
+            <span>+₹49</span>
+          </div>
+          <div id="discount-row" class="flex justify-between text-green-500 hidden">
+            <span>Promo discount</span>
+            <span id="discount-val">-₹0</span>
+          </div>
+          <div class="border-t dark:border-zinc-800 pt-3 flex justify-between font-bold text-base dark:text-white">
+            <span>Total</span>
+            <span id="total-val">₹0</span>
+          </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="mt-4 pt-4 border-t dark:border-zinc-800 grid grid-cols-3 gap-2 text-center">
+          <div class="text-xs text-gray-400 dark:text-zinc-600">
+            <i class="fas fa-shield-halved text-green-500 block text-base mb-1"></i>Secure<br>Payment
+          </div>
+          <div class="text-xs text-gray-400 dark:text-zinc-600">
+            <i class="fas fa-rotate-left text-blue-500 block text-base mb-1"></i>7-Day<br>Returns
+          </div>
+          <div class="text-xs text-gray-400 dark:text-zinc-600">
+            <i class="fas fa-certificate text-purple-500 block text-base mb-1"></i>100%<br>Authentic
+          </div>
+        </div>
