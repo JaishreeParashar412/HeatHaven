@@ -727,3 +727,29 @@
   </footer>
 
   <div id="toast" class="toast"><i class="fas fa-check-circle text-green-400"></i><span>Added to cart!</span></div>
+
+  <!-- AI CHAT WIDGET -->
+  <div id="hh-chat-widget">
+    <div id="hh-chat-panel">
+      <div id="hh-chat-header">
+        <div class="hh-avatar">🤖</div>
+        <div class="hh-header-info">
+          <div class="hh-header-name">Heat Haven Support</div>
+          <div class="hh-header-status"><span class="hh-status-dot"></span> Online · AI Assistant</div>
+        </div>
+        <button onclick="document.getElementById('hh-chat-widget').classList.remove('open')" style="background:none;border:none;color:#666;cursor:pointer;font-size:18px;padding:4px;"><i class="fas fa-chevron-down"></i></button>
+      </div>
+      <div id="hh-messages"></div>
+      <div class="hh-chips" id="hh-chips"></div>
+      <div id="hh-input-area">
+        <input id="hh-input" type="text" placeholder="Ask anything about sneakers…" autocomplete="off" />
+        <button id="hh-send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+      </div>
+      <div class="hh-powered">Powered by Heat Haven AI ✦</div>
+    </div>
+    <button id="hh-chat-toggle" aria-label="Open chat">
+      <span class="notif-dot" id="hh-notif-dot"></span>
+      <span class="toggle-icon icon-chat"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+      <span class="toggle-icon icon-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+    </button>
+  </div>
