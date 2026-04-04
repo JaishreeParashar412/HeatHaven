@@ -753,3 +753,37 @@
       <span class="toggle-icon icon-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
     </button>
   </div>
+
+  <script>
+    // DARK MODE
+    if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    // MOBILE MENU
+    document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.add("open"));
+    document.getElementById("close-menu").addEventListener("click", () => document.getElementById("mobile-menu").classList.remove("open"));
+
+    // BRAND FILTER PILLS
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const shoeCards     = document.querySelectorAll(".shoe-card");
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const brand = btn.dataset.brand;
+        shoeCards.forEach(card => { card.style.display = (brand === "all" || card.dataset.brand === brand) ? "block" : "none"; });
+      });
+    });
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", function(e) {
+        const id = this.getAttribute("href");
+        if (id === "#") return;
+        const el = document.querySelector(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior:"smooth" }); document.getElementById("mobile-menu").classList.remove("open"); }
+      });
+    });
