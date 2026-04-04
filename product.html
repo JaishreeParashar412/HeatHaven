@@ -787,3 +787,43 @@
         if (el) { e.preventDefault(); el.scrollIntoView({ behavior:"smooth" }); document.getElementById("mobile-menu").classList.remove("open"); }
       });
     });
+
+    // TOAST
+    const toastEl = document.getElementById("toast");
+    let toastTimeout;
+    function showToast(msg, isError) {
+      const icon = toastEl.querySelector("i"), span = toastEl.querySelector("span");
+      if (msg) span.textContent = msg;
+      if (icon) icon.className = isError ? "fas fa-exclamation-circle text-yellow-400" : "fas fa-check-circle text-green-400";
+      toastEl.classList.add("show");
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toastEl.classList.remove("show"), 2200);
+    }
+
+    // CART
+    function getCart() { try { return JSON.parse(localStorage.getItem("hh_cart") || "[]"); } catch(e) { return []; } }
+    function saveCart(cart) { localStorage.setItem("hh_cart", JSON.stringify(cart)); }
+    function updateCartBadge() {
+      const total = getCart().reduce((s, i) => s + i.qty, 0);
+      document.querySelectorAll("#cart-count, #cart-count-mobile").forEach(el => el.textContent = total);
+    }
+    document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const card = btn.closest(".shoe-card"), sizeSelect = card ? card.querySelector("select") : null, size = sizeSelect ? sizeSelect.value : "";
+        if (!size) {
+          if (sizeSelect) { sizeSelect.classList.add("select-shake"); sizeSelect.style.borderColor = "#ef4444"; sizeSelect.style.boxShadow = "0 0 0 2px rgba(239,68,68,0.25)"; setTimeout(() => { sizeSelect.classList.remove("select-shake"); sizeSelect.style.borderColor = ""; sizeSelect.style.boxShadow = ""; }, 600); }
+          showToast("Pick a size first! 👟", true); return;
+        }
+        const item = { id:(card.dataset.name||"item")+"-"+size, name:card.dataset.name||"Sneaker", colorway:card.dataset.colorway||"", brand:card.dataset.brand||"", price:parseFloat(card.dataset.price)||0, img:card.dataset.img||"", size, qty:1 };
+        const cart = getCart(), existing = cart.find(i => i.id === item.id);
+        if (existing) { existing.qty++; } else { cart.push(item); }
+        saveCart(cart); updateCartBadge();
+        const badge = document.getElementById("cart-count");
+        if (badge) { badge.classList.remove("cart-bump"); void badge.offsetWidth; badge.classList.add("cart-bump"); }
+        const orig = btn.textContent; btn.textContent = "✓ Added!"; btn.disabled = true; btn.style.opacity = "0.8";
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.opacity = ""; }, 1500);
+        showToast("Added to cart!", false);
+      });
+    });
+    updateCartBadge();
