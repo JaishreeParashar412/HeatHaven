@@ -827,3 +827,269 @@
       });
     });
     updateCartBadge();
+
+    // WISHLIST
+    function getWishlist() { try { return JSON.parse(localStorage.getItem("hh_wishlist") || "[]"); } catch(e) { return []; } }
+    function saveWishlist(w) { localStorage.setItem("hh_wishlist", JSON.stringify(w)); }
+    function syncWishlistUI() {
+      const w = getWishlist();
+      document.querySelectorAll(".wishlist-btn").forEach(btn => {
+        const card = btn.closest(".shoe-card"); if (!card) return;
+        const id = (card.dataset.name || "") + "-wish", inList = w.some(i => i.id === id), icon = btn.querySelector("i");
+        if (inList) { if (icon.classList.contains("far")) icon.classList.replace("far","fas"); icon.classList.add("text-red-500"); icon.classList.remove("text-gray-700"); }
+        else { if (icon.classList.contains("fas")) icon.classList.replace("fas","far"); icon.classList.remove("text-red-500"); icon.classList.add("text-gray-700"); }
+      });
+    }
+    document.querySelectorAll(".wishlist-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const card = btn.closest(".shoe-card"); if (!card) return;
+        const id=(card.dataset.name||"")+"-wish", name=card.dataset.name||"Sneaker", colorway=card.dataset.colorway||"", brand=card.dataset.brand||"", price=parseFloat(card.dataset.price)||0, img=card.dataset.img||"";
+        let w = getWishlist(); const exists = w.some(i => i.id === id);
+        if (exists) { w = w.filter(i => i.id !== id); saveWishlist(w); syncWishlistUI(); showToast("Removed from wishlist", false); }
+        else { w.push({id,name,colorway,brand,price,img}); saveWishlist(w); syncWishlistUI(); showToast("❤️ Saved to wishlist!", false); }
+        const icon = btn.querySelector("i");
+        icon.classList.remove("heart-spring"); void icon.offsetWidth; icon.classList.add("heart-spring");
+      });
+    });
+    syncWishlistUI();
+
+    // FILTER DROPDOWN
+    const filterDropdown = document.getElementById("filterDropdown"), brandFilter = document.getElementById("brandFilter");
+    const rangeMin = document.getElementById("rangeMin"), rangeMax = document.getElementById("rangeMax"), rangeFill = document.getElementById("rangeFill");
+    const priceMinEl = document.getElementById("priceMin"), priceMaxEl = document.getElementById("priceMax");
+    const PRICE_MIN = 1000, PRICE_MAX = 700000;
+    function updateSlider() {
+      let lo = parseInt(rangeMin.value), hi = parseInt(rangeMax.value);
+      if (lo > hi - 500) { lo = hi - 500; rangeMin.value = lo; }
+      const pctLo = ((lo-PRICE_MIN)/(PRICE_MAX-PRICE_MIN))*100, pctHi = ((hi-PRICE_MIN)/(PRICE_MAX-PRICE_MIN))*100;
+      rangeFill.style.left = pctLo+"%"; rangeFill.style.width = (pctHi-pctLo)+"%";
+      priceMinEl.textContent = lo.toLocaleString("en-IN"); priceMaxEl.textContent = hi.toLocaleString("en-IN");
+    }
+    rangeMin.addEventListener("input", updateSlider); rangeMax.addEventListener("input", updateSlider); updateSlider();
+    document.getElementById("filterBtn").addEventListener("click", e => { e.preventDefault(); filterDropdown.classList.toggle("hidden"); });
+    document.getElementById("applyFilter").addEventListener("click", () => {
+      const brand = brandFilter.value, lo = parseInt(rangeMin.value), hi = parseInt(rangeMax.value);
+      shoeCards.forEach(p => { const price = parseFloat(p.dataset.price||"0"), brandOk = brand==="all"||p.dataset.brand===brand, priceOk = price>=lo&&price<=hi; p.style.display = brandOk&&priceOk?"block":"none"; });
+      filterDropdown.classList.add("hidden");
+    });
+    document.getElementById("resetFilter").addEventListener("click", () => {
+      brandFilter.value="all"; rangeMin.value=PRICE_MIN; rangeMax.value=PRICE_MAX;
+      updateSlider(); shoeCards.forEach(p => p.style.display="block"); filterDropdown.classList.add("hidden");
+    });
+    document.addEventListener("click", e => { if (!filterDropdown.contains(e.target) && !e.target.closest("#filterBtn")) filterDropdown.classList.add("hidden"); });
+
+    // SEARCH
+    const PRODUCT_INDEX = Array.from(document.querySelectorAll(".shoe-card")).map(card => ({
+      name:card.dataset.name||"", colorway:card.dataset.colorway||"", brand:card.dataset.brand||"",
+      price:parseInt(card.dataset.price||"0"), img:card.dataset.img||"", el:card
+    }));
+    const overlay = document.getElementById("search-overlay"), searchInput = document.getElementById("search-input"), clearBtn = document.getElementById("search-clear-btn"), resultsPanel = document.getElementById("search-results-panel");
+    function openSearch() { overlay.classList.add("open"); searchInput.focus(); }
+    function closeSearch() { overlay.classList.remove("open"); searchInput.value=""; clearBtn.classList.remove("visible"); resultsPanel.innerHTML=""; resultsPanel.classList.remove("has-results"); }
+    document.getElementById("search-open-btn").addEventListener("click", openSearch);
+    document.addEventListener("keydown", e => { if ((e.metaKey||e.ctrlKey)&&e.key==="k") { e.preventDefault(); openSearch(); } });
+    document.getElementById("search-open-btn-mobile")?.addEventListener("click", () => { document.getElementById("mobile-menu").classList.remove("open"); openSearch(); });
+    overlay.addEventListener("click", e => { if (e.target===overlay) closeSearch(); });
+    document.addEventListener("keydown", e => { if (e.key==="Escape"&&overlay.classList.contains("open")) closeSearch(); });
+    clearBtn.addEventListener("click", () => { searchInput.value=""; clearBtn.classList.remove("visible"); resultsPanel.innerHTML=""; resultsPanel.classList.remove("has-results"); searchInput.focus(); });
+    function escapeHtml(str) { return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    function escapeRegex(str) { return str.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+    function highlight(text, query) { if (!query) return escapeHtml(text); return escapeHtml(text).replace(new RegExp(`(${escapeRegex(query)})`,"gi"),'<span class="search-highlight">$1</span>'); }
+    function runSearch(query) {
+      clearBtn.classList.toggle("visible", query.length>0);
+      if (!query.trim()) { resultsPanel.innerHTML=""; resultsPanel.classList.remove("has-results"); return; }
+      const q=query.toLowerCase(), hits=PRODUCT_INDEX.filter(p=>p.name.toLowerCase().includes(q)||p.colorway.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q));
+      resultsPanel.classList.add("has-results");
+      if (!hits.length) { resultsPanel.innerHTML=`<div class="search-no-results"><span class="emoji">👟</span>No sneakers found for "<strong>${escapeHtml(query)}</strong>"</div>`; return; }
+      resultsPanel.innerHTML = hits.map((p,i)=>`<div class="search-result-item" data-idx="${i}" role="option" tabindex="0" style="animation-delay:${i*40}ms"><img class="sri-img" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" onerror="this.style.background='#e5e5e5';this.src=''" /><div class="sri-info"><div class="sri-name">${highlight(p.name,query)}</div><div class="sri-sub">${highlight(p.colorway,query)} · ${highlight(p.brand,query)}</div></div><div class="sri-price">₹${p.price.toLocaleString("en-IN")}</div></div>`).join("");
+      resultsPanel.querySelectorAll(".search-result-item").forEach((item,i) => {
+        item.addEventListener("click", () => { closeSearch(); setTimeout(()=>{ hits[i].el.scrollIntoView({behavior:"smooth",block:"center"}); hits[i].el.style.boxShadow="0 0 0 3px #ef4444"; setTimeout(()=>{hits[i].el.style.boxShadow="";},1200); },200); });
+      });
+    }
+    let debounceTimer;
+    searchInput.addEventListener("input", () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(()=>runSearch(searchInput.value),160); });
+
+    // ── BUILT-IN AI CHAT (no API key needed) ──────────────────────────
+    const QUICK_REPLIES = ["What's on sale? 🔥","Size guide","Shipping info","Best Jordans","Yeezy sizing","Returns policy"];
+    const widget=document.getElementById("hh-chat-widget"), chatToggle=document.getElementById("hh-chat-toggle"), msgs=document.getElementById("hh-messages"), chatInput=document.getElementById("hh-input"), sendBtn=document.getElementById("hh-send"), chipsEl=document.getElementById("hh-chips"), notifDot=document.getElementById("hh-notif-dot");
+    let hasOpened=false;
+
+    const KB = [
+      { keys:["sale","deal","discount","offer"],
+        reply:"🔥 We've got the Air Jordan 1 Chicago on sale right now! Plus check out our Hot Deals page for more steals. Free shipping kicks in above ₹50,000 too!" },
+      { keys:["jordan","aj1","jordan 1","chicago bulls","air jordan 1"],
+        reply:"The Air Jordan 1 Retro High Chicago Bulls is one of our most 🔥 pieces — a certified grail. It's currently on SALE! Prices start at ₹5,559 and vary by size. Grab it before it's gone!" },
+      { keys:["aj4","jordan 4","air jordan 4","bred","breds"],
+        reply:"The Air Jordan 4 Retro Breds is a classic 🖤❤️ — the OG colourway that never gets old. Available now at ₹5,559. Select your size and add to cart!" },
+      { keys:["yeezy","350","zebra","700","azael","adidas yeezy"],
+        reply:"We carry two fire Yeezys right now 🧲 — the Yeezy Boost 350 V2 Zebra and the Yeezy 700 V3 Azael, both at ₹5,559. Yeezys run small so go at least half a size up, ideally a full size!" },
+      { keys:["travis","fragment","travis scott"],
+        reply:"The Travis x Fragment High is the rarest drop we carry 👁️ — a true collector piece at ₹5,559. Limited stock, so don't sleep on it!" },
+      { keys:["nike","sb","dunk","force","uptempo","af1","air force"],
+        reply:"Nike heads we've got you! 👟 Nike SB Dunk Low Golf at ₹5,559, Air Force 1 Low Lakers Home at ₹5,559, and the Nike Uptempo Slide Chicago Bulls (LIMITED PIECES ⏳) also at ₹5,559. All fire, all available now." },
+      { keys:["adidas","campus","clear sky"],
+        reply:"The Adidas Campus Clear Sky Gum is a clean, understated banger 🤍 — perfect for everyday wear. Available at ₹5,559. Adidas generally fits true to size!" },
+      { keys:["rick owens","hollywood"],
+        reply:"Rick Owens Hollywood High Black Milk 🖤 — avant-garde, dramatic, and absolutely iconic. If you know, you know. Available at ₹5,559. A statement piece for serious sneakerheads." },
+      { keys:["puma","melns","la france"],
+        reply:"The Puma Melns La France is a sleek European-inspired silhouette 🇫🇷 — understated but deeply stylish. Priced at ₹5,559. Puma sizing runs true." },
+      { keys:["new balance","990","nb","newbalance"],
+        reply:"The New Balance 990v5 Grey is the definition of dad-shoe done right 🩶 — chunky, comfy, and endlessly versatile. Available at ₹5,559. NB fits true to size!" },
+      { keys:["crocs","salehe","horchata","bembury"],
+        reply:"The Salehe Bembury x Crocs Horchata collab is surprisingly heat 🤎 — one of the most hyped Crocs drops ever. Available at ₹5,559. These are a cultural moment!" },
+      { keys:["size","sizing","fit","small","large","run"],
+        reply:"📏 <strong>Heat Haven Size Guide</strong> — getting your fit right is everything:\n\n👟 <strong>Air Jordans / Nike</strong> → Go half a size up. Jordan lasts run narrow and slightly short.\n🟡 <strong>Yeezys</strong> → Go a full size up. Yeezy Boosts and 700s run notoriously small.\n⚖️ <strong>New Balance</strong> → True to size across most models.\n👟 <strong>Adidas</strong> → Generally true to size.\n🔴 <strong>Travis Scott collabs</strong> → Half size up, same as Jordans.\n\nStill unsure? DM us on Instagram @heatheaven.23_ with your usual size and the shoe you want — we'll give you a personal recommendation! 🙌" },
+      { keys:["shipping","delivery","ship","how long","when"],
+        reply:"🚚 <strong>Heat Haven Shipping Info</strong> — here's everything:\n\n📦 <strong>Free Shipping</strong> — on all orders above ₹50,000\n💸 <strong>Standard Shipping</strong> — ₹1,000 flat for orders below ₹50,000\n⏱️ <strong>Delivery Time</strong> — 3 to 7 business days across India\n🇮🇳 <strong>Coverage</strong> — we ship pan-India!\n\nFor urgent orders, DM us on Instagram @heatheaven.23_ and we'll sort you out fast! 👟" },
+      { keys:["return","exchange","refund","policy","unworn"],
+        reply:"↩️ <strong>Heat Haven Returns Policy</strong>:\n\n✅ <strong>Timeframe</strong> — returns within 7 days of delivery\n👟 <strong>Condition</strong> — shoes must be unworn, original box intact\n❌ <strong>Not eligible</strong> — worn pairs, missing box/laces\n💸 <strong>Refund</strong> — processed within 5–7 business days\n🔄 <strong>Exchange</strong> — size swaps available if stock allows!\n\n📸 DM @heatheaven.23_ or email info@heathaven.in to start a return." },
+      { keys:["pay","payment","upi","cod","cash","card"],
+        reply:"💳 <strong>Payment Options</strong>:\n\n📱 <strong>UPI</strong> — GPay, PhonePe, Paytm, any UPI app\n💳 <strong>Cards</strong> — Visa, Mastercard, RuPay, Amex\n🏠 <strong>Cash on Delivery (COD)</strong> — available on select orders\n🔒 All transactions are encrypted and 100% secure. No hidden charges!" },
+      { keys:["authentic","real","legit","fake","original"],
+        reply:"💯 Every pair at Heat Haven is 100% authentic and carefully verified by our team. We take legit checks seriously — no replicas, ever. Your trust is everything to us!" },
+      { keys:["contact","reach","call","whatsapp","instagram","email"],
+        reply:"📞 <strong>Reach us anytime!</strong>\n\n📸 Instagram: @heatheaven.23_\n📱 WhatsApp: +91 9205443488 or +91 9311577552\n📧 Email: info@heathaven.in\n\nWe usually reply within hours! 🙏" },
+      { keys:["price","cost","how much","₹","rs","cheap","expensive"],
+        reply:"💰 All our current products are priced at ₹5,559 each — except the Air Jordan 1 Chicago which is on SALE! Free shipping kicks in above ₹50,000, otherwise ₹1,000 flat shipping. Select your size on the product card to add to cart!" },
+      { keys:["stock","available","in stock","availability","limited"],
+        reply:"📦 Stock changes fast! If you see a size on the site, it's available. The Nike Uptempo Slide is LIMITED PIECES ⏳ — grab it before it sells out. For specific availability, DM us on Instagram @heatheaven.23_." },
+      { keys:["hello","hi","hey","sup","yo","hola","namaste","wassup"],
+        reply:"Hey! 👋 Welcome to Heat Haven — your go-to spot for premium kicks in India. We've got 13 fire sneakers in stock right now. What can I help you with? 👟" },
+      { keys:["thanks","thank you","thx","appreciate","ty"],
+        reply:"Anytime! 🙏 Happy to help. Stay fresh and keep it 🔥 — if you need anything else, just ask!" },
+      { keys:["products","what do you have","what's in stock","catalogue","catalog","collection"],
+        reply:"🔥 <strong>Current Stock at Heat Haven:</strong>\n\n• Air Jordan 1 Retro High Chicago Bulls — SALE!\n• Nike Uptempo Slide Chicago Bulls — LIMITED ⏳\n• Nike SB Dunk Low Golf\n• Adidas Campus Clear Sky Gum\n• Air Force 1 Low Lakers Home\n• Yeezy Boost 350 V2 Zebra\n• Yeezy 700 V3 Azael\n• Rick Owens Hollywood High Black Milk\n• Puma Melns La France\n• Travis x Fragment High\n• New Balance 990v5 Grey\n• Air Jordan 4 Retro Breds\n• Salehe Bembury x Crocs Horchata\n\nAll at ₹5,559! Use the brand filter pills to browse by brand. 👟" },
+    ];
+
+    function getReply(text) {
+      const q = text.toLowerCase();
+      for (const entry of KB) {
+        if (entry.keys.some(k => q.includes(k))) return entry.reply;
+      }
+      return "Hmm, I'm not sure about that one! 🤔 DM us on Instagram <strong>@heatheaven.23_</strong> or WhatsApp <strong>+91 9205443488</strong> and our team will sort you out ASAP! 👟";
+    }
+
+    chatToggle.addEventListener("click", () => {
+      widget.classList.toggle("open");
+      if (!hasOpened) {
+        hasOpened = true; notifDot.style.display = "none";
+        setTimeout(() => {
+          addBot("Hey! 👟 Welcome to <strong>Heat Haven</strong>. I'm your personal sneaker assistant.");
+          setTimeout(() => { addBot("We've got 13 fire sneakers in stock. Ask me about products, sizing, shipping, or anything kicks!"); showChips(); }, 800);
+        }, 300);
+      }
+    });
+
+    function showChips(chips=QUICK_REPLIES) { chipsEl.innerHTML=""; chips.forEach(t=>{const b=document.createElement("button");b.className="hh-chip";b.textContent=t;b.onclick=()=>{chipsEl.innerHTML="";sendMsg(t);};chipsEl.appendChild(b);}); }
+    function addBot(html) { const d=document.createElement("div");d.className="hh-msg bot";d.innerHTML=`<div class="hh-bot-avatar">🤖</div><div class="hh-bubble">${html.replace(/\n/g,"<br>")}</div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight; }
+    function addUser(text) { const d=document.createElement("div");d.className="hh-msg user";d.innerHTML=`<div class="hh-bubble">${text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight; }
+    function showTyping() { const d=document.createElement("div");d.className="hh-msg bot";d.id="hh-typing-indicator";d.innerHTML=`<div class="hh-bot-avatar">🤖</div><div class="hh-bubble" style="padding:10px 16px"><div class="hh-typing"><span></span><span></span><span></span></div></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight; }
+    function hideTyping() { const e=document.getElementById("hh-typing-indicator");if(e)e.remove(); }
+
+    function sendMsg(text) {
+      text = text.trim(); if (!text) return;
+      chipsEl.innerHTML=""; addUser(text); chatInput.value="";
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        addBot(getReply(text));
+        showChips(["Tell me more","Shipping info","Size guide","Contact us","All products"]);
+      }, 600 + Math.random()*400);
+    }
+
+    sendBtn.addEventListener("click", () => sendMsg(chatInput.value));
+    chatInput.addEventListener("keydown", e => { if (e.key==="Enter") sendMsg(chatInput.value); });
+    setTimeout(() => { if (!hasOpened) notifDot.style.display="block"; }, 3000);
+
+    // PREMIUM ANIMATIONS
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
+    const cards = document.querySelectorAll('.shoe-card');
+    cards.forEach((card, i) => { card.style.transitionDelay = (i * 0.07) + 's'; });
+    const revealEls = document.querySelectorAll('.reveal, .section-heading');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+    cards.forEach(el => io.observe(el));
+    const currentPage = location.pathname.split('/').pop() || 'product.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('href') === currentPage) { link.style.color = '#ff4500'; link.classList.add('font-semibold'); }
+    });
+  </script>
+
+  <!-- DYNAMIC SIZE PRICING -->
+  <script>
+  (function () {
+    var PRICES = {
+       "Air Jordan 1 Retro High":      { "UK 6":22000,"UK 7":23000,"UK 8":21500,"UK 9":24000,"UK 10":24500,"UK 11":25000,"UK 12":25500 },
+     "Nike Uptempo Slide Bulls":     { "UK 6":26000,"UK 7":21500,"UK 8":28000,"UK 9":28000,"UK 10":36000,"UK 11":47000,"UK 12":33000 },
+      "Nike SB Dunk Low":             { "UK 6":4500,  "UK 7":4800,  "UK 8":5000,  "UK 9":5200,  "UK 10":5400,  "UK 11":5559,  "UK 12":5800  },
+      "Adidas Campus":                { "UK 6":4200,  "UK 7":4400,  "UK 8":4600,  "UK 9":4800,  "UK 10":5000,  "UK 11":5200,  "UK 12":5400  },
+      "Air Force 1 Low":              { "UK 6":4800,  "UK 7":5000,  "UK 8":5200,  "UK 9":5400,  "UK 10":5559,  "UK 11":5800,  "UK 12":6000  },
+      "Yeezy Boost 350 V2":           { "UK 6":4900,  "UK 7":5100,  "UK 8":5300,  "UK 9":5559,  "UK 10":5800,  "UK 11":6000,  "UK 12":6200  },
+      "Yeezy 700 V3":                 { "UK 6":12400, "UK 7":13000, "UK 8":18000, "UK 9":19000, "UK 10":17000, "UK 11":20500, "UK 12":20500 },
+      "Rick Owens Hollywood High":    { "UK 6":48000, "UK 7":51000, "UK 8":54000, "UK 9":57000, "UK 10":60000, "UK 11":63000, "UK 12":66000 },
+      "Puma Melns":                   { "UK 6":3800,  "UK 7":4000,  "UK 8":4200,  "UK 9":4400,  "UK 10":4600,  "UK 11":4800,  "UK 12":5000  },
+      "Travis x Fragment High":       { "UK 6":94000, "UK 7":295000,"UK 8":306000,"UK 9":218000,"UK 10":222000,"UK 11":205000,"UK 12":127000 },
+      "New Balance 990v5":            { "UK 6":8500,  "UK 7":9000,  "UK 8":9500,  "UK 9":10000, "UK 10":10500, "UK 11":11000, "UK 12":11500 },
+      "Air Jordan 4 Retro":           { "UK 6":18000, "UK 7":19000, "UK 8":20000, "UK 9":21000, "UK 10":22000, "UK 11":23000, "UK 12":24000 },
+      "Salehe Bembury x Crocs":       { "UK 6":3200,  "UK 7":3400,  "UK 8":3600,  "UK 9":3800,  "UK 10":4000,  "UK 11":4200,  "UK 12":4400  },
+    };
+
+    function rupees(n) { return '\u20b9' + Number(n).toLocaleString('en-IN'); }
+
+    function findPriceEl(card) {
+      var all = card.querySelectorAll('.font-bold');
+      for (var i = 0; i < all.length; i++) {
+        var el = all[i];
+        var isStrikethrough = window.getComputedStyle(el).textDecoration.includes('line-through') || el.classList.contains('line-through');
+        var isTitle = el.tagName === 'H3';
+        var hasRupee = el.textContent.trim().startsWith('\u20b9');
+        if (!isTitle && !isStrikethrough && hasRupee) return el;
+      }
+      return null;
+    }
+
+    function initCard(card) {
+      var name = (card.dataset.name || '').trim();
+      var pricing = PRICES[name];
+      if (!pricing) return;
+      var select = card.querySelector('select.size-select');
+      if (!select) return;
+      var priceEl = findPriceEl(card);
+      if (!priceEl) return;
+
+      // Update each option to show size · price
+      Array.from(select.options).forEach(function(opt) {
+        if (opt.value && pricing[opt.value]) {
+          opt.textContent = opt.value + '  \u00b7  ' + rupees(pricing[opt.value]);
+        }
+      });
+
+      select.addEventListener('change', function () {
+        var price = pricing[this.value];
+        if (!price) return;
+        priceEl.classList.remove('hh-price-pop');
+        void priceEl.offsetWidth;
+        priceEl.classList.add('hh-price-pop');
+        priceEl.textContent = rupees(price);
+        card.dataset.price = price;
+      });
+    }
+
+    document.querySelectorAll('.shoe-card').forEach(function(card) { initCard(card); });
+  })();
+  </script>
+
+  <style>
+    @keyframes hh-price-pop {
+      0%   { transform:scale(1); color:inherit; }
+      30%  { transform:scale(1.28); color:#ff4500; }
+      60%  { transform:scale(0.94); }
+      100% { transform:scale(1); color:inherit; }
+    }
+    .hh-price-pop { animation:hh-price-pop 0.45s cubic-bezier(0.34,1.56,0.64,1); display:inline-block; }
+  </style>
+</body>
+</html>
