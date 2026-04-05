@@ -912,3 +912,64 @@
     }
     let debounceTimer;
     searchInput.addEventListener('input', () => { clearTimeout(debounceTimer); debounceTimer=setTimeout(()=>runSearch(searchInput.value),160); });
+
+     // ══ AI CHAT ══
+    const SYSTEM_PROMPT = `You are a friendly, knowledgeable assistant for Heat Haven, a premium sneaker and streetwear store in India.
+STORE INFO: Heat Haven | Instagram: @heatheaven.23_ | Currency: ₹ | Sizes: UK 6–12
+HOT DEALS: Ferrari Team Jacket ₹23,430 | Seductive Scales ₹43,430 | Bearbrick Batman 1000% ₹54,999 | Air Jordan 4 Bred ₹5,000 | Butterfly Blossom Shirt ₹32,410 | Yeezy Boost V2 Zebra ₹3,559 | Fear Of God Essentials Hoodie ₹3,559
+POLICIES: Free shipping above ₹5,000 | Returns: 7 days unworn | Payment: UPI/Card/COD
+PERSONALITY: Short 2-3 sentence replies, casual, hype-culture savvy. Use deal energy!`;
+    const QUICK_REPLIES = ["Best deals? 🔥","Shipping info","Yeezy sizing","Jordan sizing","Returns","Contact us"];
+    const widget=document.getElementById('hh-chat-widget'), chatToggle=document.getElementById('hh-chat-toggle');
+    const msgs=document.getElementById('hh-messages'), chatInput=document.getElementById('hh-input');
+    const sendBtn=document.getElementById('hh-send'), chipsEl=document.getElementById('hh-chips');
+    const notifDot=document.getElementById('hh-notif-dot');
+    let chatHistory=[], isTyping=false, hasOpened=false;
+    chatToggle.addEventListener('click',()=>{ widget.classList.toggle('open'); if(!hasOpened){hasOpened=true;notifDot.style.display='none';showWelcome();} });
+    function showWelcome(){ setTimeout(()=>{ addBot("Hey! 🔥 Welcome to **Heat Haven Deals**. Copped anything yet?"); setTimeout(()=>{ addBot("Ask me about sizing, shipping, or our hottest deals!"); showChips(); },800); },300); }
+    function showChips(chips=QUICK_REPLIES){ chipsEl.innerHTML=''; chips.forEach(t=>{const b=document.createElement('button');b.className='hh-chip';b.textContent=t;b.onclick=()=>{chipsEl.innerHTML='';sendMsg(t);};chipsEl.appendChild(b);}); }
+    function addBot(text){ const d=document.createElement('div');d.className='hh-msg bot';d.innerHTML=`<div class="hh-bot-avatar">🤖</div><div class="hh-bubble">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight; }
+    function addUser(text){ const d=document.createElement('div');d.className='hh-msg user';d.innerHTML=`<div class="hh-bubble">${escHtml(text)}</div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight; }
+    function showTyping(){ const d=document.createElement('div');d.className='hh-msg bot';d.id='hh-typing-indicator';d.innerHTML=`<div class="hh-bot-avatar">🤖</div><div class="hh-bubble" style="padding:10px 16px"><div class="hh-typing"><span></span><span></span><span></span></div></div>`;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight; }
+    function hideTyping(){ const e=document.getElementById('hh-typing-indicator');if(e)e.remove(); }
+    async function sendMsg(text){ text=text.trim();if(!text||isTyping)return; chipsEl.innerHTML='';addUser(text);chatInput.value='';isTyping=true;sendBtn.style.opacity='0.5';chatHistory.push({role:'user',content:text});showTyping();
+      try{ const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:chatHistory})});const data=await res.json();const reply=data.content?.[0]?.text||"Sorry, try again!";chatHistory.push({role:'assistant',content:reply});hideTyping();addBot(reply);showChips(["Tell me more","Any other deals?","Shipping info","Contact support"]); }
+      catch(err){ hideTyping();addBot("Connectivity issue! DM us on Instagram **@heatheaven.23_** 🙏"); }
+      isTyping=false;sendBtn.style.opacity='1';
+    }
+    sendBtn.addEventListener('click',()=>sendMsg(chatInput.value));
+    chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg(chatInput.value);});
+    setTimeout(()=>{if(!hasOpened)notifDot.style.display='block';},3000);
+
+    // ══ PREMIUM ANIMATIONS ══════════════════════════════════════
+
+    // Cursor glow
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    // Scroll reveal + staggered cards
+    const cards = document.querySelectorAll('.shoe-card');
+    cards.forEach((card, i) => { card.style.transitionDelay = (i * 0.07) + 's'; });
+
+    const revealEls = document.querySelectorAll('.reveal, .section-heading');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => io.observe(el));
+    cards.forEach(el => io.observe(el));
+
+    // Active nav link highlight
+    const currentPage = location.pathname.split('/').pop() || 'deals.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.style.color = '#ff4500';
+        link.classList.add('font-semibold');
+      }
+    });
+  </script>
+</body>
+</html>
