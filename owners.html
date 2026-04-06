@@ -639,3 +639,66 @@ function renderOrders(orders) {
 
   attachCardListeners();
 }
+
+// ── INTERSECTION OBSERVERS ────────────────────────────────
+const cardObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); cardObserver.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal, .section-heading').forEach(el => io.observe(el));
+
+function attachCardListeners() {
+  // Reorder
+  document.querySelectorAll('.reorder-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.textContent.trim() === 'Reorder') {
+        const orderId = btn.dataset.id;
+        const order = allOrders.find(o => o.id === orderId);
+        if (!order) return;
+        const cart = getCart();
+        order.items.forEach(item => {
+          const cartItem = { id:item.name+'-'+item.size, name:item.name, colorway:item.colorway, brand:'', price:item.price, img:item.img, size:item.size, qty:item.qty };
+          const existing = cart.find(c => c.id === cartItem.id);
+          if (existing) { existing.qty += item.qty; } else { cart.push(cartItem); }
+        });
+        localStorage.setItem('hh_cart', JSON.stringify(cart));
+        updateCartBadge();
+        const cc = document.getElementById('cart-count');
+        if (cc) { cc.classList.remove('cart-bump'); void cc.offsetWidth; cc.classList.add('cart-bump'); }
+        showToast('Items added to cart! 🛒', false);
+      } else {
+        showToast('Order details coming soon', false);
+      }
+    });
+  });
+
+  // Cancel
+  document.querySelectorAll('.cancel-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Cancel this order?')) return;
+      const orderId = btn.dataset.id;
+      if (isLoggedIn()) {
+        try {
+          await fetch(API + `/orders/${orderId}/cancel`, { method:'PUT', headers:authHeaders() });
+          allOrders = await fetchOrdersFromBackend();
+          renderOrders(applyFilters(allOrders));
+          showToast('Order cancelled', false);
+        } catch (e) { showToast(e.message || 'Cancellation failed', true); }
+        return;
+      }
+      const orders = getOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        order.status = 'cancelled';
+        const stored = JSON.parse(localStorage.getItem('hh_orders') || '[]');
+        if (stored.length) { const idx = stored.findIndex(o => o.id === orderId); if (idx !== -1) { stored[idx].status = 'cancelled'; localStorage.setItem('hh_orders', JSON.stringify(stored)); } }
+      }
+      allOrders = getOrders().map(o => o.id === orderId ? {...o, status:'cancelled'} : o);
+      renderOrders(applyFilters(allOrders));
+      showToast('Order cancellation requested', false);
+    });
+  });
+}
