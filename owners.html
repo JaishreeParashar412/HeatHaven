@@ -702,3 +702,96 @@ function attachCardListeners() {
     });
   });
 }
+
+// ── FILTER ────────────────────────────────────────────────
+function applyFilters(orders) {
+  const status = document.getElementById('filter-status').value;
+  const lo = parseInt(document.getElementById('range-min').value);
+  const hi = parseInt(document.getElementById('range-max').value);
+  return orders.filter(o => (status === 'all' || o.status === status) && o.total >= lo && o.total <= hi);
+}
+
+const rangeMin   = document.getElementById('range-min');
+const rangeMax   = document.getElementById('range-max');
+const rangeFill  = document.getElementById('range-fill');
+const priceLabel = document.getElementById('price-range-label');
+const ABS_MIN = 0, ABS_MAX = 100000;
+function updateSlider() {
+  let lo = parseInt(rangeMin.value), hi = parseInt(rangeMax.value);
+  if (hi - lo < 500) { lo = hi - 500; rangeMin.value = lo; }
+  const pct = v => ((v - ABS_MIN) / (ABS_MAX - ABS_MIN)) * 100;
+  rangeFill.style.left  = pct(lo) + '%';
+  rangeFill.style.width = (pct(hi) - pct(lo)) + '%';
+  priceLabel.textContent = '₹' + lo.toLocaleString('en-IN') + ' – ₹' + hi.toLocaleString('en-IN');
+}
+rangeMin.addEventListener('input', updateSlider);
+rangeMax.addEventListener('input', updateSlider);
+updateSlider();
+
+const filterToggleBtn = document.getElementById('filter-toggle-btn');
+const filterDropdown  = document.getElementById('filter-dropdown');
+filterToggleBtn.addEventListener('click', e => { e.stopPropagation(); filterDropdown.classList.toggle('hidden'); });
+document.addEventListener('click', e => { if (!filterDropdown.contains(e.target) && e.target !== filterToggleBtn) filterDropdown.classList.add('hidden'); });
+document.getElementById('filter-apply').addEventListener('click', () => { renderOrders(applyFilters(allOrders)); filterDropdown.classList.add('hidden'); });
+document.getElementById('filter-reset').addEventListener('click', () => {
+  document.getElementById('filter-status').value = 'all';
+  rangeMin.value = ABS_MIN; rangeMax.value = ABS_MAX; updateSlider();
+  renderOrders(allOrders); filterDropdown.classList.add('hidden');
+});
+
+// ── SEARCH ────────────────────────────────────────────────
+const overlay     = document.getElementById('search-overlay');
+const searchInput = document.getElementById('search-input');
+const clearBtn    = document.getElementById('search-clear-btn');
+function openSearch()  { overlay.classList.add('open'); searchInput.focus(); }
+function closeSearch() { overlay.classList.remove('open'); searchInput.value = ''; clearBtn.classList.remove('visible'); }
+document.getElementById('search-open-btn').addEventListener('click', openSearch);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeSearch(); });
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+  if (e.key === 'Escape' && overlay.classList.contains('open')) closeSearch();
+});
+clearBtn.addEventListener('click', () => { searchInput.value = ''; clearBtn.classList.remove('visible'); searchInput.focus(); });
+searchInput.addEventListener('input', () => clearBtn.classList.toggle('visible', searchInput.value.length > 0));
+
+// ── INITIAL RENDER ────────────────────────────────────────
+renderOrders(allOrders);
+(async () => {
+  if (!isLoggedIn()) return;
+  try { allOrders = await fetchOrdersFromBackend(); renderOrders(applyFilters(allOrders)); } catch (_) {}
+})();
+
+// ── AI CHAT ────────────────────────────────────────────────
+function buildSystemPrompt() {
+  const orders = getOrders();
+  const orderSummary = orders.slice(0,5).map(o =>
+    `#${o.id} (${o.date}): ${o.items.map(i=>i.name).join(', ')} — ${o.status.toUpperCase()} — ₹${o.total.toLocaleString('en-IN')}`
+  ).join('\n');
+  return `You are a friendly support assistant for Heat Haven, a premium sneaker store in India.
+The user is viewing their Order History.
+
+RECENT ORDERS:\n${orderSummary || 'No orders yet'}
+
+POLICIES: Returns within 7 days unworn | Free shipping above ₹5,000 | Standard ₹99 | UPI/Card/COD
+PERSONALITY: Helpful, warm, casual. Short 2-3 sentence replies.`;
+}
+
+const QC=['Where is my order?','Can I return?','Reorder help','Shipping time','Contact support'];
+const cw=document.getElementById('hh-chat-widget'),ct=document.getElementById('hh-chat-toggle'),me=document.getElementById('hh-messages'),ie=document.getElementById('hh-input'),sb=document.getElementById('hh-send'),ce=document.getElementById('hh-chips'),nd=document.getElementById('hh-notif-dot');
+let ch=[],iT=false,hO=false;
+ct.addEventListener('click',()=>{ cw.classList.toggle('open'); if(!hO){hO=true;nd.style.display='none';setTimeout(()=>{aBot('Hey! 👋 I can help with your orders — tracking, returns, or reorders!');setTimeout(()=>showC(),600);},300);} });
+function showC(c=QC){ce.innerHTML='';c.forEach(t=>{const b=document.createElement('button');b.className='hh-chip';b.textContent=t;b.onclick=()=>{ce.innerHTML='';sM(t);};ce.appendChild(b);});}
+function aBot(h){const d=document.createElement('div');d.className='hh-msg bot';d.innerHTML=`<div class="hh-bot-avatar">HH</div><div class="hh-bubble">${h}</div>`;me.appendChild(d);me.scrollTop=me.scrollHeight;}
+function aUser(t){const d=document.createElement('div');d.className='hh-msg user';d.innerHTML=`<div class="hh-bubble">${escH(t)}</div>`;me.appendChild(d);me.scrollTop=me.scrollHeight;}
+function shT(){const d=document.createElement('div');d.className='hh-msg bot';d.id='hh-ti';d.innerHTML=`<div class="hh-bot-avatar">HH</div><div class="hh-bubble" style="padding:10px 16px"><div class="hh-typing"><span></span><span></span><span></span></div></div>`;me.appendChild(d);me.scrollTop=me.scrollHeight;}
+function hiT(){const e=document.getElementById('hh-ti');if(e)e.remove();}
+async function sM(t){t=t.trim();if(!t||iT)return;ce.innerHTML='';aUser(t);ie.value='';iT=true;sb.style.opacity='0.5';ch.push({role:'user',content:t});shT();
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:buildSystemPrompt(),messages:ch})});const d=await r.json();const rp=d.content?.[0]?.text||'Sorry, try again!';ch.push({role:'assistant',content:rp});hiT();aBot(rp.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'));showC(['Track order','Return item','Contact support','More help']);}
+catch(e){hiT();aBot('Trouble connecting! DM us on Instagram <strong>@heatheaven.23_</strong> 🙏');}
+iT=false;sb.style.opacity='1';}
+sb.addEventListener('click',()=>sM(ie.value));
+ie.addEventListener('keydown',e=>{if(e.key==='Enter')sM(ie.value);});
+setTimeout(()=>{if(!hO)nd.style.display='block';},3000);
+</script>
+</body>
+</html>
