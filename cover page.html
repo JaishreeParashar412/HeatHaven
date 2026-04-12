@@ -991,7 +991,7 @@
     cards.forEach(el=>io.observe(el));
 
     // NAV HIGHLIGHT
-    const currentPage=location.pathname.split('/').pop()||'index.html';
+    const currentPage=location.pathname.split('/').pop()||'cover page.html';
     document.querySelectorAll('.nav-link').forEach(link=>{if(link.getAttribute('href')===currentPage){link.classList.add('font-semibold');link.style.color='#ff4500';}});
 
     // 3D TILT ON DEAL CARDS
