@@ -1,5 +1,5 @@
 const Product = require('../models/Product');
-const Cart = require('../models/Cart');
+const Cart = require('HeatHaven/models/Cart.js');
 const Order = require('../models/Order');
 
 function computeTotals(subtotal) {

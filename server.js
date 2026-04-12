@@ -36,7 +36,7 @@ app.get('/api/health', (_, res) =>
 
 // ── SPA fallback ─────────────────────────────────────────────
 app.get('*', (_, res) =>
-  res.sendFile(path.join(__dirname, '../frontend/index.html'))
+  res.sendFile(path.join(__dirname, 'HeatHaven/cover page.html'))
 );
 
 // ── Global error handler ─────────────────────────────────────

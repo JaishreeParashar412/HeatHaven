@@ -1,4 +1,4 @@
-const Cart = require('../models/Cart');
+const Cart = require('HeatHaven/models/Cart.js');
 const Product = require('../models/Product');
 
 function computeTotalsFromItems(items) {
