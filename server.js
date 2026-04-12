@@ -18,7 +18,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }))cd;
+app.use(express.urlencoded({ extended: true }));
 
 // ── Serve frontend static files ─────────────────────────────
 app.use(express.static(path.join(__dirname, '../frontend')));
