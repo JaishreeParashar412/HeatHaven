@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Haven – Create Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { amoled:'#000000', cardDark:'#0a0a0a', hoverDark:'#111111' } } }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent:#ff4500; --accent2:#ff8c00; }
+    body  { font-family:"Poppins",sans-serif; overflow-x:hidden; }
+    html  { scrollbar-gutter:stable; }
+    h1,h2,h3,h4,.brand { font-family:"Archivo Black",sans-serif; letter-spacing:-0.5px; }
+    .mobile-menu { transform:translateX(100%); transition:transform 0.3s ease-in-out; }
+    .mobile-menu.open { transform:translateX(0); }
+    @keyframes nav-drop { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
+    nav { animation:nav-drop 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes brand-shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    .brand a { background:linear-gradient(90deg, currentColor 40%, #ff4500 50%, currentColor 60%); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:brand-shimmer 3.5s ease 0.5s 1 forwards; }
+    .nav-link { position:relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:#ff4500; border-radius:2px; transition:width 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .nav-link:hover::after { width:100%; }
+    .page-transition { animation:fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes hero-word-in { from{opacity:0;transform:translateY(40px) skewY(3deg);filter:blur(4px)} to{opacity:1;transform:translateY(0) skewY(0);filter:blur(0)} }
+    .hero-title-word { display:inline-block; animation:hero-word-in 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-title-word:nth-child(1){animation-delay:0.05s} .hero-title-word:nth-child(2){animation-delay:0.18s} .hero-title-word:nth-child(3){animation-delay:0.31s}
+    @keyframes hero-sub-in { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+    .hero-sub { animation:hero-sub-in 0.65s ease 0.5s both; }
+    @keyframes line-grow { from{width:0} to{width:64px} }
+    .hero-accent-line { display:block; height:3px; background:#ff4500; border-radius:2px; margin:10px 0 0; animation:line-grow 0.6s ease 0.7s both; }
+    .reveal       { opacity:0; transform:translateY(28px); transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-left  { opacity:0; transform:translateX(-38px); transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-right { opacity:0; transform:translateX(38px);  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-left.visible,.reveal-right.visible { opacity:1; transform:translateX(0); }
+    .section-heading { position:relative; display:inline-block; }
+    .section-heading::after { content:''; position:absolute; bottom:-5px; left:0; width:0; height:3px; background:#ff4500; border-radius:2px; transition:width 0.5s cubic-bezier(0.4,0,0.2,1) 0.1s; }
+    .section-heading.visible::after { width:100%; }
+    #cursor-glow { position:fixed; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(255,69,0,0.07) 0%,transparent 70%); pointer-events:none; z-index:0; transform:translate(-50%,-50%); transition:opacity 0.4s ease; opacity:0; }
+    body:hover #cursor-glow { opacity:1; }
+    #theme-toggle .sun-icon,#theme-toggle .moon-icon { position:absolute; width:1.4rem; height:1.4rem; transition:transform 0.4s ease,opacity 0.4s ease; }
+    #theme-toggle .sun-icon  { opacity:1; transform:rotate(0deg) scale(1); }
+    #theme-toggle .moon-icon { opacity:0; transform:rotate(90deg) scale(0.4); }
+    .dark #theme-toggle .sun-icon  { opacity:0; transform:rotate(-90deg) scale(0.4); }
+    .dark #theme-toggle .moon-icon { opacity:1; transform:rotate(0deg) scale(1); }
+    #toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#111827; color:#fff; padding:.75rem 1.5rem; border-radius:9999px; font-size:.875rem; display:none; align-items:center; gap:.5rem; z-index:9999; }
+    #toast.show { display:flex; animation:toast-fade 2.5s ease-out forwards; }
+    @keyframes toast-fade { 0%{opacity:0;transform:translate(-50%,10px)} 10%,85%{opacity:1;transform:translate(-50%,0)} 100%{opacity:0;transform:translate(-50%,10px)} }
+    nav { background:#fff; }
+    .dark nav { background:#000; border-bottom:1px solid #1a1a1a; }
+    .reg-bg { min-height:100vh; background:radial-gradient(ellipse at 20% 50%, rgba(255,69,0,0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(255,140,0,0.04) 0%, transparent 50%); }
+    .dark .reg-bg { background:radial-gradient(ellipse at 20% 50%, rgba(255,69,0,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(255,140,0,0.05) 0%, transparent 50%); }
+    .step-bar { position:relative; display:flex; align-items:center; justify-content:center; gap:0; }
+    .step-node { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family:"Archivo Black",sans-serif; border:2px solid #e5e7eb; background:#fff; color:#9ca3af; transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1); position:relative; z-index:1; flex-shrink:0; }
+    .step-node.active { border-color:#ff4500; background:#ff4500; color:#fff; box-shadow:0 0 0 6px rgba(255,69,0,0.15); }
+    .step-node.done   { border-color:#22c55e; background:#22c55e; color:#fff; }
+    .dark .step-node  { background:#111; border-color:#333; color:#555; }
+    .dark .step-node.active { background:#ff4500; border-color:#ff4500; color:#fff; }
+    .dark .step-node.done   { background:#22c55e; border-color:#22c55e; color:#fff; }
+    .step-line { height:2px; flex:1; background:#e5e7eb; max-width:60px; transition:background 0.4s ease; }
+    .step-line.done { background:#22c55e; } .dark .step-line { background:#222; } .dark .step-line.done { background:#22c55e; }
+    .step-label { position:absolute; bottom:-22px; left:50%; transform:translateX(-50%); font-size:10px; font-weight:600; white-space:nowrap; letter-spacing:0.5px; color:#9ca3af; text-transform:uppercase; transition:color 0.3s; }
+    .step-node.active .step-label, .step-node.done .step-label { color:#ff4500; }
+    .form-card { background:#fff; border:1px solid #e5e7eb; border-radius:20px; padding:40px; box-shadow:0 8px 40px rgba(0,0,0,0.08); position:relative; overflow:hidden; }
+    .dark .form-card { background:#0d0d0d; border-color:#1f1f1f; box-shadow:0 8px 40px rgba(0,0,0,0.5); }
+    .form-card::after { content:''; position:absolute; inset:0; background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%); transform:translateX(-100%); transition:transform 0.7s ease; pointer-events:none; }
+    .form-card:hover::after { transform:translateX(100%); }
+    .step-panel { display:none; }
+    .step-panel.active { display:block; animation:step-in 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+    .step-panel.exit   { animation:step-out 0.3s ease forwards; }
+    @keyframes step-in  { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes step-out { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(-30px)} }
+    .form-input { width:100%; padding:13px 16px; border:1.5px solid #e5e7eb; border-radius:12px; background:#f9fafb; color:#111; font-family:"Poppins",sans-serif; font-size:14px; outline:none; transition:border-color 0.22s, box-shadow 0.22s, background 0.22s, transform 0.2s; }
+    .form-input:focus { border-color:#ff4500; box-shadow:0 0 0 3px rgba(255,69,0,0.12); background:#fff; transform:translateY(-1px); }
+    .form-input.error { border-color:#ef4444; box-shadow:0 0 0 3px rgba(239,68,68,0.12); }
+    .dark .form-input { background:#111; border-color:#2a2a2a; color:#f0f0f0; } .dark .form-input:focus { background:#1a1a1a; border-color:#ff4500; }
+    .form-label { display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#374151; transition:color 0.2s; }
+    .dark .form-label { color:#d1d5db; } .form-group:focus-within .form-label { color:#ff4500; }
+    .input-wrap { position:relative; }
+    .input-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#9ca3af; font-size:14px; pointer-events:none; transition:color 0.2s; }
+    .input-wrap:focus-within .input-icon { color:#ff4500; }
+    .input-wrap .form-input { padding-left:42px; }
+    .input-wrap .toggle-pw { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#9ca3af; font-size:14px; transition:color 0.2s; }
+    .input-wrap .toggle-pw:hover { color:#ff4500; }
+    .field-error { font-size:11px; color:#ef4444; margin-top:4px; display:none; }
+    .field-error.show { display:block; animation:hero-sub-in 0.3s ease; }
+    #pw-strength-bar { height:3px; border-radius:2px; margin-top:8px; width:0%; transition:width 0.4s ease, background 0.4s ease; }
+    .size-chip { padding:8px 14px; border-radius:8px; border:1.5px solid #e5e7eb; font-size:13px; font-weight:600; cursor:pointer; background:#f9fafb; color:#374151; transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1); user-select:none; }
+    .size-chip:hover { border-color:#ff4500; color:#ff4500; transform:translateY(-2px) scale(1.05); }
+    .size-chip.selected { background:#ff4500; border-color:#ff4500; color:#fff; box-shadow:0 4px 12px rgba(255,69,0,0.35); transform:translateY(-2px) scale(1.05); }
+    .dark .size-chip { background:#111; border-color:#2a2a2a; color:#d1d5db; } .dark .size-chip:hover { border-color:#ff4500; color:#ff4500; }
+    .brand-chip { padding:7px 16px; border-radius:999px; border:1.5px solid #e5e7eb; font-size:12px; font-weight:600; cursor:pointer; background:#f9fafb; color:#374151; transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1); user-select:none; }
+    .brand-chip:hover { border-color:#ff4500; color:#ff4500; transform:scale(1.04); }
+    .brand-chip.selected { background:#ff4500; border-color:#ff4500; color:#fff; box-shadow:0 4px 12px rgba(255,69,0,0.3); }
+    .dark .brand-chip { background:#111; border-color:#2a2a2a; color:#d1d5db; }
+    #avatar-wrap { width:100px; height:100px; border-radius:50%; border:3px dashed #e5e7eb; display:flex; align-items:center; justify-content:center; cursor:pointer; overflow:hidden; position:relative; transition:border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1); background:#f9fafb; margin:0 auto 20px; }
+    #avatar-wrap:hover { border-color:#ff4500; box-shadow:0 0 0 4px rgba(255,69,0,0.12); transform:scale(1.05); }
+    #avatar-wrap img { width:100%; height:100%; object-fit:cover; display:none; }
+    #avatar-placeholder { display:flex; flex-direction:column; align-items:center; gap:4px; color:#9ca3af; font-size:11px; font-weight:600; letter-spacing:0.5px; }
+    #avatar-placeholder i { font-size:22px; color:#d1d5db; transition:color 0.2s; }
+    #avatar-wrap:hover #avatar-placeholder i { color:#ff4500; }
+    .dark #avatar-wrap { background:#111; border-color:#2a2a2a; }
+    .btn-primary { position:relative; overflow:hidden; background:#000; color:#fff; border:none; border-radius:12px; padding:14px 32px; font-size:15px; font-weight:700; font-family:"Poppins",sans-serif; cursor:pointer; width:100%; transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.2s, background 0.2s; box-shadow:0 4px 16px rgba(0,0,0,0.2); letter-spacing:0.3px; }
+    .btn-primary:hover { transform:translateY(-2px) scale(1.02); box-shadow:0 8px 28px rgba(0,0,0,0.3); background:#111; }
+    .btn-primary:active { transform:scale(0.98); }
+    .dark .btn-primary { background:#fff; color:#000; } .dark .btn-primary:hover { background:#e5e5e5; }
+    .btn-secondary { background:transparent; color:#6b7280; border:1.5px solid #e5e7eb; border-radius:12px; padding:13px 24px; font-size:14px; font-weight:600; font-family:"Poppins",sans-serif; cursor:pointer; transition:all 0.2s; }
+    .btn-secondary:hover { border-color:#111; color:#111; transform:translateY(-1px); }
+    .dark .btn-secondary { border-color:#2a2a2a; color:#9ca3af; } .dark .btn-secondary:hover { border-color:#fff; color:#fff; }
+    #success-screen { display:none; text-align:center; padding:60px 20px; animation:fadeIn 0.6s ease; }
+    @keyframes success-pop { 0%{transform:scale(0.3) rotate(-10deg);opacity:0} 60%{transform:scale(1.15) rotate(5deg)} 80%{transform:scale(0.95)} 100%{transform:scale(1) rotate(0);opacity:1} }
+    #success-icon { animation:success-pop 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; display:inline-block; }
+    @keyframes confetti-fall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(60px) rotate(360deg);opacity:0} }
+    .confetti-dot { position:absolute; width:8px; height:8px; border-radius:2px; animation:confetti-fall 1.2s ease-out forwards; }
+    @keyframes float-logo { 0%{transform:translateY(0px)} 50%{transform:translateY(-14px)} 100%{transform:translateY(0px)} }
+    .floating-logo-wrap { display:flex; align-items:center; justify-content:center; padding:16px 0 20px; filter:drop-shadow(0 18px 30px rgba(255,69,0,0.25)); }
+    .floating-logo-wrap img { width:200px; height:200px; object-fit:contain; display:block; animation:float-logo 4s ease-in-out infinite; }
+    .social-btn { display:flex; align-items:center; justify-content:center; gap:10px; border:1.5px solid #e5e7eb; border-radius:12px; padding:11px 16px; font-size:13px; font-weight:600; cursor:pointer; background:#fff; color:#374151; transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1); flex:1; }
+    .social-btn:hover { transform:translateY(-2px) scale(1.03); box-shadow:0 6px 18px rgba(0,0,0,0.1); border-color:#aaa; }
+    .dark .social-btn { background:#111; border-color:#2a2a2a; color:#d1d5db; }
+    .or-divider { display:flex; align-items:center; gap:12px; margin:20px 0; }
+    .or-divider::before,.or-divider::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+    .dark .or-divider::before,.dark .or-divider::after { background:#222; }
+    .or-divider span { font-size:12px; font-weight:600; color:#9ca3af; letter-spacing:1px; }
+    .hh-checkbox { width:18px; height:18px; border:2px solid #e5e7eb; border-radius:4px; appearance:none; cursor:pointer; transition:all 0.2s; flex-shrink:0; margin-top:1px; position:relative; }
+    .hh-checkbox:checked { background:#ff4500; border-color:#ff4500; }
+    .hh-checkbox:checked::after { content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; font-size:11px; font-weight:700; }
+    .info-panel { background:linear-gradient(145deg, #000 0%, #111 100%); border-radius:20px; padding:40px; color:#fff; position:relative; overflow:hidden; }
+    .info-panel::before { content:''; position:absolute; top:-40%; right:-20%; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(255,69,0,0.3) 0%, transparent 70%); pointer-events:none; }
+    .feature-item { animation:menu-in 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+    .feature-item:nth-child(1){animation-delay:0.3s} .feature-item:nth-child(2){animation-delay:0.42s} .feature-item:nth-child(3){animation-delay:0.54s} .feature-item:nth-child(4){animation-delay:0.66s}
+    @keyframes menu-in { from{opacity:0;transform:translateX(-18px)} to{opacity:1;transform:translateX(0)} }
+  </style>
+</head>
+<body class="bg-white dark:bg-amoled text-black dark:text-white transition-colors duration-300">
+
+<div id="cursor-glow"></div>
+
+<!-- Dark Mode Toggle -->
+<div class="fixed bottom-10 right-6 z-50">
+  <button id="theme-toggle" class="relative flex items-center justify-center w-12 h-12 rounded-full shadow-xl bg-gray-200 dark:bg-cardDark transition-all duration-300 hover:scale-110" aria-label="Toggle dark mode">
+    <svg class="sun-icon text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    <svg class="moon-icon text-yellow-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+  </button>
+</div>
+
+<!-- NAV -->
+<nav class="shadow-md sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <div class="brand text-2xl font-bold"><a href="index.html" class="text-black dark:text-white">HEAT HAVEN</a></div>
+        <div class="hidden md:flex items-center ml-10 space-x-8">
+          <a href="index.html"   class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Home</a>
+          <a href="product.html" class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Products</a>
+          <a href="deals.html"   class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Hot Deals</a>
+          <a href="owners.html"  class="nav-link text-black dark:text-white hover:text-gray-600 px-2">Owners</a>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="cart.html" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-hoverDark relative">
+          <i class="fas fa-shopping-cart text-gray-600 dark:text-gray-300"></i>
+          <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+        </a>
+        <a href="profile login.html" class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">Sign In</a>
+      </div>
+      <div class="md:hidden ml-auto flex items-center">
+        <button class="p-2" id="mobile-menu-button"><i class="fas fa-bars text-black dark:text-white text-lg"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white dark:bg-cardDark shadow-xl z-50 p-5" id="mobile-menu">
+    <div class="flex justify-between items-center mb-8">
+      <div class="brand text-xl dark:text-white">HEAT HAVEN</div>
+      <button id="close-menu"><i class="fas fa-times text-xl dark:text-white"></i></button>
+    </div>
+    <div class="flex flex-col space-y-5">
+      <a href="index.html"   class="nav-link text-black dark:text-gray-200 font-medium">Home</a>
+      <a href="product.html" class="nav-link text-black dark:text-gray-200 font-medium">Products</a>
+      <a href="deals.html"   class="nav-link text-black dark:text-gray-200 font-medium">Hot Deals</a>
+      <a href="owners.html"  class="nav-link text-black dark:text-gray-200 font-medium">Owners</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="reg-bg min-h-screen py-10 px-4 sm:px-6 page-transition">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-10 reveal">
+      <h1 class="text-3xl md:text-4xl font-bold dark:text-white">
+        <span class="hero-title-word">Join</span><span class="hero-title-word"> Heat</span><span class="hero-title-word"> Haven</span>
+      </h1>
+      <span class="hero-accent-line mx-auto"></span>
+      <p class="hero-sub text-gray-500 dark:text-zinc-400 mt-4 text-sm">Create your account and step into the culture</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
+
+      <!-- Form Card -->
+      <div class="form-card reveal">
+        <div class="step-bar mb-10 pb-8 relative" id="step-bar">
+          <div class="step-node active" id="node-1">1<span class="step-label">Account</span></div>
+          <div class="step-line" id="line-1"></div>
+          <div class="step-node" id="node-2">2<span class="step-label">Profile</span></div>
+          <div class="step-line" id="line-2"></div>
+          <div class="step-node" id="node-3">3<span class="step-label">Preferences</span></div>
+          <div class="step-line" id="line-3"></div>
+          <div class="step-node" id="node-4">4<span class="step-label">Confirm</span></div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div id="success-screen">
+          <div id="success-icon" class="text-7xl mb-4">🎉</div>
+          <h2 class="text-2xl font-bold dark:text-white mb-2">Welcome to Heat Haven!</h2>
+          <p class="text-gray-500 dark:text-zinc-400 mb-6 text-sm">Your account is ready. Time to cop some heat.</p>
+          <a href="profile.html"><button class="btn-primary" style="width:auto;padding:13px 36px;">Go to My Profile 👟</button></a>
+        </div>
+
+        <!-- STEP 1 — Credentials -->
+        <div class="step-panel active" id="step-1">
+          <h2 class="text-xl font-bold mb-1 dark:text-white section-heading">Create Your Account</h2>
+          <p class="text-gray-500 dark:text-zinc-500 text-sm mb-7 mt-3">Enter your login credentials</p>
+          <div class="flex gap-3 mb-5">
+            <button class="social-btn" onclick="showToast('Google sign-up coming soon!', false)">
+              <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+              Continue with Google
+            </button>
+            <button class="social-btn" onclick="showToast('Facebook sign-up coming soon!', false)"><i class="fab fa-facebook text-blue-600 text-lg"></i> Facebook</button>
+          </div>
+          <div class="or-divider"><span>OR</span></div>
+          <div class="space-y-5">
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <div class="input-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" /></div>
+              <p class="field-error" id="email-error">Please enter a valid email address.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <div class="input-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="password" class="form-input" placeholder="At least 8 characters" autocomplete="new-password" oninput="checkPwStrength(this.value)" /><button class="toggle-pw" type="button" onclick="togglePw('password',this)"><i class="fas fa-eye"></i></button></div>
+              <div id="pw-strength-bar"></div>
+              <p class="text-xs text-gray-400 dark:text-zinc-600 mt-1" id="pw-strength-label"></p>
+              <p class="field-error" id="password-error">Password must be at least 8 characters.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="confirm-password">Confirm Password</label>
+              <div class="input-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="confirm-password" class="form-input" placeholder="Repeat your password" autocomplete="new-password" /><button class="toggle-pw" type="button" onclick="togglePw('confirm-password',this)"><i class="fas fa-eye"></i></button></div>
+              <p class="field-error" id="confirm-error">Passwords do not match.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="terms" class="hh-checkbox" />
+              <label for="terms" class="text-sm text-gray-500 dark:text-zinc-400 leading-relaxed cursor-pointer">I agree to the <a href="#" class="text-red-500 font-semibold hover:underline">Terms of Service</a> and <a href="#" class="text-red-500 font-semibold hover:underline">Privacy Policy</a></label>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-7"><button class="btn-primary" onclick="nextStep(1)">Continue <i class="fas fa-arrow-right ml-2 text-sm"></i></button></div>
+          <p class="text-center text-sm text-gray-500 dark:text-zinc-500 mt-5">Already have an account? <a href="profile login.html" class="text-red-500 font-semibold hover:underline">Sign In</a></p>
+        </div>
+
+        <!-- STEP 2 — Profile -->
+        <div class="step-panel" id="step-2">
+          <h2 class="text-xl font-bold mb-1 dark:text-white section-heading">Your Profile</h2>
+          <p class="text-gray-500 dark:text-zinc-500 text-sm mb-7 mt-3">Tell us a bit about yourself</p>
+          <div id="avatar-wrap" onclick="document.getElementById('avatar-input').click()">
+            <img id="avatar-preview" src="" alt="Profile photo" />
+            <div id="avatar-placeholder"><i class="fas fa-camera"></i><span>Add Photo</span></div>
+          </div>
+          <input type="file" id="avatar-input" accept="image/*" class="hidden" onchange="previewAvatar(this)" />
+          <p class="text-center text-xs text-gray-400 dark:text-zinc-600 mb-7">Optional — tap to upload</p>
+          <div class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div class="form-group"><label class="form-label" for="first-name">First Name</label><div class="input-wrap"><i class="fas fa-user input-icon"></i><input type="text" id="first-name" class="form-input" placeholder="Kanishak" autocomplete="given-name" /></div><p class="field-error" id="first-name-error">First name is required.</p></div>
+              <div class="form-group"><label class="form-label" for="last-name">Last Name</label><div class="input-wrap"><i class="fas fa-user input-icon"></i><input type="text" id="last-name" class="form-input" placeholder="Choudhary" autocomplete="family-name" /></div></div>
+            </div>
+            <div class="form-group"><label class="form-label" for="phone">Phone Number</label><div class="input-wrap"><i class="fas fa-phone input-icon"></i><input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210" autocomplete="tel" /></div><p class="field-error" id="phone-error">Enter a valid 10-digit phone number.</p></div>
+            <div class="form-group"><label class="form-label" for="dob">Date of Birth</label><div class="input-wrap"><i class="fas fa-calendar input-icon"></i><input type="date" id="dob" class="form-input" /></div></div>
+            <div class="form-group">
+              <label class="form-label">Gender</label>
+              <div class="flex gap-3 flex-wrap mt-1">
+                <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-gray-600 dark:text-zinc-400"><input type="radio" name="gender" value="male" class="accent-red-500" /> Male</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-gray-600 dark:text-zinc-400"><input type="radio" name="gender" value="female" class="accent-red-500" /> Female</label>
+                <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-gray-600 dark:text-zinc-400"><input type="radio" name="gender" value="other" class="accent-red-500" /> Non-binary / Other</label>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-7"><button class="btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left mr-2 text-sm"></i> Back</button><button class="btn-primary" onclick="nextStep(2)">Continue <i class="fas fa-arrow-right ml-2 text-sm"></i></button></div>
+        </div>
+
+        <!-- STEP 3 — Preferences -->
+        <div class="step-panel" id="step-3">
+          <h2 class="text-xl font-bold mb-1 dark:text-white section-heading">Your Sneaker Style</h2>
+          <p class="text-gray-500 dark:text-zinc-500 text-sm mb-7 mt-3">Help us personalise your Heat Haven experience</p>
+          <div class="space-y-7">
+            <div><label class="form-label mb-3 block">Preferred Shoe Size (UK)</label><div class="flex flex-wrap gap-2" id="size-grid"></div><p class="field-error" id="size-error">Please select your shoe size.</p></div>
+            <div><label class="form-label mb-3 block">Favourite Brands <span class="text-gray-400 font-normal">(pick any)</span></label><div class="flex flex-wrap gap-2" id="brand-grid"></div></div>
+            <div class="form-group"><label class="form-label" for="address">Default Delivery Address</label><div class="input-wrap"><i class="fas fa-map-marker-alt input-icon"></i><input type="text" id="address" class="form-input" placeholder="Flat No., Street, City, PIN" autocomplete="street-address" /></div></div>
+            <div class="form-group">
+              <label class="form-label" for="referral">How did you find us?</label>
+              <div class="relative">
+                <select id="referral" class="form-input appearance-none cursor-pointer" style="padding-left:16px;padding-right:40px;">
+                  <option value="">Select an option…</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Word of Mouth</option><option>Google Search</option><option>YouTube</option><option>Other</option>
+                </select>
+                <i class="fas fa-chevron-down text-gray-400 text-xs pointer-events-none" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);"></i>
+              </div>
+            </div>
+            <div class="flex items-start gap-3"><input type="checkbox" id="newsletter" class="hh-checkbox" checked /><label for="newsletter" class="text-sm text-gray-500 dark:text-zinc-400 leading-relaxed cursor-pointer">Send me exclusive drops, restocks, and deals via email 🔥</label></div>
+          </div>
+          <div class="flex gap-3 mt-7"><button class="btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left mr-2 text-sm"></i> Back</button><button class="btn-primary" onclick="nextStep(3)">Continue <i class="fas fa-arrow-right ml-2 text-sm"></i></button></div>
+        </div>
+
+        <!-- STEP 4 — Review -->
+        <div class="step-panel" id="step-4">
+          <h2 class="text-xl font-bold mb-1 dark:text-white section-heading">Review &amp; Confirm</h2>
+          <p class="text-gray-500 dark:text-zinc-500 text-sm mb-7 mt-3">Everything look good?</p>
+          <div class="space-y-4" id="review-panel"></div>
+          <div class="mt-7 p-4 rounded-xl bg-orange-50 dark:bg-orange-950 border border-orange-200 dark:border-orange-900 text-sm text-orange-700 dark:text-orange-300">
+            <i class="fas fa-shield-halved mr-2"></i>Your data is encrypted and never shared. Heat Haven is 100% authentic — no replicas, ever.
+          </div>
+          <div class="flex gap-3 mt-7">
+            <button class="btn-secondary" onclick="prevStep(4)"><i class="fas fa-arrow-left mr-2 text-sm"></i> Back</button>
+            <button class="btn-primary" id="submit-btn" onclick="submitForm()"><i class="fas fa-rocket mr-2 text-sm"></i> Create My Account</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT Panel -->
+      <div class="reveal-right hidden lg:block">
+        <div class="floating-logo-wrap"><img src="images/heat haven main logo.png" alt="Heat Haven Logo" /></div>
+        <div class="info-panel">
+          <h3 class="text-lg font-bold mb-5 text-white">Why join Heat Haven?</h3>
+          <div class="space-y-5">
+            <div class="feature-item flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-fire text-orange-400 text-sm"></i></div><div><p class="font-semibold text-white text-sm">Exclusive Drops</p><p class="text-white/50 text-xs mt-0.5">Early access to limited releases before anyone else</p></div></div>
+            <div class="feature-item flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-heart text-red-400 text-sm"></i></div><div><p class="font-semibold text-white text-sm">Save Your Wishlist</p><p class="text-white/50 text-xs mt-0.5">Bookmark grails and get notified when they restock</p></div></div>
+            <div class="feature-item flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-truck text-green-400 text-sm"></i></div><div><p class="font-semibold text-white text-sm">Free Shipping</p><p class="text-white/50 text-xs mt-0.5">Free delivery on all orders above ₹50,000</p></div></div>
+            <div class="feature-item flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-shield-halved text-blue-400 text-sm"></i></div><div><p class="font-semibold text-white text-sm">100% Authentic</p><p class="text-white/50 text-xs mt-0.5">Every pair verified by our team. Zero replicas</p></div></div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-white/10">
+            <div class="text-center"><p class="text-xl font-bold text-white">500+</p><p class="text-white/40 text-xs mt-0.5">Products</p></div>
+            <div class="text-center"><p class="text-xl font-bold text-white">10K+</p><p class="text-white/40 text-xs mt-0.5">Members</p></div>
+            <div class="text-center"><p class="text-xl font-bold text-white">4.9★</p><p class="text-white/40 text-xs mt-0.5">Rating</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="toast"><i class="fas fa-check-circle" style="color:#22c55e"></i><span></span></div>
+
+<script>
+/* ─── THEME ───────────────────────── */
+if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  const d = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", d ? "dark" : "light");
+});
+
+/* ─── MOBILE MENU ─────────────────── */
+document.getElementById("mobile-menu-button").addEventListener("click", () => document.getElementById("mobile-menu").classList.add("open"));
+document.getElementById("close-menu").addEventListener("click", () => document.getElementById("mobile-menu").classList.remove("open"));
+
+/* ─── CURSOR GLOW ─────────────────── */
+const glow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
+
+/* ─── CART BADGE ──────────────────── */
+try { const c=JSON.parse(localStorage.getItem("hh_cart")||"[]"); document.getElementById("cart-count").textContent=c.reduce((s,i)=>s+(i.qty||0),0); } catch(e){}
+
+/* ─── TOAST ───────────────────────── */
+function showToast(msg,isError){const t=document.getElementById("toast");t.querySelector("i").className=isError?"fas fa-exclamation-circle":"fas fa-check-circle";t.querySelector("i").style.color=isError?"#facc15":"#22c55e";t.querySelector("span").textContent=msg;t.classList.remove("show");void t.offsetWidth;t.classList.add("show");}
+
+/* ─── REVEAL ──────────────────────── */
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.section-heading').forEach(el=>io.observe(el));
+
+/* ─── SIZE CHIPS ──────────────────── */
+let selectedSize='';
+['UK 6','UK 7','UK 8','UK 9','UK 10','UK 11','UK 12'].forEach(s=>{
+  const chip=document.createElement('button');chip.type='button';chip.className='size-chip';chip.textContent=s;
+  chip.onclick=()=>{document.querySelectorAll('.size-chip').forEach(c=>c.classList.remove('selected'));chip.classList.add('selected');selectedSize=s;document.getElementById('size-error').classList.remove('show');};
+  document.getElementById('size-grid').appendChild(chip);
+});
+
+/* ─── BRAND CHIPS ─────────────────── */
+let selectedBrands=new Set();
+['Air Jordan','Nike','Yeezy','Adidas','New Balance','Puma','Rick Owens','Asics','Salehe Bembury','Travis Scott'].forEach(b=>{
+  const chip=document.createElement('button');chip.type='button';chip.className='brand-chip';chip.textContent=b;
+  chip.onclick=()=>{chip.classList.toggle('selected');selectedBrands.has(b)?selectedBrands.delete(b):selectedBrands.add(b);};
+  document.getElementById('brand-grid').appendChild(chip);
+});
+
+/* ─── STEP LOGIC ──────────────────── */
+let currentStep=1;
+const TOTAL=4;
+
+function goToStep(from,to){
+  const fp=document.getElementById('step-'+from),tp=document.getElementById('step-'+to);
+  fp.classList.add('exit');
+  setTimeout(()=>{fp.classList.remove('active','exit');tp.classList.add('active');},280);
+  for(let i=1;i<=TOTAL;i++){
+    const node=document.getElementById('node-'+i),line=document.getElementById('line-'+i);
+    if(i<to){node.classList.add('done');node.classList.remove('active');}
+    else if(i===to){node.classList.add('active');node.classList.remove('done');}
+    else{node.classList.remove('done','active');}
+    if(line&&i<to)line.classList.add('done');else if(line)line.classList.remove('done');
+  }
+  currentStep=to;window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showErr(id,s){const el=document.getElementById(id);if(el){s?el.classList.add('show'):el.classList.remove('show');}}
+function markInp(id,e){const el=document.getElementById(id);if(el){e?el.classList.add('error'):el.classList.remove('error');}}
+
+function validateStep1(){
+  let ok=true;
+  const email=document.getElementById('email').value.trim();
+  const eOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);showErr('email-error',!eOk);markInp('email',!eOk);if(!eOk)ok=false;
+  const pw=document.getElementById('password').value;const pOk=pw.length>=8;showErr('password-error',!pOk);markInp('password',!pOk);if(!pOk)ok=false;
+  const cpw=document.getElementById('confirm-password').value;const cOk=cpw===pw&&cpw.length>0;showErr('confirm-error',!cOk);markInp('confirm-password',!cOk);if(!cOk)ok=false;
+  if(!document.getElementById('terms').checked){showToast('Please accept the Terms of Service.',true);ok=false;}
+  return ok;
+}
+function validateStep2(){
+  let ok=true;
+  const fn=document.getElementById('first-name').value.trim();showErr('first-name-error',!fn);markInp('first-name',!fn);if(!fn)ok=false;
+  const ph=document.getElementById('phone').value.trim().replace(/\D/g,'');const phOk=ph.length>=10;showErr('phone-error',!phOk);markInp('phone',!phOk);if(!phOk)ok=false;
+  return ok;
+}
+function validateStep3(){if(!selectedSize){document.getElementById('size-error').classList.add('show');showToast('Please select your shoe size 👟',true);return false;}document.getElementById('size-error').classList.remove('show');return true;}
+
+function nextStep(step){
+  let valid=true;
+  if(step===1)valid=validateStep1();
+  if(step===2)valid=validateStep2();
+  if(step===3)valid=validateStep3();
+  if(!valid)return;
+  if(step===3)buildReview();
+  goToStep(step,step+1);
+}
+function prevStep(step){goToStep(step,step-1);}
+
+/* ─── REVIEW ──────────────────────── */
+function escH(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function buildReview(){
+  const name=(document.getElementById('first-name').value+' '+document.getElementById('last-name').value).trim();
+  const rows=[
+    {icon:'fas fa-user',label:'Full Name',val:name||'—'},
+    {icon:'fas fa-envelope',label:'Email',val:document.getElementById('email').value},
+    {icon:'fas fa-phone',label:'Phone',val:document.getElementById('phone').value||'—'},
+    {icon:'fas fa-shoe-prints',label:'Preferred Size',val:selectedSize},
+    {icon:'fas fa-heart',label:'Fav. Brands',val:selectedBrands.size?[...selectedBrands].join(', '):'—'},
+    {icon:'fas fa-map-marker-alt',label:'Address',val:(document.getElementById('address').value||'—').slice(0,40)},
+  ];
+  document.getElementById('review-panel').innerHTML=rows.map(r=>`<div class="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800" style="animation:step-in 0.4s ease both"><div class="w-9 h-9 rounded-full bg-orange-50 dark:bg-orange-950 flex items-center justify-center flex-shrink-0"><i class="${escH(r.icon)} text-red-500 text-sm"></i></div><div class="flex-1 min-w-0"><p class="text-xs text-gray-400 dark:text-zinc-500 font-semibold uppercase tracking-wider">${escH(r.label)}</p><p class="text-sm font-semibold dark:text-white truncate mt-0.5">${escH(r.val)}</p></div></div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SUBMIT — builds ONE unified object that profile.html reads
+═══════════════════════════════════════════════════════════ */
+function submitForm(){
+  const btn=document.getElementById('submit-btn');
+  btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2 text-sm"></i> Creating Account…';
+  btn.disabled=true;
+
+  const firstName = document.getElementById('first-name').value.trim();
+  const lastName  = document.getElementById('last-name').value.trim();
+
+  // Grab avatar data URL if uploaded
+  const avatarImg = document.getElementById('avatar-preview');
+  const avatar    = (avatarImg && avatarImg.style.display !== 'none' && avatarImg.src) ? avatarImg.src : '';
+
+  /* ── THE SINGLE SOURCE OF TRUTH ──
+     profile.html reads EXACTLY this key + these fields */
+  const userData = {
+    _id:        'HH-' + Date.now(),            // unique member ID
+    name:       (firstName + ' ' + lastName).trim(),
+    firstName:  firstName,
+    lastName:   lastName,
+    email:      document.getElementById('email').value.trim(),
+    phone:      document.getElementById('phone').value.trim(),
+    dob:        document.getElementById('dob').value,
+    gender:     (document.querySelector('input[name="gender"]:checked') || {}).value || '',
+    address:    document.getElementById('address').value.trim(),
+    size:       selectedSize,
+    brands:     [...selectedBrands],
+    referral:   document.getElementById('referral').value,
+    newsletter: document.getElementById('newsletter').checked,
+    avatar:     avatar,                        // base64 data URL or ''
+    joinedAt:   new Date().toISOString(),
+  };
+
+  localStorage.setItem('hh_user', JSON.stringify(userData));
+
+  setTimeout(()=>{
+    for(let i=1;i<=TOTAL;i++){const p=document.getElementById('step-'+i);if(p)p.classList.remove('active');}
+    document.getElementById('step-bar').style.display='none';
+    document.getElementById('success-screen').style.display='block';
+    launchConfetti();
+    showToast('Account created! Welcome to Heat Haven 🔥',false);
+  },1800);
+}
+
+/* ─── HELPERS ─────────────────────── */
+function launchConfetti(){const colors=['#ff4500','#ff8c00','#22c55e','#3b82f6','#f59e0b','#ec4899'];const card=document.querySelector('.form-card');for(let i=0;i<18;i++){const dot=document.createElement('div');dot.className='confetti-dot';dot.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*40}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*0.6}s;animation-duration:${1+Math.random()*0.8}s;transform:rotate(${Math.random()*360}deg);border-radius:${Math.random()>0.5?'50%':'3px'};`;card.appendChild(dot);setTimeout(()=>dot.remove(),2500);}}
+function checkPwStrength(val){const bar=document.getElementById('pw-strength-bar'),lbl=document.getElementById('pw-strength-label');if(!val){bar.style.width='0%';lbl.textContent='';return;}let s=0;if(val.length>=8)s++;if(/[A-Z]/.test(val))s++;if(/[0-9]/.test(val))s++;if(/[^A-Za-z0-9]/.test(val))s++;const L=[{w:'20%',bg:'#ef4444',t:'Weak 😬'},{w:'45%',bg:'#f97316',t:'Fair 🙂'},{w:'70%',bg:'#eab308',t:'Good 👍'},{w:'100%',bg:'#22c55e',t:'Strong 💪'}];const l=L[s-1]||L[0];bar.style.width=l.w;bar.style.background=l.bg;lbl.textContent=l.t;lbl.style.color=l.bg;}
+function togglePw(id,btn){const inp=document.getElementById(id);const isText=inp.type==='text';inp.type=isText?'password':'text';btn.querySelector('i').className=isText?'fas fa-eye':'fas fa-eye-slash';}
+function previewAvatar(input){if(!input.files||!input.files[0])return;const reader=new FileReader();reader.onload=e=>{const img=document.getElementById('avatar-preview'),ph=document.getElementById('avatar-placeholder');img.src=e.target.result;img.style.display='block';ph.style.display='none';};reader.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

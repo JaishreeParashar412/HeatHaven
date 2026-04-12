@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,16 +100,16 @@
             <a href="index.html" class="text-black">HEAT HAVEN</a>
           </div> 
           <div class="hidden md:flex items-center ml-10 space-x-8">
-            <a href="cover page.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
+            <a href="index.html" class="nav-link text-black hover:text-gray-600 px-2">Home</a>
             <a href="product.html" class="nav-link text-black hover:text-gray-600 px-2">Products</a>
             <a href="deals.html" class="nav-link text-black hover:text-gray-600 px-2">Hot Deals</a>
-            <a href="#contact" class="nav-link text-black hover:text-gray-600 px-2">Contact</a>
-            <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
-            <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a>
+            <a href="owners.html" class="nav-link text-black hover:text-gray-600 px-2">Owners</a>
+            <!-- <a href="apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Appareals</a>
+            <a href="products_apparels.html" class="nav-link text-black hover:text-gray-600 px-2">Products_Apparels</a> -->
           </div>
         </div>
 
-        <div class="flex items-center">
+        <!-- <div class="flex items-center">
           <div class="hidden md:flex items-center space-x-2">
             <a href="#search" class="p-2 rounded-full hover:bg-gray-100">
               <i class="fas fa-search text-gray-600"></i>
@@ -132,7 +133,7 @@
           <button class="md:hidden p-2 rounded-md focus:outline-none" id="mobile-menu-button">
             <i class="fas fa-bars text-black"></i>
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -220,7 +221,7 @@
 
         <p class="text-center text-sm mt-6">
           New here?
-          <a href="HeatHaven/signup.html" class="text-red-600 font-semibold hover:underline">Create an account</a>
+          <a href="registration.html" class="text-red-600 font-semibold hover:underline">Create an account</a>
         </p>
       </div>
     </div>
@@ -247,7 +248,7 @@
       const password = form.querySelector("input[type='password']").value;
 
       try {
-        const res = await fetch("http://localhost:5000/api/login", {
+        const res = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
@@ -257,8 +258,9 @@
           alert(data.message || "Invalid login");
           return;
         }
-        localStorage.setItem("token", data.token);
-        window.location.href = "dashboard.html";
+        localStorage.setItem("hh_token", data.token);
+        localStorage.setItem("hh_user", JSON.stringify(data.user));
+        window.location.href = "profile.html";
       } catch {
         alert("Server not reachable");
       }
